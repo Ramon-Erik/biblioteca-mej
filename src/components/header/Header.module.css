@@ -1,0 +1,17 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.1rem;
+  padding: 2rem;
+  background: #AC0A1D;
+  color: white;
+}
+
+.title {
+  text-align: center;
+}
+
+.title h1 {
+  text-transform: uppercase;
+}

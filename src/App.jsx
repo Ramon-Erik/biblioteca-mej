@@ -1,14 +1,17 @@
-import { useState } from 'react'
-import './App.css'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import IndexBiblioteca from "./pages/biblioteca/IndexBiblioteca";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <h1>Mej</h1>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/biblioteca" element={<IndexBiblioteca />} />
+        </Routes>
+      </BrowserRouter>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

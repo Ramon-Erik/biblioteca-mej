@@ -7,6 +7,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<IndexBiblioteca />} />
           <Route path="/biblioteca" element={<IndexBiblioteca />} />
         </Routes>
       </BrowserRouter>

@@ -5,10 +5,10 @@ const Header = () => {
   return (
     <header>
       <div className={css.container}>
-        <div className="logo">
+        <div className={css.logo}>
           <img
             src={logoMej}
-            width="90px"
+            width="40px"
             alt="Logo Movmento Eucarístico Jovem"
           />
         </div>

@@ -16,6 +16,10 @@ const Slider = (props) => {
         slidesPerView={1}
         navigation
         loop
+        style={{
+          "--swiper-pagination-color": "#AC0A1D",
+          "--swiper-navigation-color": "#AC0A1D",
+        }}      
       >
         {props.imgs.map((i) => (
           <SwiperSlide key={i.id}>

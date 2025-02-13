@@ -1,0 +1,25 @@
+.section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.1rem;
+  width: 100%;
+}
+
+.area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .7rem;
+  width: 100%;
+  min-width: 310px;
+  max-width: 350px;
+  text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+  .section {
+    flex-wrap: nowrap;
+  }
+}
+

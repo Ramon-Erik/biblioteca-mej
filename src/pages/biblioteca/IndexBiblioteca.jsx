@@ -5,9 +5,9 @@ import Slider from "../../components/slider/Slider";
 
 
 import img1 from "../../assets/mej-1.jpg";
-import img2 from "../../assets/mej-1.jpg";
-import img3 from "../../assets/mej-1.jpg";
-import img4 from "../../assets/mej-1.jpg";
+import img2 from "../../assets/mej-2.jpg";
+import img3 from "../../assets/mej-3.jpg";
+import img4 from "../../assets/mej-4.jpg";
 
 
 import css from "../../components/section/Section.module.css";
@@ -50,20 +50,6 @@ const IndexBiblioteca = () => {
             <LinkButton text="Alugar livro" link="/biblioteca#alugar" />
           </article>
           <div className={css.area}>
-            {/* <Swiper
-              className="swiper"
-              modules={[Navigation, Pagination, A11y]}
-              pagination={{ clickable: true }}
-              slidesPerView={1}
-              navigation
-              loop
-            >
-              {imgs.map((i) => (
-                <SwiperSlide key={i.id}>
-                  {<img src={i.link} alt={i.alt} />}
-                </SwiperSlide>
-              ))}
-            </Swiper> */}
             <Slider imgs={imgs}/>
           </div>
         </Section>

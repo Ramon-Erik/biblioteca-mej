@@ -13,7 +13,7 @@ const Header = () => {
           />
         </div>
         <div className={css.title}>
-          <h1>mej - maranguape</h1>
+          <h1><span style={{display: "block"}}>mej</span> maranguape</h1>
         </div>
       </div>
     </header>

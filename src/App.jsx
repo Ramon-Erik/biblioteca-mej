@@ -13,6 +13,7 @@ function App() {
           <Route path="/biblioteca" element={<IndexBiblioteca />} />
           <Route path="/biblioteca/login" element={<LoginAdm />} />
           <Route path="/biblioteca/livros-adm" element={<IndexBiblioteca />} />
+          <Route path="*" element={<IndexBiblioteca />} />
         </Routes>
       </BrowserRouter>
     </>

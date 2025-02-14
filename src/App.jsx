@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
 import IndexBiblioteca from "./pages/biblioteca/IndexBiblioteca";
+import LivrosAdm from "./pages/biblioteca/LivrosAdm";
 import LoginAdm from "./pages/biblioteca/LoginAdm";
 import "./App.css";
 
@@ -7,13 +9,15 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<IndexBiblioteca />} />
-          <Route path="/biblioteca" element={<IndexBiblioteca />} />
-          <Route path="/biblioteca/login" element={<LoginAdm />} />
-          <Route path="/biblioteca/livros-adm" element={<IndexBiblioteca />} />
-          <Route path="*" element={<h1>Erro</h1>} />
-        </Routes>
+        <AuthProvider>
+          <Routes>
+            <Route path="/" element={<IndexBiblioteca />} />
+            <Route path="/biblioteca" element={<IndexBiblioteca />} />
+            <Route path="/biblioteca/login" element={<LoginAdm />} />
+            <Route path="/biblioteca/livros-adm" element={<LivrosAdm />} />
+            <Route path="*" element={<h1>Erro</h1>} />
+          </Routes>
+        </AuthProvider>
       </BrowserRouter>
     </>
   );

@@ -1,21 +1,46 @@
+const {
+  REACT_APP_apiKey,
+  REACT_APP_authDomain,
+  REACT_APP_projectId,
+  REACT_APP_storageBucket,
+  REACT_APP_messagingSenderId,
+  REACT_APP_appId,
+} = process.env;
+
 import { initializeApp } from "firebase/app";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  setPersistence,
+  browserLocalPersistence,
+} from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAYq7wgjDkBWKLn_VgU6hOpIJdlTGQVgBg",
-  authDomain: "login-teste-9ec44.firebaseapp.com",
-  projectId: "login-teste-9ec44",
-  storageBucket: "login-teste-9ec44.firebasestorage.app",
-  messagingSenderId: "959028355644",
-  appId: "1:959028355644:web:d2e8f841ab9dee307bd939"
+  apiKey: "AIzaSyDSJXWha5wfD37BIsUQyAMcGlccM-M71rM",
+  authDomain: "mej-maranguape.firebaseapp.com",
+  projectId: "mej-maranguape",
+  storageBucket: "mej-maranguape.firebasestorage.app",
+  messagingSenderId: "849985662178",
+  appId: "1:849985662178:web:838807d866da8928e8c2bb",
 };
 
 const app = initializeApp(firebaseConfig);
 
-const auth = getAuth()
-const logar = async (nome, senha) => {
-  const user = await signInWithEmailAndPassword(auth, nome, senha)
-  return user
-}
+const auth = getAuth(app);
 
-export { logar }
+setPersistence(auth, browserLocalPersistence)
+  .then(() => {
+    console.log("Persistência de login ativada");
+  })
+  .catch((error) => {
+    console.error("Erro ao definir persistência", error);
+  });
+
+const login = async (nome, senha) => {
+  const user = await signInWithEmailAndPassword(auth, nome, senha);
+  user.user.displayName = nome === "mej@mpe.com" ? "MEJ adm" : "Unknown";
+  localStorage.setItem("userName", user.user.displayName);
+  return user.user;
+};
+
+export { login, app };

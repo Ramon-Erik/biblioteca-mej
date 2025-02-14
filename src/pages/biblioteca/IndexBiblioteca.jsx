@@ -36,7 +36,7 @@ const IndexBiblioteca = () => {
   ];
   return (
     <>
-      <Header />
+      <Header link="/biblioteca/login"/>
       <main>
         <Section>
           <article className={css.area}>

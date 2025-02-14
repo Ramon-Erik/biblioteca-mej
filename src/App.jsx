@@ -9,11 +9,10 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<IndexBiblioteca />} />
-          <Route path="/login" element={<LoginAdm />} />
           <Route path="/biblioteca" element={<IndexBiblioteca />} />
           <Route path="/biblioteca/login" element={<LoginAdm />} />
           <Route path="/biblioteca/livros-adm" element={<IndexBiblioteca />} />
-          <Route path="*" element={<IndexBiblioteca />} />
+          <Route path="*" element={<h1>Erro</h1>} />
         </Routes>
       </BrowserRouter>
     </>

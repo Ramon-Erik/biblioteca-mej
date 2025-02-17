@@ -5,6 +5,7 @@ import {
   setPersistence,
   browserLocalPersistence,
 } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDSJXWha5wfD37BIsUQyAMcGlccM-M71rM",
@@ -16,8 +17,8 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-
 const auth = getAuth(app);
+const db = getFirestore(app);
 
 setPersistence(auth, browserLocalPersistence)
   .then(() => {
@@ -28,7 +29,7 @@ setPersistence(auth, browserLocalPersistence)
   });
 
 const login = async (nome, senha) => {
-  const user = await signInWithEmailAndPassword(auth, nome, senha);
+  const user = await signInWithEmailAndPassword(auth, nome, senha,);
   user.user.displayName = nome === "mej@mpe.com" ? "MEJ adm" : "Unknown";
   localStorage.setItem("userName", user.user.displayName);
   return user.user;

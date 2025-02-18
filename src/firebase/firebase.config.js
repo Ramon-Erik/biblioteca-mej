@@ -7,7 +7,7 @@ import {
   updateProfile,
   signOut,
 } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import { collection, getDocs, getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDSJXWha5wfD37BIsUQyAMcGlccM-M71rM",
@@ -42,4 +42,11 @@ const login = async (nome, senha) => {
 
 const logOut = async () => await signOut(auth);
 
-export { login, logOut };
+const catalog = async () => {
+  const collectionBooks = collection(db, "books");
+  const booksSnap = await getDocs(collectionBooks);
+  const books = booksSnap.docs.map((doc) => doc.data());
+  return books;
+};
+
+export { login, logOut, catalog };

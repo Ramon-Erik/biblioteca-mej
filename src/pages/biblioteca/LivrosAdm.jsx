@@ -93,13 +93,13 @@ const LivrosAdm = () => {
                         </div>
                       )}
                       <div className="adm-buttons">
-                        <button id="edit">
+                        <button className="edit">
                           <img src={editIcon} alt="ìcone de lápis" />
                         </button>
-                        <button id="borrow">
+                        <button className="borrow">
                           <img src={borrowIcon} alt="ìcone de enviar" />
                         </button>
-                        <button id="delete">
+                        <button className="delete">
                           <img src={deleteIcon} alt="ìcone de lixeira" />
                         </button>
                       </div>

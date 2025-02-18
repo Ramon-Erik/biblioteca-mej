@@ -11,7 +11,9 @@ main {
   padding: 30px 20px;
 }
 
-main .text-center { text-align: center; }
+main .text-center {
+  text-align: center;
+}
 
 main .swiper {
   width: 100%;
@@ -25,7 +27,7 @@ main img {
 }
 
 main strong {
-  color: #DB162F;
+  color: #db162f;
 }
 
 form {
@@ -62,12 +64,12 @@ input[type="password"] {
 
 input[type="text"]:focus,
 input[type="password"]:focus {
-  border-color: #FFD359;
+  border-color: #ffd359;
   box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
 }
 
 main input[type="submit"] {
-  background-color: #FFD359;
+  background-color: #ffd359;
   color: white;
   border: none;
   padding: 7px 30px;
@@ -92,18 +94,67 @@ input[type="submit"]:disabled {
   cursor: not-allowed;
 }
 
-ul.catalogo {
+ul.catalog {
   /* display: flex; */
   width: 100%;
-  margin: .9rem 0;
+  margin: 0.9rem 0;
   list-style-type: none;
 }
 
-ul.catalogo li {
+ul.catalog li {
   text-align: left;
 }
 
-ul.catalogo li:nth-child(even) {
-  margin-top: .5rem;
+ul.catalog li:nth-child(even) {
+  margin-top: 0.5rem;
   background: #eee;
+}
+
+ul.catalog .book-header {
+  display: flex;
+  gap: 0.7rem;
+}
+
+ul.catalog .book-cover {
+  width: 110px;
+  height: 130px;
+  background: #ccc;
+}
+
+ul.catalog .book-header .collection {
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+.adm-buttons button {
+  width: 25px;
+  height: 25px;
+  margin: 0.5rem 0.25rem;
+  border: none;
+}
+
+.adm-buttons button:first-child {
+  margin-left: 0;
+}
+
+.adm-buttons button#create {
+  background: #5aca3c;
+}
+
+.adm-buttons button#edit {
+  background: #3c7aca;
+}
+
+.adm-buttons button#borrow {
+  background: #f5f04c;
+}
+
+.adm-buttons button#delete {
+  background: #f66e7e;
+}
+
+.add-book {
+  display: flex;
+  align-items: center;
+  width: 100%;
 }

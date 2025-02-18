@@ -2,9 +2,10 @@ import { initializeApp } from "firebase/app";
 import {
   getAuth,
   signInWithEmailAndPassword,
-  onAuthStateChanged,
   setPersistence,
   browserLocalPersistence,
+  updateProfile,
+  signOut,
 } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
@@ -30,12 +31,18 @@ setPersistence(auth, browserLocalPersistence)
   });
 
 const login = async (nome, senha) => {
-  const user = await signInWithEmailAndPassword(auth, nome, senha,);
+  const userCredential = await signInWithEmailAndPassword(auth, nome, senha);
+  const user = userCredential.user;
+
+  if (!user.displayName) {
+    const newDisplayName = nome === "mej@mpe.com" ? "Coordenação mej" : "ADM";
+    await updateProfile(user, { displayName: newDisplayName });
+    await user.reload()
+  }
+  // user.user.displayName = nome === "mej@mpe.com" ? "Coordenação mej" : "ADM"
   return user.user;
 };
 
-const isLogged = (callback) => {
-  onAuthStateChanged(auth, callback)
-}
+const logOut = async () => await signOut(auth)
 
-export { login, isLogged };
+export { login, logOut };

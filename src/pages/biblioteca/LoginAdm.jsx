@@ -1,32 +1,29 @@
-import { login, isLogged } from "../../firebase/firebase.config";
+import { login } from "../../firebase/firebase.config";
+import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import Header from "../../components/header/Header";
 
 const LoginAdm = () => {
+  const { user } = useAuth();
   const navigate = useNavigate();
-  useEffect(() => {
-    isLogged((user) => {
-      if (user) {
-        navigate('/biblioteca/livros-adm')
-      }
-    })
-  }, [])
-  
   const [nome, setNome] = useState();
   const [senha, setSenha] = useState();
-  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    if (user) {
+      // console.log("useEffect, user:", user);
+      navigate("/biblioteca/Livros-adm")
+    }
+  }, [user, navigate]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const userLogin = await login(nome, senha);
-      setUser(userLogin)
-      if (user) {
-        navigate("/biblioteca/livros-adm");
-      }
+      await login(nome, senha);
     } catch (error) {
-      console.log(error);
+      console.log("erro ao fazer login...", error);
     }
   };
   return (

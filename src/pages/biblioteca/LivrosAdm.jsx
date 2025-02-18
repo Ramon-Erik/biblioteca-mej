@@ -1,17 +1,16 @@
-import { useAuth } from "../../context/AuthContext";
-import ProtectedRoute from "../../components/ProtectedRoute";
 import Header from "../../components/header/Header";
+import { useAuth } from "../../context/AuthContext";
+import { logOut   } from "../../firebase/firebase.config";
 
 const LivrosAdm = () => {
   const { user } = useAuth();
   return (
     <>
-      <ProtectedRoute>
-        <Header />
-        <main>
-          <h1>Olá adm</h1>
-        </main>
-      </ProtectedRoute>
+      <Header />
+      <main>
+        <h1>Olá {user?.displayName || "aa"}, como vai?</h1>
+        <button onClick={logOut}>Sair</button>
+      </main>
     </>
   );
 };

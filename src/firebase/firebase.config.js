@@ -34,9 +34,9 @@ const login = async (nome, senha) => {
   const userCredential = await signInWithEmailAndPassword(auth, nome, senha);
   const user = userCredential.user;
 
-  const newDisplayName = nome === "mej@mpe.com" ? "Coordenação do MEJ" : "ADM";
-  await updateProfile(user, { displayName: newDisplayName });
-  await user.reload();
+  // const newDisplayName = nome === "mej@mpe.com" ? "Coordenação do MEJ" : "ADM";
+  // await updateProfile(user, { displayName: newDisplayName });
+  // await user.reload();
   return user.user;
 };
 

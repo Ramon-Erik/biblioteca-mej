@@ -2,6 +2,7 @@ import { initializeApp } from "firebase/app";
 import {
   getAuth,
   signInWithEmailAndPassword,
+  onAuthStateChanged,
   setPersistence,
   browserLocalPersistence,
 } from "firebase/auth";
@@ -30,9 +31,11 @@ setPersistence(auth, browserLocalPersistence)
 
 const login = async (nome, senha) => {
   const user = await signInWithEmailAndPassword(auth, nome, senha,);
-  user.user.displayName = nome === "mej@mpe.com" ? "MEJ adm" : "Unknown";
-  localStorage.setItem("userName", user.user.displayName);
   return user.user;
 };
 
-export { login, app };
+const isLogged = (callback) => {
+  onAuthStateChanged(auth, callback)
+}
+
+export { login, isLogged };

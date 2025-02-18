@@ -1,18 +1,27 @@
-import { login } from "../../firebase/firebase.config";
+import { login, isLogged } from "../../firebase/firebase.config";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Header from "../../components/header/Header";
 
 const LoginAdm = () => {
   const navigate = useNavigate();
+  useEffect(() => {
+    isLogged((user) => {
+      if (user) {
+        navigate('/biblioteca/livros-adm')
+      }
+    })
+  }, [])
   
   const [nome, setNome] = useState();
   const [senha, setSenha] = useState();
+  const [user, setUser] = useState(null);
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const user = await login(nome, senha);
+      const userLogin = await login(nome, senha);
+      setUser(userLogin)
       if (user) {
         navigate("/biblioteca/livros-adm");
       }

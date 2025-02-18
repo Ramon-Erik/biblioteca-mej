@@ -6,6 +6,7 @@ import { logOut, catalog } from "../../firebase/firebase.config";
 const LivrosAdm = () => {
   const { user } = useAuth();
   const [books, setBooks] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -14,6 +15,8 @@ const LivrosAdm = () => {
         setBooks(booksData);
       } catch (error) {
         console.error("erro ao ler livros", error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchBooks();
@@ -25,7 +28,9 @@ const LivrosAdm = () => {
       <main>
         <h1>Olá {user.displayName || "aa"}, como vai?</h1>
         <ul>
-          {books.length > 0 ? (
+          {loading ? (
+            <p>Carregando...</p>
+          ) : books.length > 0 ? (
             books.map((b, i) => <li key={i}>{b.name}</li>)
           ) : (
             <li>Nenhum livro encontrado</li>

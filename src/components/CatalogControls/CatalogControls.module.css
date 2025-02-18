@@ -8,7 +8,8 @@
 
 .filterSelect {
   margin-right: .7rem;
+  padding: 3px;
   border: 1px solid #fff;
-  background: #fff;
+  background: #f7f7f7;
   border-radius: .6rem;
 }

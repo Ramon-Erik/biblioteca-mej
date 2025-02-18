@@ -1,0 +1,10 @@
+.controls {
+  width: 100%;
+} 
+
+.filterSelect {
+  border: 1px solid #fff;
+  background: #fff;
+  border-radius: .6rem;
+  font-size: 1rem;
+}

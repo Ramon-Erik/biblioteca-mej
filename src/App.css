@@ -91,3 +91,19 @@ input[type="submit"]:disabled {
   background-color: #ccc;
   cursor: not-allowed;
 }
+
+ul.catalogo {
+  /* display: flex; */
+  width: 100%;
+  margin: .9rem 0;
+  list-style-type: none;
+}
+
+ul.catalogo li {
+  text-align: left;
+}
+
+ul.catalogo li:nth-child(even) {
+  margin-top: .5rem;
+  background: #eee;
+}

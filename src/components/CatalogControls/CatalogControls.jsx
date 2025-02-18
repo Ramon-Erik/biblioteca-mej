@@ -30,12 +30,12 @@ const CatalogControls = ({results="nenhum", handleChangeValue}) => {
       </select>
         {
           results === "nenhum" || results === 0? (
-            <span>Nenhum resultado</span>
+            <span> Nenhum resultado</span>
           ) : (
             results === 1 ? (
-              <span>1 resultado</span>
+              <span> 1 resultado</span>
             ) : (
-              <span>{results} resultados</span>
+              <span> {results} resultados</span>
             )
           )
         }

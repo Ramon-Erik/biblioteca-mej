@@ -42,7 +42,7 @@ const LivrosAdm = () => {
       <Header />
       <main>
         <Section>
-          <h1>Olá {user.displayName || "aa"}!</h1>
+          <h1>Oi {user.displayName || "aa"}!</h1>
           <p>O que deseja fazer...?</p>
         </Section>
         <Section>

@@ -2,9 +2,12 @@
   width: 100%;
 } 
 
+.controls * {
+  font-size: .8rem;
+}
+
 .filterSelect {
   border: 1px solid #fff;
   background: #fff;
   border-radius: .6rem;
-  font-size: 1rem;
 }

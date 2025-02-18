@@ -8,7 +8,7 @@ const LivrosAdm = () => {
     <>
       <Header />
       <main>
-        <h1>Olá {user?.displayName || "aa"}, como vai?</h1>
+        <h1>Olá {user.displayName || "aa"}, como vai?</h1>
         <button onClick={logOut}>Sair</button>
       </main>
     </>

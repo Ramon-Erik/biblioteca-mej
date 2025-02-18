@@ -34,15 +34,12 @@ const login = async (nome, senha) => {
   const userCredential = await signInWithEmailAndPassword(auth, nome, senha);
   const user = userCredential.user;
 
-  if (!user.displayName) {
-    const newDisplayName = nome === "mej@mpe.com" ? "Coordenação mej" : "ADM";
-    await updateProfile(user, { displayName: newDisplayName });
-    await user.reload()
-  }
-  // user.user.displayName = nome === "mej@mpe.com" ? "Coordenação mej" : "ADM"
+  const newDisplayName = nome === "mej@mpe.com" ? "Coordenação do MEJ" : "ADM";
+  await updateProfile(user, { displayName: newDisplayName });
+  await user.reload();
   return user.user;
 };
 
-const logOut = async () => await signOut(auth)
+const logOut = async () => await signOut(auth);
 
 export { login, logOut };

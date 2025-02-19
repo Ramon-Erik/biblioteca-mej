@@ -7,6 +7,7 @@ import Section from "../../components/section/Section";
 import CatalogControls from "../../components/catalogControls/CatalogControls";
 import Loading from "../../components/loadingBooks/LoadingBooks";
 import Book from "../../components/book/Book";
+import AddModal from "../../components/modal/AddModal";
 
 import addIcon from "../../assets/add.svg";
 
@@ -17,6 +18,7 @@ const LivrosAdm = () => {
   const [loading, setLoading] = useState(true);
   const [results, setResults] = useState();
   const [descIndex, setDescIndex] = useState([]);
+  const [addModalIsOpen, setAddModalIsOpen] = useState(false);
 
   const handleShowDescription = (index) => {
     setDescIndex((prev) =>
@@ -28,6 +30,13 @@ const LivrosAdm = () => {
     const booksData = AllBooks.filter((b) => b.filters.includes(value));
     setFilteredBooks(booksData);
     setResults(booksData.length);
+  };
+
+  const handleShowModal = () => {
+    if (!addModalIsOpen) {
+      console.log("clicl");
+      setAddModalIsOpen(true);
+    }
   };
 
   useEffect(() => {
@@ -65,10 +74,14 @@ const LivrosAdm = () => {
         <Section>
           <div className="adm-buttons add-book">
             <div>
-              <button id="create">
+              <button className="btn" id="create" onClick={handleShowModal}>
                 <img src={addIcon} alt="Ícone de mais" />
                 <span>Cadastrar novo livro</span>
               </button>
+              <AddModal
+                isOpen={addModalIsOpen}
+                closeModal={() => setAddModalIsOpen(!addModalIsOpen)}
+              />
             </div>
           </div>
         </Section>

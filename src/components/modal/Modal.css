@@ -1,0 +1,148 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 600px;
+  height: 90%;
+  overflow-y: scroll;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  background: white;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.header {
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #ddd;
+  margin-bottom: 20px;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal label {
+  font-size: 1rem;
+  margin: 8px 0;
+}
+
+.modal input, 
+.modal select, 
+.modal textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.modal .inline {
+  display: flex;
+  align-items: center;
+}
+
+.modal .inline input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  margin: 0 5px;
+}
+
+.modal textarea {
+  resize: vertical;
+}
+
+.modal select {
+  height: 150px;
+}
+
+.filters-container {
+  margin: 15px 0;
+}
+
+.filters-label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.filters-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filter-option {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: #f4f4f4;
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.filter-option input {
+  width: auto;
+  margin: 0;
+}
+
+
+.modal .buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.modal button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.modal button[type="button"] {
+  background-color: #ff4d4d;
+  color: white;
+}
+
+.modal button[type="button"]:hover {
+  background-color: #e04343;
+}
+
+.modal button[type="submit"] {
+  background-color: #4caf50;
+  color: white;
+}
+
+.modal button[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}

@@ -169,7 +169,7 @@ ul.catalog .shown {
   gap: .7rem;
 }
 
-.adm-buttons button,
+.adm-buttons .btn,
 .adm-buttons button#create img {
   width: 25px;
   height: 25px;
@@ -178,7 +178,7 @@ ul.catalog .shown {
   border-radius: 3px;
 }
 
-.adm-buttons button:first-child {
+.adm-buttons .btn:first-child {
   margin-left: 0;
 }
 

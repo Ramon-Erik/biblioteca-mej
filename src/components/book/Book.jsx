@@ -26,13 +26,13 @@ const Book = ({ book, index, descIndex, handleShowDescription }) => {
       <p className="actions">
         Ações:
         <span className="adm-buttons">
-          <button className="edit">
+          <button className="btn edit">
             <img src={editIcon} alt="ìcone de lápis" />
           </button>
-          <button className="borrow">
+          <button className="btn borrow">
             <img src={borrowIcon} alt="ìcone de enviar" />
           </button>
-          <button className="delete">
+          <button className="btn delete">
             <img src={deleteIcon} alt="ìcone de lixeira" />
           </button>
         </span>

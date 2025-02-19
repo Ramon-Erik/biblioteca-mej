@@ -109,6 +109,27 @@ ul.catalog li:nth-child(even) {
   background: #eee;
 }
 
+ul.catalog .book p {
+  margin: 0.8rem 0;
+}
+
+ul.catalog .book .line {
+  display: inline-block;
+  width: 100%;
+}
+
+ul.catalog .book .line .avalible {
+  background: #5aca3c;
+  padding: 0.1px 3px;
+  border-radius: .5rem;
+}
+
+ul.catalog .book .line .borrowed {
+  background: #f66e7e;
+  padding: 0.1px 3px;
+  border-radius: .5rem;
+}
+
 ul.catalog .book-header {
   display: flex;
   gap: 0.7rem;
@@ -125,6 +146,21 @@ ul.catalog .book-cover {
 ul.catalog .book-header .collection {
   font-size: 0.9rem;
   font-style: italic;
+}
+
+ul.catalog .desc p {
+  transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
+}
+
+ul.catalog .hidden {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+}
+
+ul.catalog .shown {
+  max-height: 1000px;
+  opacity: 1;
 }
 
 .adm-buttons button {

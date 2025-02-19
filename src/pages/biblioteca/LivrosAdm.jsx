@@ -17,6 +17,15 @@ const LivrosAdm = () => {
   const [filteredBooks, setFilteredBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [results, setResults] = useState();
+  const [description, setDescription] = useState("hidden");
+
+  const handleShowDescription = () => {
+    if (description === "hidden") {
+      setDescription("shown")
+      return
+    }
+    setDescription("hidden")
+  };
 
   const handleFilterChange = (value) => {
     console.log(value);
@@ -80,19 +89,19 @@ const LivrosAdm = () => {
           {!loading && AllBooks.length > 0 && results > 0 && (
             <ul className="catalog">
               {filteredBooks.map((b, i) => (
-                <li key={i}>
+                <li key={i} className="book">
                   <div className="book-header">
-                    <div className="book-cover"></div>
-                    <div>
-                      <div className="name">
+                    <button onClick={handleShowDescription} className="book-cover"></button>
+                    <div className="book-title">
+                      <span className="name">
                         {b.name}, por {b.author}
-                      </div>
+                      </span>
                       {b.collection && (
-                        <div className="collection">
+                        <span className="collection">
                           {b.collection.title} - Vol. {b.collection.volume}
-                        </div>
+                        </span>
                       )}
-                      <div className="adm-buttons">
+                      <span className="adm-buttons">
                         <button className="edit">
                           <img src={editIcon} alt="ìcone de lápis" />
                         </button>
@@ -102,10 +111,17 @@ const LivrosAdm = () => {
                         <button className="delete">
                           <img src={deleteIcon} alt="ìcone de lixeira" />
                         </button>
-                      </div>
+                      </span>
                     </div>
                   </div>
-                  <div className="description">{b.description}</div>
+                  <p>
+                  {b.borrowed && <span className="line">Status: <span className="borrowed">emprestado</span></span>}
+                  {!b.borrowed && <span className="line">Status: <span className="avalible">disponível</span></span>}
+                    <span className="line">Filtros: {b.filters.join(", ")}</span>
+                  </p>
+                  <div className="desc">
+                    <p className={description}>{b.description}</p>
+                  </div>
                 </li>
               ))}
             </ul>

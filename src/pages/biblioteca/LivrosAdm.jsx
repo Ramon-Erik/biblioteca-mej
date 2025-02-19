@@ -4,7 +4,7 @@ import { logOut, catalog } from "../../firebase/firebase.config";
 
 import Header from "../../components/header/Header";
 import Section from "../../components/section/Section";
-import CatalogControls from "../../components/catalogControls/CatalogControls";
+import CatalogControls from "../../components/catalogControls/CatalogControls"; 
 import Loading from "../../components/loadingBooks/LoadingBooks";
 import Book from "../../components/book/Book";
 import AddModal from "../../components/modal/AddModal";

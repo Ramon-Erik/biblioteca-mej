@@ -17,14 +17,12 @@ const LivrosAdm = () => {
   const [filteredBooks, setFilteredBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [results, setResults] = useState();
-  const [description, setDescription] = useState("hidden");
+  const [descIndex, setDescIndex] = useState([]);
 
-  const handleShowDescription = () => {
-    if (description === "hidden") {
-      setDescription("shown")
-      return
-    }
-    setDescription("hidden")
+  const handleShowDescription = (index) => {
+    setDescIndex((prev) =>
+      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
+    );
   };
 
   const handleFilterChange = (value) => {
@@ -76,32 +74,41 @@ const LivrosAdm = () => {
           </div>
         </Section>
         <Section>
-          {loading && <p style={{width: "100%", textAlign: "left"}}>Carregando...</p>}
+          {loading && (
+            <p style={{ width: "100%", textAlign: "left" }}>Carregando...</p>
+          )}
 
           {!loading && AllBooks.length === 0 && (
-            <p style={{width: "100%", textAlign: "left"}}>Parece que a biblioteca está sem livros...</p>
+            <p style={{ width: "100%", textAlign: "left" }}>
+              Parece que a biblioteca está sem livros...
+            </p>
           )}
 
           {!loading && AllBooks.length > 0 && results === 0 && (
-            <p style={{width: "100%", textAlign: "left"}}>Não tem livros para esse filtro...</p>
+            <p style={{ width: "100%", textAlign: "left" }}>
+              Não tem livros para esse filtro...
+            </p>
           )}
 
           {!loading && AllBooks.length > 0 && results > 0 && (
             <ul className="catalog">
-              {filteredBooks.map((b, i) => (
-                <li key={i} className="book">
+              {filteredBooks.map((b, index) => (
+                <li key={index} className="book">
                   <div className="book-header">
-                    <button onClick={handleShowDescription} className="book-cover"></button>
+                    <button
+                      onClick={() => handleShowDescription(index)}
+                      className="book-cover"
+                    ></button>
                     <div className="book-title">
                       <span className="name">
                         {b.name}, por {b.author}
                       </span>
                       <p>
-                      {b.collection && (
-                        <span className="collection">
-                          {b.collection.title} - Vol. {b.collection.volume}
-                        </span>
-                      )}
+                        {b.collection && (
+                          <span className="collection">
+                            {b.collection.title} - Vol. {b.collection.volume}
+                          </span>
+                        )}
                       </p>
                       <span className="adm-buttons">
                         <button className="edit">
@@ -117,12 +124,26 @@ const LivrosAdm = () => {
                     </div>
                   </div>
                   <p>
-                  {b.borrowed && <span className="line">Status: <span className="borrowed">emprestado</span></span>}
-                  {!b.borrowed && <span className="line">Status: <span className="avalible">disponível</span></span>}
-                    <span className="line">Filtros: {b.filters.join(", ")}</span>
+                    {b.borrowed && (
+                      <span className="line">
+                        Status: <span className="borrowed">emprestado</span>
+                      </span>
+                    )}
+                    {!b.borrowed && (
+                      <span className="line">
+                        Status: <span className="avalible">disponível</span>
+                      </span>
+                    )}
+                    <span className="line">
+                      Filtros: {b.filters.join(", ")}
+                    </span>
                   </p>
                   <div className="desc">
-                    <p className={description}>{b.description}</p>
+                    <p
+                      className={descIndex.includes(index) ? "shown" : "hidden"}
+                    >
+                      {b.description}
+                    </p>
                   </div>
                 </li>
               ))}

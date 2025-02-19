@@ -4,7 +4,8 @@ import { logOut, catalog } from "../../firebase/firebase.config";
 
 import Header from "../../components/header/Header";
 import Section from "../../components/section/Section";
-import CatalogControls from "../../components/CatalogControls/CatalogControls";
+import CatalogControls from "../../components/catalogControls/CatalogControls";
+import Loading from "../../components/loadingBooks/LoadingBooks";
 
 import addIcon from "../../assets/add.svg";
 import editIcon from "../../assets/edit.svg";
@@ -74,21 +75,7 @@ const LivrosAdm = () => {
           </div>
         </Section>
         <Section>
-          {loading && (
-            <p style={{ width: "100%", textAlign: "left" }}>Carregando...</p>
-          )}
-
-          {!loading && AllBooks.length === 0 && (
-            <p style={{ width: "100%", textAlign: "left" }}>
-              Parece que a biblioteca está sem livros...
-            </p>
-          )}
-
-          {!loading && AllBooks.length > 0 && results === 0 && (
-            <p style={{ width: "100%", textAlign: "left" }}>
-              Não tem livros para esse filtro...
-            </p>
-          )}
+          <Loading loading={loading} books={AllBooks} filtered={filteredBooks}/>
 
           {!loading && AllBooks.length > 0 && results > 0 && (
             <ul className="catalog">

@@ -163,7 +163,8 @@ ul.catalog .shown {
   opacity: 1;
 }
 
-.adm-buttons button {
+.adm-buttons button,
+.adm-buttons button#create img {
   width: 25px;
   height: 25px;
   margin: 0.5rem 0.25rem;
@@ -175,7 +176,8 @@ ul.catalog .shown {
   margin-left: 0;
 }
 
-.adm-buttons button#create {
+.adm-buttons button#create img {
+  margin: 0 0.25rem 0 0;
   background: #5aca3c;
 }
 
@@ -191,9 +193,15 @@ ul.catalog .shown {
   background: #f66e7e;
 }
 
-.add-book {
+.add-book, 
+.adm-buttons button#create {
   display: flex;
   align-items: center;
   width: 100%;
   margin-bottom: -1.2rem; /* suprir o gap entre a div com 0 de height e a ul*/
+}
+
+.adm-buttons button#create {
+  background: transparent;
+  margin-bottom: 0.5rem;
 }

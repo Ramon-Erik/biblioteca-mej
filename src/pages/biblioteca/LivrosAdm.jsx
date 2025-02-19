@@ -68,10 +68,12 @@ const LivrosAdm = () => {
         </Section>
         <Section>
           <div className="adm-buttons add-book">
-            <button id="create">
-              <img src={addIcon} alt="Ícone de mais" />
-            </button>
-            <span>Cadastrar novo livro</span>
+            <div>
+              <button id="create">
+                <img src={addIcon} alt="Ícone de mais" />
+              <span>Cadastrar novo livro</span>
+              </button>
+            </div>
           </div>
         </Section>
         <Section>

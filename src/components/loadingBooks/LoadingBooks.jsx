@@ -21,7 +21,7 @@ const LoadingBooks = ({ loading = true, books = [], filtered = [] }) => {
         </p>
       )}
 
-      {!loading && books.length > 0 && filtered === 0 && (
+      {!loading && books.length > 0 && filtered.length === 0 && (
         <p className={css.warning}>
           Não tem livros para esse filtro
           <span className={css.dot}>.</span>

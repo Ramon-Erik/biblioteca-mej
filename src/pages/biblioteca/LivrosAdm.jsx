@@ -25,9 +25,7 @@ const LivrosAdm = () => {
   };
 
   const handleFilterChange = (value) => {
-    console.log(value);
     const booksData = AllBooks.filter((b) => b.filters.includes(value));
-    console.log(booksData);
     setFilteredBooks(booksData);
     setResults(booksData.length);
   };

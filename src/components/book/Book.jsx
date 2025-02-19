@@ -21,19 +21,22 @@ const Book = ({ book, index, descIndex, handleShowDescription }) => {
               </span>
             )}
           </p>
-          <span className="adm-buttons">
-            <button className="edit">
-              <img src={editIcon} alt="ìcone de lápis" />
-            </button>
-            <button className="borrow">
-              <img src={borrowIcon} alt="ìcone de enviar" />
-            </button>
-            <button className="delete">
-              <img src={deleteIcon} alt="ìcone de lixeira" />
-            </button>
-          </span>
         </div>
       </div>
+      <p className="actions">
+        Ações:
+        <span className="adm-buttons">
+          <button className="edit">
+            <img src={editIcon} alt="ìcone de lápis" />
+          </button>
+          <button className="borrow">
+            <img src={borrowIcon} alt="ìcone de enviar" />
+          </button>
+          <button className="delete">
+            <img src={deleteIcon} alt="ìcone de lixeira" />
+          </button>
+        </span>
+      </p>
       <p>
         {book.borrowed && (
           <span className="line">

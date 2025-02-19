@@ -163,6 +163,12 @@ ul.catalog .shown {
   opacity: 1;
 }
 
+.actions {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+}
+
 .adm-buttons button,
 .adm-buttons button#create img {
   width: 25px;

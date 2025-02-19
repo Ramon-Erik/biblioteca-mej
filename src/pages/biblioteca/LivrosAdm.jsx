@@ -14,6 +14,7 @@ import addIcon from "../../assets/add.svg";
 const LivrosAdm = () => {
   const { user } = useAuth();
   const [AllBooks, setAllBooks] = useState([]);
+  const [AllBooksId, setAllBooksId] = useState([]);
   const [filteredBooks, setFilteredBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [results, setResults] = useState();
@@ -34,7 +35,6 @@ const LivrosAdm = () => {
 
   const handleShowModal = () => {
     if (!addModalIsOpen) {
-      console.log("clicl");
       setAddModalIsOpen(true);
     }
   };
@@ -44,6 +44,7 @@ const LivrosAdm = () => {
       try {
         const booksData = await catalog();
         setAllBooks(booksData);
+        setAllBooksId(booksData.map(b => b.id))
         setFilteredBooks(booksData);
         setResults(booksData.length);
       } catch (error) {
@@ -81,6 +82,7 @@ const LivrosAdm = () => {
               <AddModal
                 isOpen={addModalIsOpen}
                 closeModal={() => setAddModalIsOpen(!addModalIsOpen)}
+                ids={AllBooksId}
               />
             </div>
           </div>

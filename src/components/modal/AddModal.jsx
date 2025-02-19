@@ -1,9 +1,61 @@
+import { useState } from "react";
 import "./Modal.css";
 
-const AddModal = ({ isOpen, closeModal }) => {
+const AddModal = ({ isOpen, closeModal, ids }) => {
+  const [id, setId] = useState(null);
+  const [name, setName] = useState("");
+  const [author, setAuthor] = useState("");
+  const [publisher, setPublisher] = useState("");
+  const [collectionTitle, setCollectionTitle] = useState("");
+  const [collectionVolume, setCollectionVolume] = useState("");
+  const [description, setDescription] = useState("");
+  const [borrowed, setBorrowed] = useState(false);
+  const [filters, setFilters] = useState([]);
+
+  const availableFilters = [
+    "Sacramentos",
+    "Igreja",
+    "Doutrina",
+    "Tradição",
+    "Bíblia",
+    "Formação",
+    "Magistério",
+    "Apologética",
+    "História",
+    "Santos",
+    "Eucaristia",
+    "Virgem Maria",
+    "Devoção",
+    "Consagração",
+    "Liturgia",
+    "Testemunho",
+    "Perseguição",
+    "Autobiografia",
+    "Infantil",
+    "Purgatório",
+  ];
+
+  const handleChangeValue = (event, setter) => setter(event.target.value);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert("verificando dados");
+    const newId = Math.floor(Math.random() * (max - min + 1)) + min
+    const formData = {
+      id,
+      name,
+      author,
+      publisher,
+      filters: filters,
+      borrowed,
+      description,
+    };
+
+    if (collectionTitle.length > 3 && collectionVolume.at.length > 0) {
+      formData.collection = {
+        title: collectionTitle,
+        volume: collectionVolume,
+      };
+    }
   };
   if (isOpen) {
     return (

@@ -96,11 +96,13 @@ const LivrosAdm = () => {
                       <span className="name">
                         {b.name}, por {b.author}
                       </span>
+                      <p>
                       {b.collection && (
                         <span className="collection">
                           {b.collection.title} - Vol. {b.collection.volume}
                         </span>
                       )}
+                      </p>
                       <span className="adm-buttons">
                         <button className="edit">
                           <img src={editIcon} alt="ìcone de lápis" />

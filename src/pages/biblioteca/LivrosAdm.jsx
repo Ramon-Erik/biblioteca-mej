@@ -86,12 +86,13 @@ const LivrosAdm = () => {
           </div>
         </Section>
         <Section>
-          <Loading
+        <Loading
             loading={loading}
             books={AllBooks}
             filtered={filteredBooks}
           />
-
+        </Section>
+        <Section>
           {!loading && AllBooks.length > 0 && results > 0 && (
             <ul className="catalog">
               {filteredBooks.map((book, index) => (

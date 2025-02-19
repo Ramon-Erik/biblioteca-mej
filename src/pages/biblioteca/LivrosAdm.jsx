@@ -6,11 +6,9 @@ import Header from "../../components/header/Header";
 import Section from "../../components/section/Section";
 import CatalogControls from "../../components/catalogControls/CatalogControls";
 import Loading from "../../components/loadingBooks/LoadingBooks";
+import Book from "../../components/book/Book";
 
 import addIcon from "../../assets/add.svg";
-import editIcon from "../../assets/edit.svg";
-import borrowIcon from "../../assets/borrow.svg";
-import deleteIcon from "../../assets/delete.svg";
 
 const LivrosAdm = () => {
   const { user } = useAuth();
@@ -71,70 +69,28 @@ const LivrosAdm = () => {
             <div>
               <button id="create">
                 <img src={addIcon} alt="Ícone de mais" />
-              <span>Cadastrar novo livro</span>
+                <span>Cadastrar novo livro</span>
               </button>
             </div>
           </div>
         </Section>
         <Section>
-          <Loading loading={loading} books={AllBooks} filtered={filteredBooks}/>
+          <Loading
+            loading={loading}
+            books={AllBooks}
+            filtered={filteredBooks}
+          />
 
           {!loading && AllBooks.length > 0 && results > 0 && (
             <ul className="catalog">
-              {filteredBooks.map((b, index) => (
-                <li key={index} className="book">
-                  <div className="book-header">
-                    <button
-                      onClick={() => handleShowDescription(index)}
-                      className="book-cover"
-                    ></button>
-                    <div className="book-title">
-                      <span className="name">
-                        {b.name}, por {b.author}
-                      </span>
-                      <p>
-                        {b.collection && (
-                          <span className="collection">
-                            {b.collection.title} - Vol. {b.collection.volume}
-                          </span>
-                        )}
-                      </p>
-                      <span className="adm-buttons">
-                        <button className="edit">
-                          <img src={editIcon} alt="ìcone de lápis" />
-                        </button>
-                        <button className="borrow">
-                          <img src={borrowIcon} alt="ìcone de enviar" />
-                        </button>
-                        <button className="delete">
-                          <img src={deleteIcon} alt="ìcone de lixeira" />
-                        </button>
-                      </span>
-                    </div>
-                  </div>
-                  <p>
-                    {b.borrowed && (
-                      <span className="line">
-                        Status: <span className="borrowed">emprestado</span>
-                      </span>
-                    )}
-                    {!b.borrowed && (
-                      <span className="line">
-                        Status: <span className="avalible">disponível</span>
-                      </span>
-                    )}
-                    <span className="line">
-                      Filtros: {b.filters.join(", ")}
-                    </span>
-                  </p>
-                  <div className="desc">
-                    <p
-                      className={descIndex.includes(index) ? "shown" : "hidden"}
-                    >
-                      {b.description}
-                    </p>
-                  </div>
-                </li>
+              {filteredBooks.map((book, index) => (
+                <Book
+                  key={index}
+                  book={book}
+                  index={index}
+                  descIndex={descIndex}
+                  handleShowDescription={handleShowDescription}
+                />
               ))}
             </ul>
           )}

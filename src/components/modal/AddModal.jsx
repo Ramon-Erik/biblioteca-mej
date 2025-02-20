@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./Modal.css";
 
 const AddModal = ({ isOpen, closeModal, ids }) => {
-  const [id, setId] = useState(null);
+  // const [id, setId] = useState(null);
   const [name, setName] = useState("");
   const [author, setAuthor] = useState("");
   const [publisher, setPublisher] = useState("");
@@ -37,25 +37,43 @@ const AddModal = ({ isOpen, closeModal, ids }) => {
 
   const handleChangeValue = (event, setter) => setter(event.target.value);
 
+  const handleChangeFilters = (event) => {
+    const value = event.target.value;
+    if (filters.includes(value)) {
+      setFilters((prev) => prev.filter((f) => f !== value));
+    } else {
+      if (availableFilters.includes(value)) {
+        setFilters((prev) => [...prev, value])
+        console.log([...filters, value]);
+      }
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newId = Math.floor(Math.random() * (max - min + 1)) + min
+
+    let newId;
+    while (true) {
+      newId = Math.floor(Math.random() * 50) + 1;
+      if (!ids.includes(newId)) break;
+    }
     const formData = {
-      id,
+      id: newId,
       name,
       author,
       publisher,
-      filters: filters,
+      filters,
       borrowed,
       description,
     };
-
-    if (collectionTitle.length > 3 && collectionVolume.at.length > 0) {
+    if (collectionTitle.length > 2 && collectionVolume.at.length > 0) {
       formData.collection = {
         title: collectionTitle,
         volume: collectionVolume,
       };
     }
+    console.log(formData);
+    
   };
   if (isOpen) {
     return (
@@ -68,18 +86,32 @@ const AddModal = ({ isOpen, closeModal, ids }) => {
             <form className="body" onSubmit={handleSubmit}>
               <label>
                 Nome do Livro:
-                <input type="text" name="name" placeholder="Título do livro" />
+                <input
+                  type="text"
+                  required
+                  onChange={(e) => handleChangeValue(e, setName)}
+                  name="name"
+                  placeholder="Título do livro"
+                />
               </label>
 
               <label>
                 Autor:
-                <input type="text" name="author" placeholder="Autor do livro" />
+                <input
+                  type="text"
+                  required
+                  onChange={(e) => handleChangeValue(e, setAuthor)}
+                  name="author"
+                  placeholder="Autor do livro"
+                />
               </label>
 
               <label>
                 Editora:
                 <input
                   type="text"
+                  required
+                  onChange={(e) => handleChangeValue(e, setPublisher)}
                   name="publisher"
                   placeholder="Editora do livro"
                 />
@@ -89,6 +121,7 @@ const AddModal = ({ isOpen, closeModal, ids }) => {
                 Coleção:
                 <input
                   type="text"
+                  onChange={(e) => handleChangeValue(e, setCollectionTitle)}
                   name="collectionTitle"
                   placeholder="Título da coleção"
                 />
@@ -98,6 +131,7 @@ const AddModal = ({ isOpen, closeModal, ids }) => {
                 Volume:
                 <input
                   type="text"
+                  onChange={(e) => handleChangeValue(e, setCollectionVolume)}
                   name="collectionVolume"
                   placeholder="Volume da coleção"
                 />
@@ -106,8 +140,10 @@ const AddModal = ({ isOpen, closeModal, ids }) => {
               <label>
                 Descrição:
                 <textarea
+                  onChange={(e) => handleChangeValue(e, setDescription)}
                   name="description"
                   placeholder="Descrição do livro"
+                  required
                   rows="4"
                 ></textarea>
               </label>
@@ -138,7 +174,12 @@ const AddModal = ({ isOpen, closeModal, ids }) => {
                     "Purgatório",
                   ].map((filter) => (
                     <label key={filter} className="filter-option">
-                      <input type="checkbox" name="filters" value={filter} />{" "}
+                      <input
+                        type="checkbox"
+                        onChange={handleChangeFilters}
+                        name="filters"
+                        value={filter}
+                      />{" "}
                       {filter}
                     </label>
                   ))}
@@ -147,7 +188,11 @@ const AddModal = ({ isOpen, closeModal, ids }) => {
 
               <label className="inline">
                 Está emprestado?
-                <input type="checkbox" name="borrowed" />
+                <input
+                  type="checkbox"
+                  onChange={(e) => handleChangeValue(e, setBorrowed)}
+                  name="borrowed"
+                />
               </label>
 
               <div className="buttons">

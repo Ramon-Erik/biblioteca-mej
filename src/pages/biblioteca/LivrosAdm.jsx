@@ -47,7 +47,7 @@ const LivrosAdm = () => {
     setMessage(msg);
     setTimeout(() => {
       setMessage({ type: "unset", msg: "none" });
-    }, 5000);
+    }, 10000);
   };
 
   useEffect(() => {
@@ -118,6 +118,7 @@ const LivrosAdm = () => {
               {filteredBooks.map((book, index) => (
                 <Book
                   key={index}
+                  setMsg={handleShowMessage}
                   book={book}
                   index={index}
                   descIndex={descIndex}

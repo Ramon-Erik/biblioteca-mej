@@ -226,12 +226,13 @@ ul.catalog .shown {
 
 /* Estilo das mensagens de erro e sucesso */
 .msg {
+  display: inline-block;
   width: 100%;
   flex-shrink: 0;
   padding: 15px;
   margin: 10px 0;
   border-radius: 4px;
-  animation: fadeOut 5s forwards;
+  animation: fadeOut 10s forwards;
 }
 
 /* Estilo para a mensagem de erro */

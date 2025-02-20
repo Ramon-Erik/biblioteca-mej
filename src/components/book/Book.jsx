@@ -1,8 +1,17 @@
+import DeleteModal from "../modal/DeleteModal";
+
 import editIcon from "../../assets/edit.svg";
 import borrowIcon from "../../assets/borrow.svg";
 import deleteIcon from "../../assets/delete.svg";
+import { useState } from "react";
 
-const Book = ({ book, index, descIndex, handleShowDescription }) => {
+const Book = ({ book, index, descIndex, handleShowDescription, setMsg }) => {
+  const [deleteModalOpen, setdeleteModalOpen] = useState(false)
+  const handleShowDeleteModal = () => {
+    if (!deleteModalOpen) {
+      setdeleteModalOpen(true);
+    }
+  }
   return (
     <li key={index} className="book">
       <div className="book-header">
@@ -32,11 +41,19 @@ const Book = ({ book, index, descIndex, handleShowDescription }) => {
           <button className="btn borrow">
             <img src={borrowIcon} alt="ìcone de enviar" />
           </button>
-          <button className="btn delete">
+          <button className="btn delete" onClick={handleShowDeleteModal}>
             <img src={deleteIcon} alt="ìcone de lixeira" />
           </button>
         </span>
       </p>
+      <div className="modals">
+        <DeleteModal
+          book={book}
+          isOpen={deleteModalOpen}
+          setMsg={setMsg}
+          setModal={setdeleteModalOpen}
+         />
+      </div>
       <p>
         {book.borrowed && (
           <span className="line">

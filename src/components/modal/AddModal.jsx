@@ -10,7 +10,7 @@ const AddModal = ({ isOpen, closeModal, ids }) => {
   const [collectionVolume, setCollectionVolume] = useState("");
   const [description, setDescription] = useState("");
   const [borrowed, setBorrowed] = useState(false);
-  const [filters, setFilters] = useState([]);
+  const [filters, setFilters] = useState(["Todos"]);
 
   const availableFilters = [
     "Sacramentos",
@@ -87,7 +87,7 @@ const AddModal = ({ isOpen, closeModal, ids }) => {
     try {
       const bookDoc = await addBook(formData);
       formReset(e.target)
-      alert("Livro add.");
+      alert("Livro adicionado.");
     } catch (error) {
       console.error(error);
       alert("Deu erro ein...");

@@ -7,7 +7,7 @@ import {
   updateProfile,
   signOut,
 } from "firebase/auth";
-import { collection, getDocs, getFirestore } from "firebase/firestore";
+import { addDoc, collection, getDocs, getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDSJXWha5wfD37BIsUQyAMcGlccM-M71rM",
@@ -49,4 +49,11 @@ const catalog = async () => {
   return books;
 };
 
-export { login, logOut, catalog };
+const addBook = async (bookData) => {
+  const collectionBooks = collection(db, "books");
+  const docRef = await addDoc(collectionBooks, bookData);
+  console.log("Livro adicionado... Livro: ", docRef)
+  return docRef
+};
+
+export { login, logOut, catalog, addBook };

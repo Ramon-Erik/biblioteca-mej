@@ -1,8 +1,8 @@
 import { useState } from "react";
 import "./Modal.css";
+import { addBook } from "../../firebase/firebase.config";
 
 const AddModal = ({ isOpen, closeModal, ids }) => {
-  // const [id, setId] = useState(null);
   const [name, setName] = useState("");
   const [author, setAuthor] = useState("");
   const [publisher, setPublisher] = useState("");
@@ -43,13 +43,25 @@ const AddModal = ({ isOpen, closeModal, ids }) => {
       setFilters((prev) => prev.filter((f) => f !== value));
     } else {
       if (availableFilters.includes(value)) {
-        setFilters((prev) => [...prev, value])
+        setFilters((prev) => [...prev, value]);
         console.log([...filters, value]);
       }
     }
   };
 
-  const handleSubmit = (e) => {
+  const formReset = (form) => {
+    setName("");
+    setAuthor("");
+    setPublisher("");
+    setCollectionTitle("");
+    setCollectionVolume("");
+    setDescription("");
+    setFilters([]);
+    setBorrowed(false);
+    form.reset()
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     let newId;
@@ -66,14 +78,20 @@ const AddModal = ({ isOpen, closeModal, ids }) => {
       borrowed,
       description,
     };
-    if (collectionTitle.length > 2 && collectionVolume.at.length > 0) {
+    if (collectionTitle.length > 2 && collectionVolume.length > 0) {
       formData.collection = {
         title: collectionTitle,
         volume: collectionVolume,
       };
     }
-    console.log(formData);
-    
+    try {
+      const bookDoc = await addBook(formData);
+      formReset(e.target)
+      alert("Livro add.");
+    } catch (error) {
+      console.error(error);
+      alert("Deu erro ein...");
+    }
   };
   if (isOpen) {
     return (
@@ -190,7 +208,7 @@ const AddModal = ({ isOpen, closeModal, ids }) => {
                 Está emprestado?
                 <input
                   type="checkbox"
-                  onChange={(e) => handleChangeValue(e, setBorrowed)}
+                  onChange={(e) => setBorrowed(e.target.checked)}
                   name="borrowed"
                 />
               </label>

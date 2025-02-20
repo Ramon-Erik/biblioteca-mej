@@ -14,7 +14,7 @@ const LoginAdm = () => {
   useEffect(() => {
     if (user) {
       // console.log("useEffect, user:", user);
-      navigate("/biblioteca/Livros-adm")
+      navigate("/biblioteca/livros-adm")
     }
   }, [user, navigate]);
 

@@ -87,6 +87,7 @@ const AddModal = ({ isOpen, closeModal, ids }) => {
     try {
       const bookDoc = await addBook(formData);
       formReset(e.target)
+      closeModal()
       alert("Livro adicionado.");
     } catch (error) {
       console.error(error);

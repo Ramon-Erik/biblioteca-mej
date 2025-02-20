@@ -49,7 +49,6 @@ const AddModal = ({ isOpen, setModal, ids, setMsg}) => {
     } else {
       if (availableFilters.includes(value)) {
         setFilters((prev) => [...prev, value]);
-        console.log([...filters, value]);
       }
     }
   };

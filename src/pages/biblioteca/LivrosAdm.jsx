@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
-import { logOut, catalog } from "../../firebase/firebase.config";
+import {
+  logOut,
+  listenToBooksAndCatalogue,
+} from "../../firebase/firebase.config";
 
 import Header from "../../components/header/Header";
 import Section from "../../components/section/Section";
-import CatalogControls from "../../components/catalogControls/CatalogControls"; 
+import CatalogControls from "../../components/catalogControls/CatalogControls";
 import Loading from "../../components/loadingBooks/LoadingBooks";
 import Book from "../../components/book/Book";
-import AddModal from "../../components/modal/AddModal"; 
+import AddModal from "../../components/modal/AddModal";
 
 import addIcon from "../../assets/add.svg";
 
@@ -20,6 +23,7 @@ const LivrosAdm = () => {
   const [results, setResults] = useState();
   const [descIndex, setDescIndex] = useState([]);
   const [addModalIsOpen, setAddModalIsOpen] = useState(false);
+  const [message, setMessage] = useState({ type: "unset", msg: "none" });
 
   const handleShowDescription = (index) => {
     setDescIndex((prev) =>
@@ -39,21 +43,26 @@ const LivrosAdm = () => {
     }
   };
 
+  const handleShowMessage = (msg) => {
+    setMessage(msg);
+    setTimeout(() => {
+      setMessage({ type: "unset", msg: "none" });
+    }, 5000);
+  };
+
   useEffect(() => {
-    const fetchBooks = async () => {
-      try {
-        const booksData = await catalog();
+    try {
+      const unsubscribe = listenToBooksAndCatalogue((booksData) => {
         setAllBooks(booksData);
-        setAllBooksId(booksData.map(b => b.id))
+        setAllBooksId(booksData.map((b) => b.id));
         setFilteredBooks(booksData);
         setResults(booksData.length);
-      } catch (error) {
-        console.error("erro ao ler livros", error);
-      } finally {
         setLoading(false);
-      }
-    };
-    fetchBooks();
+      });
+      return () => unsubscribe();
+    } catch (error) {
+      console.error("erro ao ler livros", error);
+    }
   }, []);
 
   return (
@@ -73,6 +82,14 @@ const LivrosAdm = () => {
           />
         </Section>
         <Section>
+          {message.type === "error" && (
+            <p className="msg error">{message.msg}</p>
+          )}
+          {message.type === "success" && (
+            <p className="msg success">{message.msg}</p>
+          )}
+        </Section>
+        <Section>
           <div className="adm-buttons add-book">
             <div>
               <button className="btn" id="create" onClick={handleShowModal}>
@@ -82,13 +99,14 @@ const LivrosAdm = () => {
               <AddModal
                 isOpen={addModalIsOpen}
                 closeModal={() => setAddModalIsOpen(!addModalIsOpen)}
+                setMsg={handleShowMessage}
                 ids={AllBooksId}
               />
             </div>
           </div>
         </Section>
         <Section>
-        <Loading
+          <Loading
             loading={loading}
             books={AllBooks}
             filtered={filteredBooks}

@@ -7,7 +7,13 @@ import {
   updateProfile,
   signOut,
 } from "firebase/auth";
-import { addDoc, collection, getDocs, getFirestore } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  getDocs,
+  getFirestore,
+  onSnapshot,
+} from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDSJXWha5wfD37BIsUQyAMcGlccM-M71rM",
@@ -21,14 +27,11 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
+const collectionBooks = collection(db, "books");
 
-setPersistence(auth, browserLocalPersistence)
-  .then(() => {
-    console.log("Persistência de login ativada");
-  })
-  .catch((error) => {
-    console.error("Erro ao definir persistência", error);
-  });
+setPersistence(auth, browserLocalPersistence).catch((error) => {
+  console.error("Erro ao definir persistência", error);
+});
 
 const login = async (nome, senha) => {
   const userCredential = await signInWithEmailAndPassword(auth, nome, senha);
@@ -42,18 +45,21 @@ const login = async (nome, senha) => {
 
 const logOut = async () => await signOut(auth);
 
-const catalog = async () => {
-  const collectionBooks = collection(db, "books");
-  const booksSnap = await getDocs(collectionBooks);
-  const books = booksSnap.docs.map((doc) => doc.data());
-  return books;
+const listenToBooksAndCatalogue = (callback) => {
+  const unsubscribe = onSnapshot(collectionBooks, (snapshot) => {
+    const booksData = snapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }))
+    callback(booksData)
+  });
+  return unsubscribe;
 };
 
 const addBook = async (bookData) => {
-  const collectionBooks = collection(db, "books");
   const docRef = await addDoc(collectionBooks, bookData);
-  console.log("Livro adicionado... Livro: ", docRef)
-  return docRef
+  console.log("Livro adicionado... Livro: ", docRef);
+  return docRef;
 };
 
-export { login, logOut, catalog, addBook };
+export { login, logOut, listenToBooksAndCatalogue, addBook };

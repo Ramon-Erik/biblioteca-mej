@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./Modal.css";
 import { addBook } from "../../firebase/firebase.config";
 
-const AddModal = ({ isOpen, closeModal, ids }) => {
+const AddModal = ({ isOpen, closeModal, ids, setMsg}) => {
   const [name, setName] = useState("");
   const [author, setAuthor] = useState("");
   const [publisher, setPublisher] = useState("");
@@ -88,10 +88,13 @@ const AddModal = ({ isOpen, closeModal, ids }) => {
       const bookDoc = await addBook(formData);
       formReset(e.target)
       closeModal()
+      setMsg({type: "success", msg: "Livro adicionado com sucesso!"})
       alert("Livro adicionado.");
     } catch (error) {
       console.error(error);
-      alert("Deu erro ein...");
+      formReset(e.target)
+      closeModal()
+      setMsg({type: "error", msg: "Problema ao adicionar livro!"})
     }
   };
   if (isOpen) {

@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./Modal.css";
 import { addBook } from "../../firebase/firebase.config";
 
-const AddModal = ({ isOpen, closeModal, ids, setMsg}) => {
+const AddModal = ({ isOpen, setModal, ids, setMsg}) => {
   const [name, setName] = useState("");
   const [author, setAuthor] = useState("");
   const [publisher, setPublisher] = useState("");
@@ -11,6 +11,11 @@ const AddModal = ({ isOpen, closeModal, ids, setMsg}) => {
   const [description, setDescription] = useState("");
   const [borrowed, setBorrowed] = useState(false);
   const [filters, setFilters] = useState(["Todos"]);
+
+  const closeModal = () => {
+    setModal(false)
+    setFilters(["Todos"])
+  }
 
   const availableFilters = [
     "Sacramentos",
@@ -56,7 +61,7 @@ const AddModal = ({ isOpen, closeModal, ids, setMsg}) => {
     setCollectionTitle("");
     setCollectionVolume("");
     setDescription("");
-    setFilters([]);
+    setFilters(["Todos"]);
     setBorrowed(false);
     form.reset()
   };
@@ -85,11 +90,10 @@ const AddModal = ({ isOpen, closeModal, ids, setMsg}) => {
       };
     }
     try {
-      const bookDoc = await addBook(formData);
+      await addBook(formData);
       formReset(e.target)
       closeModal()
       setMsg({type: "success", msg: "Livro adicionado com sucesso!"})
-      alert("Livro adicionado.");
     } catch (error) {
       console.error(error);
       formReset(e.target)

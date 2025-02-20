@@ -98,8 +98,8 @@ const LivrosAdm = () => {
               </button>
               <AddModal
                 isOpen={addModalIsOpen}
-                closeModal={() => setAddModalIsOpen(!addModalIsOpen)}
                 setMsg={handleShowMessage}
+                setModal={setAddModalIsOpen}
                 ids={AllBooksId}
               />
             </div>

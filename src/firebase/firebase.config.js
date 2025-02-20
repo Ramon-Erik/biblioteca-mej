@@ -10,6 +10,8 @@ import {
 import {
   addDoc,
   collection,
+  deleteDoc,
+  doc,
   getDocs,
   getFirestore,
   onSnapshot,
@@ -48,7 +50,7 @@ const logOut = async () => await signOut(auth);
 const listenToBooksAndCatalogue = (callback) => {
   const unsubscribe = onSnapshot(collectionBooks, (snapshot) => {
     const booksData = snapshot.docs.map((doc) => ({
-      id: doc.id,
+      idDoc: doc.id,
       ...doc.data(),
     }))
     callback(booksData)
@@ -58,8 +60,9 @@ const listenToBooksAndCatalogue = (callback) => {
 
 const addBook = async (bookData) => {
   const docRef = await addDoc(collectionBooks, bookData);
-  console.log("Livro adicionado... Livro: ", docRef);
   return docRef;
 };
 
-export { login, logOut, listenToBooksAndCatalogue, addBook };
+const deleteBook = async (bookId) => await deleteDoc(doc(db, "books", bookId))
+
+export { login, logOut, listenToBooksAndCatalogue, addBook, deleteBook };

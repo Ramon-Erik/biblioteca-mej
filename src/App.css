@@ -162,6 +162,10 @@ ul.catalog .shown {
   opacity: 1;
 }
 
+ul.catalog .book p.shown {
+  margin-bottom: 2rem;
+}
+
 .actions {
   display: flex;
   align-items: center;

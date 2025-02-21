@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { deleteBook } from "../../firebase/firebase.config";
+import FlashMessage from "../../components/flash-message/FlashMessage";
 import "./Modal.css";
 
 import React from "react";
@@ -32,10 +33,10 @@ const DeleteModal = ({ isOpen, setModal, book, setMsg }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (book.filters[0] === filterString) {
-      closeModal()
-      await deleteBook(book.idDoc)
-      setFilterString("")
-      setMsg({type: "success", msg: "Livro apagado com sucesso!"})
+      closeModal();
+      await deleteBook(book.idDoc);
+      setFilterString("");
+      setMsg({ type: "success", msg: "Livro apagado com sucesso!" });
     } else {
       handleShowMessage({
         type: "error",
@@ -53,8 +54,7 @@ const DeleteModal = ({ isOpen, setModal, book, setMsg }) => {
           </div>
           <form className="body" onSubmit={handleSubmit}>
             <p>
-              Digite este filtro <span style={filterStyle}>{book.filters[0]}</span> do
-              livro "{book.name}" no campo abaixo para apagar.
+              Digite este filtro <span style={filterStyle}>{book.filters[0]}</span> do livro "{book.name}" no campo abaixo para apagar.
             </p>
             <label>
               <input
@@ -65,12 +65,7 @@ const DeleteModal = ({ isOpen, setModal, book, setMsg }) => {
               />
             </label>
             <p>
-              {message.type === "error" && (
-                <span className="msg error">{message.msg}</span>
-              )}
-              {message.type === "success" && (
-                <span className="msg error">{message.msg}</span>
-              )}
+              <FlashMessage message={message} />
             </p>
             <div className="buttons">
               <button type="button" onClick={closeModal}>

@@ -15,6 +15,7 @@ import {
   getDocs,
   getFirestore,
   onSnapshot,
+  updateDoc,
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -52,8 +53,8 @@ const listenToBooksAndCatalogue = (callback) => {
     const booksData = snapshot.docs.map((doc) => ({
       idDoc: doc.id,
       ...doc.data(),
-    }))
-    callback(booksData)
+    }));
+    callback(booksData);
   });
   return unsubscribe;
 };
@@ -63,6 +64,18 @@ const addBook = async (bookData) => {
   return docRef;
 };
 
-const deleteBook = async (bookId) => await deleteDoc(doc(db, "books", bookId))
+const borrowBook = async (docId, borrowData) => {
+  const book = doc(db, "books", docId)
+  await updateDoc(book, borrowData)
+};
 
-export { login, logOut, listenToBooksAndCatalogue, addBook, deleteBook };
+const deleteBook = async (bookId) => await deleteDoc(doc(db, "books", bookId));
+
+export {
+  login,
+  logOut,
+  listenToBooksAndCatalogue,
+  addBook,
+  deleteBook,
+  borrowBook,
+};

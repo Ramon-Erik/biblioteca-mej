@@ -8,6 +8,7 @@
   backdrop-filter: none; 
   z-index: 999;
 }
+
 .modal {
   position: fixed;
   top: 50%;
@@ -42,6 +43,28 @@
 .modal label {
   font-size: 1rem;
   margin: 8px 0;
+}
+
+.modal .radioLabels,
+.modal .radioLabel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.modal .radioLabels :first-child {
+  width: 100%;
+}
+
+.modal .radioLabel {
+  align-items: center;
+  gap: 6px;
+}
+
+.modal .radioLabel input[type="radio"] {
+  width: 19px;
+  height: 19px;
+  margin: 0;
 }
 
 .modal input, 

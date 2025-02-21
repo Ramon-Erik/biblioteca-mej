@@ -69,6 +69,11 @@ const borrowBook = async (docId, borrowData) => {
   await updateDoc(book, borrowData)
 };
 
+const updateBook = async (docId, borrowData) => {
+  const book = doc(db, "books", docId)
+  await updateDoc(book, borrowData)
+};
+
 const deleteBook = async (bookId) => await deleteDoc(doc(db, "books", bookId));
 
 export {
@@ -78,4 +83,5 @@ export {
   addBook,
   deleteBook,
   borrowBook,
+  updateBook,
 };

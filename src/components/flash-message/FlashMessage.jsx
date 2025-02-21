@@ -1,11 +1,12 @@
+import css from "./FlashMessage.module.css";
 const FlashMessage = ({ message }) => {
   switch (message.type) {
     case "error":
-      return <p className="msg error">{message.msg}</p>;
+      return <p className={`${css.msg} ${css.error}`}>{message.msg}</p>;
     case "success":
-      return <p className="msg success">{message.msg}</p>;
+      return <p className={`${css.msg} ${css.success}`}>{message.msg}</p>;
     default: 
-      return nulll
+      return null
   }
 };
 

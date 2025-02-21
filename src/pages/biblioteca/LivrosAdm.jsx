@@ -11,6 +11,7 @@ import CatalogControls from "../../components/catalogControls/CatalogControls";
 import Loading from "../../components/loadingBooks/LoadingBooks";
 import Book from "../../components/book/Book";
 import AddModal from "../../components/modal/AddModal";
+import FlashMessage from "../../components/flash-message/FlashMessage";
 
 import addIcon from "../../assets/add.svg";
 
@@ -47,7 +48,7 @@ const LivrosAdm = () => {
     setMessage(msg);
     setTimeout(() => {
       setMessage({ type: "unset", msg: "none" });
-    }, 10000);
+    }, 7000);
   };
 
   useEffect(() => {
@@ -82,12 +83,7 @@ const LivrosAdm = () => {
           />
         </Section>
         <Section>
-          {message.type === "error" && (
-            <p className="msg error">{message.msg}</p>
-          )}
-          {message.type === "success" && (
-            <p className="msg success">{message.msg}</p>
-          )}
+          <FlashMessage message={message}/>
         </Section>
         <Section>
           <div className="adm-buttons add-book">

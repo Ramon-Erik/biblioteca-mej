@@ -7,6 +7,10 @@
   margin-bottom: .7rem;
 }
 
+.section:nth-of-type(odd) {
+  flex-direction: row-reverse;
+}
+
 .area {
   display: flex;
   flex-direction: column;

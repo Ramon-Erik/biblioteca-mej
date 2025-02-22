@@ -81,6 +81,47 @@ const IndexBiblioteca = () => {
             crer
           </q>
         </Separator>
+        <Section>
+          <article className={css.area}>
+            <h2>Como funciona</h2>
+            <p>
+              O mejista interessado em ler um dos livros do acervo do mej, entra
+              em contato com a Emily &#40;vice-coordenadora do movimento&#41;,
+              para combinar como pagar a taxa de empréstimo e quando pegar o
+              livro.
+            </p>
+            <LinkButton text="Ver livros" link="/biblioteca#catalogo" />
+          </article>
+          <div className={css.area}>
+            <img
+              src={img3}
+              width="350px"
+              alt="Foto tirada em encontro do mej"
+            />
+          </div>
+        </Section>
+        <Separator>
+          <q>
+          Conhecereis a <strong>Verdade</strong>, e a verdade vos <strong>libertará</strong>
+          </q>
+        </Separator>
+        <Section>
+          <article className={css.area}>
+            <h2>Taxa de empréstimo</h2>
+            <p>
+              A fim de que o movimento pudesse ter uma forma de arrecadar
+              dinheiro para suas despesas, é cobrado um valor simbólico de
+              R&#36; 1,00 &#40;um real&#41; pelo empréstimo, que é cobrado no ato de entrega do livro.
+            </p>
+          </article>
+          <div className={css.area}>
+            <img
+              src={img4}
+              width="350px"
+              alt="Foto tirada em encontro do mej"
+            />
+          </div>
+        </Section>
       </main>
     </>
   );

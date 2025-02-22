@@ -36,7 +36,7 @@ const IndexBiblioteca = () => {
   ];
   return (
     <>
-      <Header link="/biblioteca/login"/>
+      <Header link="/biblioteca/login" />
       <main>
         <Section>
           <article className={css.area}>
@@ -61,11 +61,10 @@ const IndexBiblioteca = () => {
           <article className={css.area}>
             <h2>Sobre o projeto</h2>
             <p>
-              A biblioteca do MEJ busca tornar presente no dia-a-dia dos jovens
-              o hábito da leitura, e também conhecimento acerca da beleza dos
-              elementos importantíssimos para a fé católica, como a Sagrada
-              Tradição, Sagrada Escritura e o Sagrado Magistério, oferecendo
-              livros que os ajudarão em seu crescimento espiritual.
+              A biblioteca do MEJ busca trazer para os jovens o hábito da
+              leitura, e também conhecimento acerca da beleza dos da fé
+              católica, na Tradição, Escritura e o Magistério, oferecendo livros
+              que os ajudarão em seu crescimento espiritual.
             </p>
           </article>
           <div className={css.area}>
@@ -77,7 +76,10 @@ const IndexBiblioteca = () => {
           </div>
         </Section>
         <Separator>
-          <q><strong>Creio</strong> para entender e <strong>entendo</strong> para crer</q>
+          <q>
+            <strong>Creio</strong> para entender e <strong>entendo</strong> para
+            crer
+          </q>
         </Separator>
       </main>
     </>

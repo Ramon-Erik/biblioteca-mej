@@ -9,8 +9,6 @@ import img2 from "../../assets/mej-2.jpg";
 import img3 from "../../assets/mej-3.jpg";
 import img4 from "../../assets/mej-4.jpg";
 
-import css from "../../components/section/Section.module.css";
-
 const IndexBiblioteca = () => {
   const imgs = [
     {
@@ -39,7 +37,7 @@ const IndexBiblioteca = () => {
       <Header link="/biblioteca/login" />
       <main>
         <Section>
-          <article className={css.area}>
+          <article>
             <h2>Biblioteca do MEJ</h2>
             <p>
               Com o hábito da leitura, você aprofunda sua compreensão dos
@@ -48,7 +46,7 @@ const IndexBiblioteca = () => {
             </p>
             <LinkButton text="Alugar livro" link="/biblioteca#alugar" />
           </article>
-          <div className={css.area}>
+          <div>
             <Slider imgs={imgs} />
           </div>
         </Section>
@@ -58,7 +56,7 @@ const IndexBiblioteca = () => {
           </q>
         </Separator>
         <Section>
-          <article className={css.area}>
+          <article>
             <h2>Sobre o projeto</h2>
             <p>
               A biblioteca do MEJ busca trazer para os jovens o hábito da
@@ -67,7 +65,7 @@ const IndexBiblioteca = () => {
               que os ajudarão em seu crescimento espiritual.
             </p>
           </article>
-          <div className={css.area}>
+          <div>
             <img
               src={img2}
               width="350px"
@@ -82,7 +80,7 @@ const IndexBiblioteca = () => {
           </q>
         </Separator>
         <Section>
-          <article className={css.area}>
+          <article>
             <h2>Como funciona</h2>
             <p>
               O mejista interessado em ler um dos livros do acervo do mej, entra
@@ -92,7 +90,7 @@ const IndexBiblioteca = () => {
             </p>
             <LinkButton text="Ver livros" link="/biblioteca#catalogo" />
           </article>
-          <div className={css.area}>
+          <div>
             <img
               src={img3}
               width="350px"
@@ -106,7 +104,7 @@ const IndexBiblioteca = () => {
           </q>
         </Separator>
         <Section>
-          <article className={css.area}>
+          <article>
             <h2>Taxa de empréstimo</h2>
             <p>
               A fim de que o movimento pudesse ter uma forma de arrecadar
@@ -114,7 +112,7 @@ const IndexBiblioteca = () => {
               R&#36; 1,00 &#40;um real&#41; pelo empréstimo, que é cobrado no ato de entrega do livro.
             </p>
           </article>
-          <div className={css.area}>
+          <div>
             <img
               src={img4}
               width="350px"

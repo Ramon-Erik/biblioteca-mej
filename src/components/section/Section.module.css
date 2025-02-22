@@ -7,11 +7,12 @@
   margin-bottom: .7rem;
 }
 
-.section:nth-of-type(odd) {
+.section:nth-of-type(even) {
   flex-direction: row-reverse;
 }
 
-.area {
+.section > article,
+.section > div {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -20,6 +21,7 @@
   min-width: 310px;
   max-width: 350px;
   height: fit-content;
+  max-height: 262.5px;
   text-align: center;
 }
 

@@ -77,27 +77,31 @@ const LivrosAdm = () => {
           <p>O que deseja fazer...?</p>
         </Section>
         <Section>
-          <CatalogControls
-            results={results}
-            handleChangeValue={handleFilterChange}
-          />
+          <div>
+            <CatalogControls
+              results={results}
+              handleChangeValue={handleFilterChange}
+            />
+          </div>
         </Section>
         <Section>
-          <FlashMessage message={message}/>
+          <FlashMessage message={message} />
         </Section>
         <Section>
-          <div className="adm-buttons add-book">
-            <div>
-              <button className="btn" id="create" onClick={handleShowModal}>
-                <img src={addIcon} alt="Ícone de mais" />
-                <span>Cadastrar novo livro</span>
-              </button>
-              <AddModal
-                isOpen={addModalIsOpen}
-                setMsg={handleShowMessage}
-                setModal={setAddModalIsOpen}
-                ids={AllBooksId}
-              />
+          <div className="full-width">
+            <div className="adm-buttons add-book">
+              <div>
+                <button className="btn" id="create" onClick={handleShowModal}>
+                  <img src={addIcon} alt="Ícone de mais" />
+                  <span>Cadastrar novo livro</span>
+                </button>
+                <AddModal
+                  isOpen={addModalIsOpen}
+                  setMsg={handleShowMessage}
+                  setModal={setAddModalIsOpen}
+                  ids={AllBooksId}
+                />
+              </div>
             </div>
           </div>
         </Section>

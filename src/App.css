@@ -20,7 +20,7 @@ main .swiper {
   height: 100%;
 }
 
-main img {
+main button:not() img {
   width: 100%;
   min-width: 310px;
   max-width: 350px;
@@ -95,6 +95,13 @@ input[type="submit"]:active {
 input[type="submit"]:disabled {
   background-color: #ccc;
   cursor: not-allowed;
+}
+
+.full-width {
+  display: block;
+  width: 100%;
+  max-width: 390px !important;
+  height: fit-content;
 }
 
 ul.catalog {

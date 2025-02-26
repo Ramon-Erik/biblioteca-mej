@@ -123,6 +123,7 @@ const LivrosAdm = () => {
                   index={index}
                   descIndex={descIndex}
                   handleShowDescription={handleShowDescription}
+                  auth={user}
                 />
               ))}
             </ul>

@@ -7,28 +7,35 @@ import borrowIcon from "../../assets/borrow.svg";
 import deleteIcon from "../../assets/delete.svg";
 import { useState } from "react";
 
-const Book = ({ book, index, descIndex, handleShowDescription, setMsg }) => {
-  const [deleteModalOpen, setDeleteModalOpen] = useState(false)
-  const [borrowModalOpen, setBorrowModalOpen] = useState(false)
-  const [updateModalOpen, setUpdateModalOpen] = useState(false)
+const Book = ({
+  book,
+  auth = { email: "null" },
+  index,
+  descIndex,
+  handleShowDescription,
+  setMsg = undefined,
+}) => {
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [borrowModalOpen, setBorrowModalOpen] = useState(false);
+  const [updateModalOpen, setUpdateModalOpen] = useState(false);
 
   const handleShowDeleteModal = () => {
     if (!deleteModalOpen) {
       setDeleteModalOpen(true);
     }
-  }
+  };
 
   const handleShowBorrowModal = () => {
     if (!borrowModalOpen) {
       setBorrowModalOpen(true);
     }
-  }
+  };
 
   const handleShowUpdateModal = () => {
     if (!updateModalOpen) {
       setUpdateModalOpen(true);
     }
-  }
+  };
 
   return (
     <li key={index} className="book">
@@ -50,40 +57,44 @@ const Book = ({ book, index, descIndex, handleShowDescription, setMsg }) => {
           </p>
         </div>
       </div>
-      <p className="actions">
-        Ações:
-        <span className="adm-buttons">
-          <button className="btn edit" onClick={handleShowUpdateModal}>
-            <img src={editIcon} alt="ìcone de lápis" />
-          </button>
-          <button className="btn borrow" onClick={handleShowBorrowModal}>
-            <img src={borrowIcon} alt="ìcone de enviar" />
-          </button>
-          <button className="btn delete" onClick={handleShowDeleteModal}>
-            <img src={deleteIcon} alt="ìcone de lixeira" />
-          </button>
-        </span>
-      </p>
-      <div className="modals">
-        <DeleteModal
-          book={book}
-          isOpen={deleteModalOpen}
-          setMsg={setMsg}
-          setModal={setDeleteModalOpen}
-         />
-        <BorrowModal
-          book={book}
-          isOpen={borrowModalOpen}
-          setMsg={setMsg}
-          setModal={setBorrowModalOpen}
-         />
-        <UpdateModal
-          book={book}
-          isOpen={updateModalOpen}
-          setMsg={setMsg}
-          setModal={setUpdateModalOpen}
-         />
-      </div>
+      {auth.email === "mej@mpe.com" && (
+        <>
+          <p className="actions">
+            Ações:
+            <span className="adm-buttons">
+              <button className="btn edit" onClick={handleShowUpdateModal}>
+                <img src={editIcon} alt="ìcone de lápis" />
+              </button>
+              <button className="btn borrow" onClick={handleShowBorrowModal}>
+                <img src={borrowIcon} alt="ìcone de enviar" />
+              </button>
+              <button className="btn delete" onClick={handleShowDeleteModal}>
+                <img src={deleteIcon} alt="ìcone de lixeira" />
+              </button>
+            </span>
+          </p>
+          <div className="modals">
+            <DeleteModal
+              book={book}
+              isOpen={deleteModalOpen}
+              setMsg={setMsg}
+              setModal={setDeleteModalOpen}
+            />
+            <BorrowModal
+              book={book}
+              isOpen={borrowModalOpen}
+              setMsg={setMsg}
+              setModal={setBorrowModalOpen}
+            />
+            <UpdateModal
+              book={book}
+              isOpen={updateModalOpen}
+              setMsg={setMsg}
+              setModal={setUpdateModalOpen}
+            />
+          </div>
+        </>
+      )}
       <p>
         {book.borrowed && (
           <span className="line">

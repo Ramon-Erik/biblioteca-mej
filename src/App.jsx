@@ -21,7 +21,7 @@ function App() {
               element={
                 <ProtectedRoute>
                   <LivrosAdm />
-                </ProtectedRoute>
+                </ProtectedRoute> 
               }
             />
             <Route path="*" element={<h1>Erro</h1>} />

@@ -15,7 +15,9 @@ import {
   getDocs,
   getFirestore,
   onSnapshot,
+  query,
   updateDoc,
+  where,
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -60,18 +62,30 @@ const listenToBooksAndCatalogue = (callback) => {
 };
 
 const addBook = async (bookData) => {
+  const { name, publisher } = bookData;
+  const bookQuery = query(
+    collectionBooks,
+    where("name", "==", name),
+    where("publisher", "==", publisher)
+  );
+  const querySnap = await getDocs(bookQuery);
+  if (!querySnap.empty) {
+    const error = new Error("Já existe um livro com esse nome e editora.");
+    error.code = "BOOK_ALREADY_EXISTS";
+    throw error;
+  }
   const docRef = await addDoc(collectionBooks, bookData);
   return docRef;
 };
 
 const borrowBook = async (docId, borrowData) => {
-  const book = doc(db, "books", docId)
-  await updateDoc(book, borrowData)
+  const book = doc(db, "books", docId);
+  await updateDoc(book, borrowData);
 };
 
 const updateBook = async (docId, borrowData) => {
-  const book = doc(db, "books", docId)
-  await updateDoc(book, borrowData)
+  const book = doc(db, "books", docId);
+  await updateDoc(book, borrowData);
 };
 
 const deleteBook = async (bookId) => await deleteDoc(doc(db, "books", bookId));

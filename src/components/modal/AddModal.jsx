@@ -97,7 +97,11 @@ const AddModal = ({ isOpen, setModal, ids, setMsg }) => {
       console.error(error);
       formReset(e.target);
       closeModal();
-      setMsg({ type: "error", msg: "Problema ao adicionar livro!" });
+      if (error.code === "BOOK_ALREADY_EXISTS") {
+        setMsg({ type: "error", msg: error.message });
+      } else {
+        setMsg({ type: "error", msg: "Problema ao adicionar livro!" });
+      }
     }
   };
   if (isOpen) {

@@ -20,12 +20,10 @@ main .swiper {
   height: 100%;
 }
 
-main button:not() img {
+main .swiper img,
+main div > img {
+  display: block;
   width: 100%;
-  min-width: 310px;
-  max-width: 350px;
-  height: fit-content;
-  max-height: 262.5px;
   object-fit: cover;
 }
 
@@ -100,7 +98,7 @@ input[type="submit"]:disabled {
 .full-width {
   display: block;
   width: 100%;
-  max-width: 390px !important;
+  max-width: 460px !important;
   height: fit-content;
 }
 

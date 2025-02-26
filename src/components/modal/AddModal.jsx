@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./Modal.css";
 import { addBook } from "../../firebase/firebase.config";
 
-const AddModal = ({ isOpen, setModal, ids, setMsg}) => {
+const AddModal = ({ isOpen, setModal, ids, setMsg }) => {
   const [name, setName] = useState("");
   const [author, setAuthor] = useState("");
   const [publisher, setPublisher] = useState("");
@@ -13,9 +13,9 @@ const AddModal = ({ isOpen, setModal, ids, setMsg}) => {
   const [filters, setFilters] = useState(["Todos"]);
 
   const closeModal = () => {
-    setModal(false)
-    setFilters(["Todos"])
-  }
+    setModal(false);
+    setFilters(["Todos"]);
+  };
 
   const availableFilters = [
     "Sacramentos",
@@ -62,7 +62,7 @@ const AddModal = ({ isOpen, setModal, ids, setMsg}) => {
     setDescription("");
     setFilters(["Todos"]);
     setBorrowed(false);
-    form.reset()
+    form.reset();
   };
 
   const handleSubmit = async (e) => {
@@ -90,146 +90,144 @@ const AddModal = ({ isOpen, setModal, ids, setMsg}) => {
     }
     try {
       await addBook(formData);
-      formReset(e.target)
-      closeModal()
-      setMsg({type: "success", msg: "Livro adicionado com sucesso!"})
+      formReset(e.target);
+      closeModal();
+      setMsg({ type: "success", msg: "Livro adicionado com sucesso!" });
     } catch (error) {
       console.error(error);
-      formReset(e.target)
-      closeModal()
-      setMsg({type: "error", msg: "Problema ao adicionar livro!"})
+      formReset(e.target);
+      closeModal();
+      setMsg({ type: "error", msg: "Problema ao adicionar livro!" });
     }
   };
   if (isOpen) {
     return (
-      <>
-        <div className="modal-overlay" onClick={closeModal}>
-          <div className="modal" onClick={(e) => e.stopPropagation()}>
-            <div className="header">
-              <h2>Adicionar livro na biblioteca</h2>
-            </div>
-            <form className="body" onSubmit={handleSubmit}>
-              <label>
-                Nome do Livro:
-                <input
-                  type="text"
-                  required
-                  onChange={(e) => handleChangeValue(e, setName)}
-                  name="name"
-                  placeholder="Título do livro"
-                />
-              </label>
-
-              <label>
-                Autor:
-                <input
-                  type="text"
-                  required
-                  onChange={(e) => handleChangeValue(e, setAuthor)}
-                  name="author"
-                  placeholder="Autor do livro"
-                />
-              </label>
-
-              <label>
-                Editora:
-                <input
-                  type="text"
-                  required
-                  onChange={(e) => handleChangeValue(e, setPublisher)}
-                  name="publisher"
-                  placeholder="Editora do livro"
-                />
-              </label>
-
-              <label>
-                Coleção:
-                <input
-                  type="text"
-                  onChange={(e) => handleChangeValue(e, setCollectionTitle)}
-                  name="collectionTitle"
-                  placeholder="Título da coleção"
-                />
-              </label>
-
-              <label>
-                Volume:
-                <input
-                  type="text"
-                  onChange={(e) => handleChangeValue(e, setCollectionVolume)}
-                  name="collectionVolume"
-                  placeholder="Volume da coleção"
-                />
-              </label>
-
-              <label>
-                Descrição:
-                <textarea
-                  onChange={(e) => handleChangeValue(e, setDescription)}
-                  name="description"
-                  placeholder="Descrição do livro"
-                  required
-                  rows="4"
-                ></textarea>
-              </label>
-
-              <div className="filters-container">
-                <label className="filters-label">Filtros:</label>
-                <div className="filters-grid">
-                  {[
-                    "Sacramentos",
-                    "Igreja",
-                    "Doutrina",
-                    "Tradição",
-                    "Bíblia",
-                    "Formação",
-                    "Magistério",
-                    "Apologética",
-                    "História",
-                    "Santos",
-                    "Eucaristia",
-                    "Virgem Maria",
-                    "Devoção",
-                    "Consagração",
-                    "Liturgia",
-                    "Testemunho",
-                    "Perseguição",
-                    "Autobiografia",
-                    "Infantil",
-                    "Purgatório",
-                  ].map((filter) => (
-                    <label key={filter} className="filter-option">
-                      <input
-                        type="checkbox"
-                        onChange={handleChangeFilters}
-                        name="filters"
-                        value={filter}
-                      />{" "}
-                      {filter}
-                    </label>
-                  ))}
-                </div>
-              </div>
-
-              <label className="inline">
-                Está emprestado?
-                <input
-                  type="checkbox"
-                  onChange={(e) => setBorrowed(e.target.checked)}
-                  name="borrowed"
-                />
-              </label>
-
-              <div className="buttons">
-                <button type="button" onClick={closeModal}>
-                  Cancelar
-                </button>
-                <button type="submit">Salvar</button>
-              </div>
-            </form>
+      <div className="modal-overlay" onClick={closeModal}>
+        <div className="modal" onClick={(e) => e.stopPropagation()}>
+          <div className="header">
+            <h2>Adicionar livro na biblioteca</h2>
           </div>
+          <form className="body" onSubmit={handleSubmit}>
+            <label>
+              Nome do Livro:
+              <input
+                type="text"
+                required
+                onChange={(e) => handleChangeValue(e, setName)}
+                name="name"
+                placeholder="Título do livro"
+              />
+            </label>
+
+            <label>
+              Autor:
+              <input
+                type="text"
+                required
+                onChange={(e) => handleChangeValue(e, setAuthor)}
+                name="author"
+                placeholder="Autor do livro"
+              />
+            </label>
+
+            <label>
+              Editora:
+              <input
+                type="text"
+                required
+                onChange={(e) => handleChangeValue(e, setPublisher)}
+                name="publisher"
+                placeholder="Editora do livro"
+              />
+            </label>
+
+            <label>
+              Coleção:
+              <input
+                type="text"
+                onChange={(e) => handleChangeValue(e, setCollectionTitle)}
+                name="collectionTitle"
+                placeholder="Título da coleção"
+              />
+            </label>
+
+            <label>
+              Volume:
+              <input
+                type="text"
+                onChange={(e) => handleChangeValue(e, setCollectionVolume)}
+                name="collectionVolume"
+                placeholder="Volume da coleção"
+              />
+            </label>
+
+            <label>
+              Descrição:
+              <textarea
+                onChange={(e) => handleChangeValue(e, setDescription)}
+                name="description"
+                placeholder="Descrição do livro"
+                required
+                rows="4"
+              ></textarea>
+            </label>
+
+            <div className="filters-container">
+              <label className="filters-label">Filtros:</label>
+              <div className="filters-grid">
+                {[
+                  "Sacramentos",
+                  "Igreja",
+                  "Doutrina",
+                  "Tradição",
+                  "Bíblia",
+                  "Formação",
+                  "Magistério",
+                  "Apologética",
+                  "História",
+                  "Santos",
+                  "Eucaristia",
+                  "Virgem Maria",
+                  "Devoção",
+                  "Consagração",
+                  "Liturgia",
+                  "Testemunho",
+                  "Perseguição",
+                  "Autobiografia",
+                  "Infantil",
+                  "Purgatório",
+                ].map((filter) => (
+                  <label key={filter} className="filter-option">
+                    <input
+                      type="checkbox"
+                      onChange={handleChangeFilters}
+                      name="filters"
+                      value={filter}
+                    />{" "}
+                    {filter}
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <label className="inline">
+              Está emprestado?
+              <input
+                type="checkbox"
+                onChange={(e) => setBorrowed(e.target.checked)}
+                name="borrowed"
+              />
+            </label>
+
+            <div className="buttons">
+              <button type="button" onClick={closeModal}>
+                Cancelar
+              </button>
+              <button type="submit">Salvar</button>
+            </div>
+          </form>
         </div>
-      </>
+      </div>
     );
   }
   return null;

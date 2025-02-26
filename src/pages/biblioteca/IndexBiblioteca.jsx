@@ -68,7 +68,7 @@ const IndexBiblioteca = () => {
           <div>
             <img
               src={img2}
-              width="350px"
+              // width="335px"
               alt="Foto tirada em encontro do mej"
             />
           </div>
@@ -93,7 +93,7 @@ const IndexBiblioteca = () => {
           <div>
             <img
               src={img3}
-              width="350px"
+              // width="335px"
               alt="Foto tirada em encontro do mej"
             />
           </div>
@@ -115,7 +115,7 @@ const IndexBiblioteca = () => {
           <div>
             <img
               src={img4}
-              width="350px"
+              // width="335px"
               alt="Foto tirada em encontro do mej"
             />
           </div>

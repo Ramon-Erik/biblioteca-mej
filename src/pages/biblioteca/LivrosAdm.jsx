@@ -9,9 +9,9 @@ import Header from "../../components/header/Header";
 import Section from "../../components/section/Section";
 import CatalogControls from "../../components/catalogControls/CatalogControls";
 import Loading from "../../components/loadingBooks/LoadingBooks";
-import Book from "../../components/book/Book";
 import AddModal from "../../components/modal/AddModal";
 import FlashMessage from "../../components/flash-message/FlashMessage";
+import Pagination from "../../components/pagination/Pagination";
 
 import addIcon from "../../assets/add.svg";
 
@@ -113,21 +113,19 @@ const LivrosAdm = () => {
           />
         </Section>
         <Section>
-          {!loading && AllBooks.length > 0 && results > 0 && (
-            <ul className="catalog">
-              {filteredBooks.map((book, index) => (
-                <Book
-                  key={index}
+          <div className="full-width">
+            <div className="full-width">
+              {!loading && AllBooks.length > 0 && results > 0 && (
+                <Pagination
                   setMsg={handleShowMessage}
-                  book={book}
-                  index={index}
+                  auth={user}
+                  books={filteredBooks}
                   descIndex={descIndex}
                   handleShowDescription={handleShowDescription}
-                  auth={user}
                 />
-              ))}
-            </ul>
-          )}
+              )}
+            </div>
+          </div>
         </Section>
         <button onClick={logOut}>Sair</button>
       </main>

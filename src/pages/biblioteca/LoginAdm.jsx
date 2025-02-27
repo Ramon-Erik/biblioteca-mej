@@ -31,6 +31,7 @@ const LoginAdm = () => {
       <Header />
       <main>
         <h1 className="text-center">Realizar login</h1>
+        <p className="text-center">Esse login é somente para a coordenação do mej.</p>
         <form onSubmit={handleSubmit}>
           <div className="form-area">
             <label htmlFor="nome">Nome: </label>

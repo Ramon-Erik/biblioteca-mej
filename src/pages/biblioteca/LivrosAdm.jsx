@@ -9,11 +9,8 @@ import Header from "../../components/header/Header";
 import Section from "../../components/section/Section";
 import CatalogControls from "../../components/catalogControls/CatalogControls";
 import Loading from "../../components/loadingBooks/LoadingBooks";
-import AddModal from "../../components/modal/AddModal";
 import FlashMessage from "../../components/flash-message/FlashMessage";
 import Pagination from "../../components/pagination/Pagination";
-
-import addIcon from "../../assets/add.svg";
 
 const LivrosAdm = () => {
   const { user } = useAuth();
@@ -23,7 +20,6 @@ const LivrosAdm = () => {
   const [loading, setLoading] = useState(true);
   const [results, setResults] = useState();
   const [descIndex, setDescIndex] = useState([]);
-  const [addModalIsOpen, setAddModalIsOpen] = useState(false);
   const [message, setMessage] = useState({ type: "unset", msg: "none" });
 
   const handleShowDescription = (index) => {
@@ -36,12 +32,7 @@ const LivrosAdm = () => {
     const booksData = AllBooks.filter((b) => b.filters.includes(value));
     setFilteredBooks(booksData);
     setResults(booksData.length);
-  };
-
-  const handleShowModal = () => {
-    if (!addModalIsOpen) {
-      setAddModalIsOpen(true);
-    }
+    setCurrentPage(1);
   };
 
   const handleShowMessage = (msg) => {
@@ -88,24 +79,6 @@ const LivrosAdm = () => {
           <FlashMessage message={message} />
         </Section>
         <Section>
-          <div className="full-width">
-            <div className="adm-buttons add-book">
-              <div>
-                <button className="btn" id="create" onClick={handleShowModal}>
-                  <img src={addIcon} alt="Ícone de mais" />
-                  <span>Cadastrar novo livro</span>
-                </button>
-                <AddModal
-                  isOpen={addModalIsOpen}
-                  setMsg={handleShowMessage}
-                  setModal={setAddModalIsOpen}
-                  ids={AllBooksId}
-                />
-              </div>
-            </div>
-          </div>
-        </Section>
-        <Section>
           <Loading
             loading={loading}
             books={AllBooks}
@@ -119,6 +92,7 @@ const LivrosAdm = () => {
                 <Pagination
                   setMsg={handleShowMessage}
                   auth={user}
+                  AllBooksId={AllBooksId}
                   books={filteredBooks}
                   descIndex={descIndex}
                   handleShowDescription={handleShowDescription}

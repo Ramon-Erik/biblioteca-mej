@@ -1,3 +1,10 @@
-.container {
-  width: 100%;
+.paginationBtns {
+  display: flex;
+  justify-content: center;
+  gap: 7px;
+}
+
+.containerAddBtn {
+  height: 1.1rem;
+  margin: 1.3rem 0;
 }

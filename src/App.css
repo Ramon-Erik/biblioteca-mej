@@ -99,6 +99,7 @@ input[type="submit"]:disabled {
   display: block;
   width: 100%;
   max-width: 460px !important;
+  text-align: left !important;
   height: fit-content;
 }
 

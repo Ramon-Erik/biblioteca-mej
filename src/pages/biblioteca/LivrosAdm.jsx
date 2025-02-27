@@ -66,7 +66,7 @@ const LivrosAdm = () => {
           <h1>Oi {user.displayName || "aa"}!</h1>
         </Section>
         <Section>
-          <p>O que deseja fazer...?</p>
+          <p>O que deseja fazer?</p>
         </Section>
         <Section>
           <div>

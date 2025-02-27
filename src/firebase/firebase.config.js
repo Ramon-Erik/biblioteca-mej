@@ -15,6 +15,7 @@ import {
   getDocs,
   getFirestore,
   onSnapshot,
+  orderBy,
   query,
   updateDoc,
   where,
@@ -50,8 +51,9 @@ const login = async (nome, senha) => {
 
 const logOut = async () => await signOut(auth);
 
-const listenToBooksAndCatalogue = (callback) => {
-  const unsubscribe = onSnapshot(collectionBooks, (snapshot) => {
+const listenToBooksAndCatalogue = (callback) => { 
+  const q = query(collectionBooks, orderBy("name", "asc"))
+  const unsubscribe = onSnapshot(q, (snapshot) => {
     const booksData = snapshot.docs.map((doc) => ({
       idDoc: doc.id,
       ...doc.data(),

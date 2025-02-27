@@ -21,6 +21,7 @@ const LivrosAdm = () => {
   const [results, setResults] = useState();
   const [descIndex, setDescIndex] = useState([]);
   const [message, setMessage] = useState({ type: "unset", msg: "none" });
+  const [currentPage, setCurrentPage] = useState(1);
 
   const handleShowDescription = (index) => {
     setDescIndex((prev) =>
@@ -96,6 +97,8 @@ const LivrosAdm = () => {
                   books={filteredBooks}
                   descIndex={descIndex}
                   handleShowDescription={handleShowDescription}
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentPage}
                 />
               )}
             </div>

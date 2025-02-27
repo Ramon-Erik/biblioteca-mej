@@ -13,9 +13,10 @@ const Pagination = ({
   descIndex,
   handleShowDescription,
   AllBooksId,
+  currentPage,
+  setCurrentPage,
 }) => {
   const itemsPerPage = 5;
-  const [currentPage, setCurrentPage] = useState(1);
   const [addModalIsOpen, setAddModalIsOpen] = useState(false);
 
   const startIndex = (currentPage - 1) * itemsPerPage;

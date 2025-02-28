@@ -1,0 +1,16 @@
+.container {
+  width: 100%;
+  padding: 1.875rem 1.25rem;
+  background: #ac0a1d;
+  color: white;
+}
+
+.medias p {
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+}
+.medias img {
+  width: 25px;
+  margin: 0;
+}

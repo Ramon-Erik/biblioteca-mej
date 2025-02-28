@@ -3,6 +3,7 @@ import Section from "../../components/section/Section";
 import LinkButton from "../../components/link-button/LinkButton";
 import Slider from "../../components/slider/Slider";
 import Separator from "../../components/separator/Separator";
+import Footer from "../../components/footer/Footer";
 
 import img1 from "../../assets/mej-1.jpg";
 import img2 from "../../assets/mej-2.jpg";
@@ -67,7 +68,7 @@ const IndexBiblioteca = () => {
           </article>
           <div>
             <img
-              src="https://i.imgur.com/0Jd6EuY.jpeg"
+              src={img2}
               // width="335px"
               alt="Foto tirada em encontro do mej"
             />
@@ -100,7 +101,8 @@ const IndexBiblioteca = () => {
         </Section>
         <Separator>
           <q>
-          Conhecereis a <strong>Verdade</strong>, e a verdade vos <strong>libertará</strong>
+            Conhecereis a <strong>Verdade</strong>, e a verdade vos{" "}
+            <strong>libertará</strong>
           </q>
         </Separator>
         <Section>
@@ -109,7 +111,8 @@ const IndexBiblioteca = () => {
             <p>
               A fim de que o movimento pudesse ter uma forma de arrecadar
               dinheiro para suas despesas, é cobrado um valor simbólico de
-              R&#36; 1,00 &#40;um real&#41; pelo empréstimo, que é cobrado no ato de entrega do livro.
+              R&#36; 1,00 &#40;um real&#41; pelo empréstimo, que é cobrado no
+              ato de entrega do livro.
             </p>
           </article>
           <div>
@@ -121,6 +124,7 @@ const IndexBiblioteca = () => {
           </div>
         </Section>
       </main>
+      <Footer />
     </>
   );
 };

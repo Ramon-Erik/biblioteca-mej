@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
-import {
-  logOut,
-  listenToBooksAndCatalogue,
-} from "../../firebase/firebase.config";
+import { listenToBooksAndCatalogue } from "../../firebase/firebase.config";
 
 import Header from "../../components/header/Header";
 import Section from "../../components/section/Section";
@@ -11,9 +8,12 @@ import CatalogControls from "../../components/catalogControls/CatalogControls";
 import Loading from "../../components/loadingBooks/LoadingBooks";
 import FlashMessage from "../../components/flash-message/FlashMessage";
 import Pagination from "../../components/pagination/Pagination";
+import Footer from "../../components/footer/Footer";
 
 const LivrosAdm = () => {
   const { user } = useAuth();
+  console.log(user);
+  
   const [AllBooks, setAllBooks] = useState([]);
   const [AllBooksId, setAllBooksId] = useState([]);
   const [filteredBooks, setFilteredBooks] = useState([]);
@@ -63,7 +63,7 @@ const LivrosAdm = () => {
       <Header />
       <main>
         <Section>
-          <h1>Oi {user.displayName || "aa"}!</h1>
+          <h1 className="text-center">Oi {user.displayName || "aa"}!</h1>
         </Section>
         <Section>
           <p>O que deseja fazer?</p>
@@ -104,8 +104,8 @@ const LivrosAdm = () => {
             </div>
           </div>
         </Section>
-        <button onClick={logOut}>Sair</button>
       </main>
+      <Footer auth={{email: "mej@mpe.com"}}/>
     </>
   );
 };

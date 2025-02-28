@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import Header from "../../components/header/Header";
+import Footer from "../../components/footer/Footer";
 
 const LoginAdm = () => {
   const { user } = useAuth();
@@ -14,7 +15,7 @@ const LoginAdm = () => {
   useEffect(() => {
     if (user) {
       // console.log("useEffect, user:", user);
-      navigate("/biblioteca/livros-adm")
+      navigate("/biblioteca/livros-adm");
     }
   }, [user, navigate]);
 
@@ -31,7 +32,9 @@ const LoginAdm = () => {
       <Header />
       <main>
         <h1 className="text-center">Realizar login</h1>
-        <p className="text-center">Esse login é somente para a coordenação do mej.</p>
+        <p className="text-center">
+          Esse login é somente para a coordenação do mej.
+        </p>
         <form onSubmit={handleSubmit}>
           <div className="form-area">
             <label htmlFor="nome">Nome: </label>
@@ -56,6 +59,7 @@ const LoginAdm = () => {
           </div>
         </form>
       </main>
+      <Footer auth={{email: "null"}} />
     </>
   );
 };

@@ -67,7 +67,7 @@ const IndexBiblioteca = () => {
           </article>
           <div>
             <img
-              src={img2}
+              src="https://i.imgur.com/0Jd6EuY.jpeg"
               // width="335px"
               alt="Foto tirada em encontro do mej"
             />

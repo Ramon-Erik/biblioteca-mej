@@ -5,6 +5,13 @@
   font-family: "Poppins", sans-serif;
 }
 
+body #root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 main {
   max-width: 500px;
   margin: auto;

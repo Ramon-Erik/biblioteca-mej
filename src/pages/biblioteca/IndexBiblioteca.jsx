@@ -85,7 +85,7 @@ const IndexBiblioteca = () => {
             <h2>Como funciona</h2>
             <p>
               O mejista interessado em ler um dos livros do acervo do mej, entra
-              em contato com a Emily &#40;vice-coordenadora do movimento&#41;,
+              em contato com a Emilly &#40;vice-coordenadora do movimento&#41;,
               para combinar como pagar a taxa de empréstimo e quando pegar o
               livro.
             </p>

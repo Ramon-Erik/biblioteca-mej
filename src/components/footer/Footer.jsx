@@ -10,7 +10,8 @@ const Footer = ({auth = {email: "null"}}) => {
         <p>Todos os direitos reservados &copy;</p>
       </div>
       <div className={`${css.medias} text-center`}>
-        <p>Conheça o instagram do mej: <Link target="_blank" to="https://www.instagram.com/mej_mpe/"><img src={instagram} alt="Icone Instagram" /></Link></p>
+        <p>MEJ Maaranguape: <Link target="_blank" to="https://www.instagram.com/mej_mpe/"><img src={instagram} alt="Icone Instagram" /></Link></p>
+        <p>Nossa paróquia: <Link target="_blank" to="https://www.instagram.com/senhoradapenha_mpe/"><img src={instagram} alt="Icone Instagram" /></Link></p>
       </div>
     </footer>
   )

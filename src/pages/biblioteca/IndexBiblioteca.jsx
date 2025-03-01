@@ -168,6 +168,7 @@ const IndexBiblioteca = () => {
             Vale mais a <strong>sabedoria</strong> que as pérolas
           </q>
         </Separator>
+        <span id="catalog"></span>
         <ColumnSection>
           <article id="catalog">
             <div className="heading">

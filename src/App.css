@@ -13,7 +13,8 @@ body #root {
 }
 
 main {
-  max-width: 500px;
+  width: 100%;
+  max-width: 710px;
   margin: auto;
   padding: 1.875rem 1.25rem;
 }
@@ -109,6 +110,7 @@ input[type="submit"]:disabled {
   max-width: 460px !important;
   text-align: left !important;
   height: fit-content;
+  margin-top: .9rem;
 }
 
 ul.catalog {

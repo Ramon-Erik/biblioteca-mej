@@ -16,6 +16,7 @@ function App() {
             <Route path="/" element={<IndexBiblioteca />} />
             <Route path="/biblioteca" element={<IndexBiblioteca />} />
             <Route path="/biblioteca/login" element={<LoginAdm />} />
+            <Route path="/biblioteca/livro/:nome_livro" element={<h1>Em construção</h1>} />
             <Route
               path="/biblioteca/livros-adm"
               element={

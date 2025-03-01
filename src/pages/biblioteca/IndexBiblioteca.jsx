@@ -1,5 +1,5 @@
 import Header from "../../components/header/Header";
-import Section from "../../components/section/Section";
+import SquareSection from "../../components/square-section/SquareSection";
 import LinkButton from "../../components/link-button/LinkButton";
 import Slider from "../../components/slider/Slider";
 import Separator from "../../components/separator/Separator";
@@ -37,7 +37,7 @@ const IndexBiblioteca = () => {
     <>
       <Header link="/biblioteca/login" />
       <main>
-        <Section>
+        <SquareSection>
           <article>
             <h2>Biblioteca do MEJ</h2>
             <p>
@@ -45,18 +45,18 @@ const IndexBiblioteca = () => {
               ensinamentos e tradições da Igreja, fortalecendo sua
               espiritualidade mejista e se aproximando dos valores católicos.
             </p>
-            <LinkButton text="Alugar livro" link="/biblioteca#alugar" />
+            <LinkButton text="Ver livros" link="/biblioteca#catalog" />
           </article>
           <div>
             <Slider imgs={imgs} />
           </div>
-        </Section>
+        </SquareSection>
         <Separator>
           <q>
             Só se <strong>ama</strong> aquilo que se <strong>conhece</strong>
           </q>
         </Separator>
-        <Section>
+        <SquareSection>
           <article>
             <h2>Sobre o projeto</h2>
             <p>
@@ -73,14 +73,14 @@ const IndexBiblioteca = () => {
               alt="Foto tirada em encontro do mej"
             />
           </div>
-        </Section>
+        </SquareSection>
         <Separator>
           <q>
             <strong>Creio</strong> para entender e <strong>entendo</strong> para
             crer
           </q>
         </Separator>
-        <Section>
+        <SquareSection>
           <article>
             <h2>Como funciona</h2>
             <p>
@@ -98,14 +98,14 @@ const IndexBiblioteca = () => {
               alt="Foto tirada em encontro do mej"
             />
           </div>
-        </Section>
+        </SquareSection>
         <Separator>
           <q>
             Conhecereis a <strong>Verdade</strong>, e a verdade vos{" "}
             <strong>libertará</strong>
           </q>
         </Separator>
-        <Section>
+        <SquareSection>
           <article>
             <h2>Taxa de empréstimo</h2>
             <p>
@@ -122,7 +122,13 @@ const IndexBiblioteca = () => {
               alt="Foto tirada em encontro do mej"
             />
           </div>
-        </Section>
+        </SquareSection>
+        <SquareSection>
+          <article id="catalog">
+            <h2>Catálogo de livros</h2>
+            <p>Ao clicar na imagem do livro, aparecerá um texto que descreve os assuntos que o livro aborda.</p>
+          </article>
+        </SquareSection>
       </main>
       <Footer />
     </>

@@ -3,7 +3,7 @@ import { useAuth } from "../../context/AuthContext";
 import { listenToBooksAndCatalogue } from "../../firebase/firebase.config";
 
 import Header from "../../components/header/Header";
-import Section from "../../components/section/Section";
+import SquareSection from "../../components/square-section/SquareSection";
 import CatalogControls from "../../components/catalogControls/CatalogControls";
 import Loading from "../../components/loadingBooks/LoadingBooks";
 import FlashMessage from "../../components/flash-message/FlashMessage";
@@ -12,7 +12,6 @@ import Footer from "../../components/footer/Footer";
 
 const LivrosAdm = () => {
   const { user } = useAuth();
-  console.log(user);
   
   const [AllBooks, setAllBooks] = useState([]);
   const [AllBooksId, setAllBooksId] = useState([]);
@@ -62,31 +61,31 @@ const LivrosAdm = () => {
     <>
       <Header />
       <main>
-        <Section>
+        <SquareSection>
           <h1 className="text-center">Oi {user.displayName || "aa"}!</h1>
-        </Section>
-        <Section>
+        </SquareSection>
+        <SquareSection>
           <p>O que deseja fazer?</p>
-        </Section>
-        <Section>
+        </SquareSection>
+        <SquareSection>
           <div>
             <CatalogControls
               results={results}
               handleChangeValue={handleFilterChange}
             />
           </div>
-        </Section>
-        <Section>
+        </SquareSection>
+        <SquareSection>
           <FlashMessage message={message} />
-        </Section>
-        <Section>
+        </SquareSection>
+        <SquareSection>
           <Loading
             loading={loading}
             books={AllBooks}
             filtered={filteredBooks}
           />
-        </Section>
-        <Section>
+        </SquareSection>
+        <SquareSection>
           <div className="full-width">
             <div className="full-width">
               {!loading && AllBooks.length > 0 && results > 0 && (
@@ -103,7 +102,7 @@ const LivrosAdm = () => {
               )}
             </div>
           </div>
-        </Section>
+        </SquareSection>
       </main>
       <Footer auth={{email: "mej@mpe.com"}}/>
     </>

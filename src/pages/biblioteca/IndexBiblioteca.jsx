@@ -1,8 +1,14 @@
+import { useEffect, useState } from "react";
+import { listenToBooksAndCatalogue } from "../../firebase/firebase.config";
+
 import Header from "../../components/header/Header";
 import SquareSection from "../../components/square-section/SquareSection";
+import ColumnSection from "../../components/column-section/ColumnSection";
 import LinkButton from "../../components/link-button/LinkButton";
 import Slider from "../../components/slider/Slider";
 import Separator from "../../components/separator/Separator";
+import Pagination from "../../components/pagination/Pagination";
+import CatalogControls from "../../components/catalogControls/CatalogControls";
 import Footer from "../../components/footer/Footer";
 
 import img1 from "../../assets/mej-1.jpg";
@@ -33,6 +39,40 @@ const IndexBiblioteca = () => {
       alt: "Foto tirada em encontro do mej",
     },
   ];
+  const [AllBooks, setAllBooks] = useState([]);
+  const [AllBooksId, setAllBooksId] = useState([]);
+  const [filteredBooks, setFilteredBooks] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [results, setResults] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const handleShowDescription = (index) => {
+    setDescIndex((prev) =>
+      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
+    );
+  };
+
+  const handleFilterChange = (value) => {
+    const booksData = AllBooks.filter((b) => b.filters.includes(value));
+    setFilteredBooks(booksData);
+    setResults(booksData.length);
+    setCurrentPage(1);
+  };
+  const [descIndex, setDescIndex] = useState([]);
+  useEffect(() => {
+    try {
+      const unsubscribe = listenToBooksAndCatalogue((booksData) => {
+        setAllBooks(booksData);
+        setAllBooksId(booksData.map((b) => b.id));
+        setFilteredBooks(booksData);
+        setResults(booksData.length);
+        setLoading(false);
+      });
+      return () => unsubscribe();
+    } catch (error) {
+      console.error("erro ao ler livros", error);
+    }
+  }, []);
   return (
     <>
       <Header link="/biblioteca/login" />
@@ -53,7 +93,8 @@ const IndexBiblioteca = () => {
         </SquareSection>
         <Separator>
           <q>
-            Só se <strong>ama</strong> aquilo que se <strong>conhece</strong>
+            Conhecereis a <strong>Verdade</strong>, e a verdade vos{" "}
+            <strong>libertará</strong>
           </q>
         </Separator>
         <SquareSection>
@@ -101,8 +142,7 @@ const IndexBiblioteca = () => {
         </SquareSection>
         <Separator>
           <q>
-            Conhecereis a <strong>Verdade</strong>, e a verdade vos{" "}
-            <strong>libertará</strong>
+            Só se <strong>ama</strong> aquilo que se <strong>conhece</strong>
           </q>
         </Separator>
         <SquareSection>
@@ -123,12 +163,42 @@ const IndexBiblioteca = () => {
             />
           </div>
         </SquareSection>
-        <SquareSection>
+        <Separator>
+          <q>
+            Vale mais a <strong>sabedoria</strong> que as pérolas
+          </q>
+        </Separator>
+        <ColumnSection>
           <article id="catalog">
-            <h2>Catálogo de livros</h2>
-            <p>Ao clicar na imagem do livro, aparecerá um texto que descreve os assuntos que o livro aborda.</p>
+            <div className="heading">
+              <h2 className="text-center">Catálogo de livros</h2>
+              <p className="text-center">
+                Ao clicar na imagem do livro, aparecerá um texto que descreve os
+                assuntos que o livro aborda.
+              </p>
+            </div>
+            <div className="text-center" style={{margin: "1rem 0 2rem"}}>
+              <CatalogControls
+                results={results}
+                handleChangeValue={handleFilterChange}
+              />
+            </div>
+            <div className="books">
+              {!loading && AllBooks.length > 0 && results > 0 && (
+                <Pagination
+                  setMsg={null}
+                  auth={{ email: "null" }}
+                  AllBooksId={AllBooksId}
+                  books={filteredBooks}
+                  descIndex={descIndex}
+                  handleShowDescription={handleShowDescription}
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentPage}
+                />
+              )}
+            </div>
           </article>
-        </SquareSection>
+        </ColumnSection>
       </main>
       <Footer />
     </>

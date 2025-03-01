@@ -5,7 +5,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import IndexBiblioteca from "./pages/biblioteca/IndexBiblioteca";
 import LivrosAdm from "./pages/biblioteca/LivrosAdm";
 import LoginAdm from "./pages/biblioteca/LoginAdm";
-import "./App.css";
+import "./App.css"; 
 
 function App() {
   return (

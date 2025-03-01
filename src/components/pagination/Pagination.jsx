@@ -53,22 +53,27 @@ const Pagination = ({
           Próximo
         </button>
       </div>
-      <div className={`${css.containerAddBtn} full-width`}>
-        <div className="adm-buttons add-book">
-          <div>
-            <button className="btn" id="create" onClick={handleShowModal}>
-              <img src={addIcon} alt="Ícone de mais" />
-              <span>Cadastrar novo livro</span>
-            </button>
-            <AddModal
-              isOpen={addModalIsOpen}
-              setMsg={setMsg}
-              setModal={setAddModalIsOpen}
-              ids={AllBooksId}
-            />
+      {auth.email === "mej@mpe.com" && (
+        <div className={`${css.containerAddBtn} full-width`}>
+          <div className="adm-buttons add-book">
+            <div>
+              <button className="btn" id="create" onClick={handleShowModal}>
+                <img src={addIcon} alt="Ícone de mais" />
+                <span>Cadastrar novo livro</span>
+              </button>
+              <AddModal
+                isOpen={addModalIsOpen}
+                setMsg={setMsg}
+                setModal={setAddModalIsOpen}
+                ids={AllBooksId}
+              />
+            </div>
           </div>
         </div>
-      </div>
+      )}
+      {auth.email === "null" && (
+        <span style={{margin: "3rem"}}></span>
+      )}
       <ul className="catalog">
         {currentBoks.map((book, index) => (
           <Book

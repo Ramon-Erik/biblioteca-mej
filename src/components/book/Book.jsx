@@ -1,3 +1,8 @@
+import { useState } from "react";
+import { Link } from "react-router-dom";
+
+import css from "./Book.module.css";
+
 import DeleteModal from "../modal/DeleteModal";
 import BorrowModal from "../modal/BorrowModal";
 import UpdateModal from "../modal/UpdateModal";
@@ -5,10 +10,9 @@ import UpdateModal from "../modal/UpdateModal";
 import editIcon from "../../assets/edit.svg";
 import borrowIcon from "../../assets/borrow.svg";
 import deleteIcon from "../../assets/delete.svg";
-import { useState } from "react";
 
 const Book = ({
-  book,
+  book = [],
   auth = { email: "null" },
   index,
   descIndex,
@@ -55,6 +59,9 @@ const Book = ({
               </span>
             )}
           </p>
+          {auth.email === "null" && (
+            <Link className={css.link} target="_self" to={`/biblioteca/livro/${book.name.replaceAll(' ', '_')}`}>Ver mais...</Link>
+          )}
         </div>
       </div>
       {auth.email === "mej@mpe.com" && (
@@ -93,21 +100,21 @@ const Book = ({
               setModal={setUpdateModalOpen}
             />
           </div>
+          <p>
+            {book.borrowed && (
+              <span className="line">
+                Status: <span className="borrowed">emprestado</span>
+              </span>
+            )}
+            {!book.borrowed && (
+              <span className="line">
+                Status: <span className="avalible">disponível</span>
+              </span>
+            )}
+            <span className="line">Filtros: {book.filters.join(", ")}</span>
+          </p>
         </>
       )}
-      <p>
-        {book.borrowed && (
-          <span className="line">
-            Status: <span className="borrowed">emprestado</span>
-          </span>
-        )}
-        {!book.borrowed && (
-          <span className="line">
-            Status: <span className="avalible">disponível</span>
-          </span>
-        )}
-        <span className="line">Filtros: {book.filters.join(", ")}</span>
-      </p>
       <div className="desc">
         <p className={descIndex.includes(index) ? "shown" : "hidden"}>
           {book.description}

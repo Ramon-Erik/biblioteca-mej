@@ -16,7 +16,7 @@ import img2 from "../../assets/mej-2.jpg";
 import img3 from "../../assets/mej-3.jpg";
 import img4 from "../../assets/mej-4.jpg";
 
-const IndexBiblioteca = () => {
+const Index = () => {
   const imgs = [
     {
       id: 1,
@@ -225,4 +225,4 @@ const IndexBiblioteca = () => {
   );
 };
 
-export default IndexBiblioteca;
+export default Index;

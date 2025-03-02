@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
 
-const LoginAdm = () => {
+const Login = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [nome, setNome] = useState();
@@ -63,4 +63,4 @@ const LoginAdm = () => {
   );
 };
 
-export default LoginAdm;
+export default Login;

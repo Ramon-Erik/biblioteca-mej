@@ -1,9 +1,101 @@
-.link {
-  display: inline-block;
+.bookButtonContainer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+}
+
+.bookButton::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
   background: #db162f;
-  padding: 0.1rem 0.5rem;
-  font-size: .89rem;
+  transition: width 0.3s ease-in-out;
+  z-index: -1;
+}
+
+.bookButton:hover,
+.bookButton:active {
   color: white;
+}
+
+.bookButton:hover::before,
+.bookButton:active::before {
+  width: 100%;
+}
+
+.statusIndicator {
+  position: relative;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  animation: pulse 1.5s infinite ease-in-out;
+  cursor: pointer;
+}
+
+.unavalible {
+  background-color: #ffc107;
+}
+
+.avalible {
+  background-color: #4caf50;
+}
+
+.tooltip {
+  position: absolute;
+  top: -2.4rem;
+  left: 30%;
+  transform: translate(-50%);
+  display: block;
+  background-color: #000000b6;
+  color: #fff;
+  padding: 5px 8px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  border-radius: 5px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s;
+  pointer-events: none;
+}
+
+.statusIndicator:hover ~ .tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
+.bookButton {
+  position: relative;
+  display: inline-block;
+  background: transparent;
+  border: 1px solid #db162f;
+  padding: 0.1rem 0.5rem;
+  font-size: 0.89rem;
+  color: #db162f;
   text-decoration: none;
   border-radius: 0.6rem;
+  overflow: hidden;
+  transition: color 0.3s ease-in-out;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+}
+
+@media screen and (max) {
+  
 }

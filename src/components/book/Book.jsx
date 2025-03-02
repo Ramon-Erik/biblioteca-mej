@@ -60,7 +60,25 @@ const Book = ({
             )}
           </p>
           {auth.email === "null" && (
-            <Link className={css.link} target="_self" to={`/biblioteca/livros/${book.name.replaceAll(' ', '_')}`}>Ver mais...</Link>
+            <span className={css.bookButtonContainer}>
+              <Link
+                className={css.bookButton}
+                target="_self"
+                to={`/biblioteca/livros/${book.name.replaceAll(" ", "_")}`}
+              >
+                Ver mais...
+              </Link>
+              <span
+                className={`${css.statusIndicator} ${
+                  book.borrowed ? css.unavalible : css.avalible
+                }`}
+              ></span>
+              <span className={css.tooltip}>
+                {book.borrowed
+                  ? "Este livro já está emprestado."
+                  : "Você pode pedir este livro emprestado."}
+              </span>
+            </span>
           )}
         </div>
       </div>

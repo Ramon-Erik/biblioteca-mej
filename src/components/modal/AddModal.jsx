@@ -19,6 +19,8 @@ const AddModal = ({ isOpen, setModal, ids, setMsg }) => {
 
   const availableFilters = [
     "Sacramentos",
+    "Oração",
+    "Espiritualidade",
     "Igreja",
     "Doutrina",
     "Tradição",
@@ -181,6 +183,8 @@ const AddModal = ({ isOpen, setModal, ids, setMsg }) => {
               <div className="filters-grid">
                 {[
                   "Sacramentos",
+                  "Oração",
+                  "Espiritualidade",
                   "Igreja",
                   "Doutrina",
                   "Tradição",

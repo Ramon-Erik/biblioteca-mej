@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./Modal.css";
 import { updateBook } from "../../firebase/firebase.config";
 
-const UpdateModal = ({ isOpen, setModal, book, setMsg}) => {
+const UpdateModal = ({ isOpen, setModal, book, setMsg }) => {
   const [name, setName] = useState("");
   const [author, setAuthor] = useState("");
   const [publisher, setPublisher] = useState("");
@@ -26,12 +26,13 @@ const UpdateModal = ({ isOpen, setModal, book, setMsg}) => {
   }, [book]);
 
   const closeModal = () => {
-    setModal(false)
-    setFilters(["Todos"])
-  }
+    setModal(false);
+  };
 
   const availableFilters = [
     "Sacramentos",
+    "Oração",
+    "Espiritualidade",
     "Igreja",
     "Doutrina",
     "Tradição",
@@ -66,18 +67,6 @@ const UpdateModal = ({ isOpen, setModal, book, setMsg}) => {
     }
   };
 
-  const formReset = (form) => {
-    setName("");
-    setAuthor("");
-    setPublisher("");
-    setCollectionTitle("");
-    setCollectionVolume("");
-    setDescription("");
-    setFilters(["Todos"]);
-    setBorrowed(false);
-    form.reset()
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -97,14 +86,12 @@ const UpdateModal = ({ isOpen, setModal, book, setMsg}) => {
     }
     try {
       await updateBook(book.idDoc, formData);
-      formReset(e.target)
-      closeModal()
-      setMsg({type: "success", msg: "Livro atualizado com sucesso!"})
+      closeModal();
+      setMsg({ type: "success", msg: "Livro atualizado com sucesso!" });
     } catch (error) {
       console.error(error);
-      formReset(e.target)
-      closeModal()
-      setMsg({type: "error", msg: "Problema ao atualizar livro!"})
+      closeModal();
+      setMsg({ type: "error", msg: "Problema ao atualizar livro!" });
     }
   };
   if (isOpen) {
@@ -191,6 +178,8 @@ const UpdateModal = ({ isOpen, setModal, book, setMsg}) => {
                 <div className="filters-grid">
                   {[
                     "Sacramentos",
+                    "Oração",
+                    "Espiritualidade",
                     "Igreja",
                     "Doutrina",
                     "Tradição",

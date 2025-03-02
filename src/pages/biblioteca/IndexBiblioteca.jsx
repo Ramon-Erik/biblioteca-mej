@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useRef } from "react";
 import { listenToBooksAndCatalogue } from "../../firebase/firebase.config";
 
 import Header from "../../components/header/Header";
@@ -45,6 +46,7 @@ const IndexBiblioteca = () => {
   const [loading, setLoading] = useState(true);
   const [results, setResults] = useState();
   const [currentPage, setCurrentPage] = useState(1);
+  const catalogRef = useRef();
 
   const handleShowDescription = (index) => {
     setDescIndex((prev) =>
@@ -85,7 +87,15 @@ const IndexBiblioteca = () => {
               ensinamentos e tradições da Igreja, fortalecendo sua
               espiritualidade mejista e se aproximando dos valores católicos.
             </p>
-            <LinkButton text="Ver livros" link="/biblioteca#catalog" />
+            <button
+              onClick={() => {
+                catalogRef.current?.scrollIntoView({
+                  behavior: "smooth",
+                });
+              }}
+            >
+              Ver livros
+            </button>
           </article>
           <div>
             <Slider imgs={imgs} />
@@ -130,7 +140,15 @@ const IndexBiblioteca = () => {
               para combinar como pagar a taxa de empréstimo e quando pegar o
               livro.
             </p>
-            <LinkButton text="Ver livros" link="/biblioteca#catalogo" />
+            <button
+              onClick={() => {
+                catalogRef.current?.scrollIntoView({
+                  behavior: "smooth",
+                });
+              }}
+            >
+              Ver livros
+            </button>
           </article>
           <div>
             <img
@@ -168,7 +186,7 @@ const IndexBiblioteca = () => {
             Vale mais a <strong>sabedoria</strong> que as pérolas
           </q>
         </Separator>
-        <span id="catalog"></span>
+        <span ref={catalogRef} spacefor="catalog"></span>
         <ColumnSection>
           <article id="catalog">
             <div className="heading">
@@ -178,7 +196,7 @@ const IndexBiblioteca = () => {
                 assuntos que o livro aborda.
               </p>
             </div>
-            <div className="text-center" style={{margin: "1rem 0 2rem"}}>
+            <div className="text-center" style={{ margin: "1rem 0 2rem" }}>
               <CatalogControls
                 results={results}
                 handleChangeValue={handleFilterChange}

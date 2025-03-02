@@ -5,7 +5,6 @@ import { listenToBooksAndCatalogue } from "../../firebase/firebase.config";
 import Header from "../../components/header/Header";
 import SquareSection from "../../components/square-section/SquareSection";
 import ColumnSection from "../../components/column-section/ColumnSection";
-import LinkButton from "../../components/link-button/LinkButton";
 import Slider from "../../components/slider/Slider";
 import Separator from "../../components/separator/Separator";
 import Pagination from "../../components/pagination/Pagination";
@@ -88,6 +87,7 @@ const IndexBiblioteca = () => {
               espiritualidade mejista e se aproximando dos valores católicos.
             </p>
             <button
+              className="hash-button"
               onClick={() => {
                 catalogRef.current?.scrollIntoView({
                   behavior: "smooth",
@@ -141,6 +141,7 @@ const IndexBiblioteca = () => {
               livro.
             </p>
             <button
+              className="hash-button"
               onClick={() => {
                 catalogRef.current?.scrollIntoView({
                   behavior: "smooth",

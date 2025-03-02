@@ -129,6 +129,7 @@ const Book = ({
                 Status: <span className="avalible">disponível</span>
               </span>
             )}
+            <span className="line">Editora: {book.publisher}</span>
             <span className="line">Filtros: {book.filters.join(", ")}</span>
           </p>
         </>

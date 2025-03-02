@@ -3,9 +3,10 @@ import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 import IndexBiblioteca from "./pages/biblioteca/IndexBiblioteca";
-import LivrosAdm from "./pages/biblioteca/LivrosAdm";
+import LivrosAdm from "./pages/biblioteca/livros/Adm";
+import Livro from "./pages/biblioteca/livros/Livro";
 import LoginAdm from "./pages/biblioteca/LoginAdm";
-import "./App.css"; 
+import "./App.css";
 
 function App() {
   return (
@@ -16,13 +17,13 @@ function App() {
             <Route path="/" element={<IndexBiblioteca />} />
             <Route path="/biblioteca" element={<IndexBiblioteca />} />
             <Route path="/biblioteca/login" element={<LoginAdm />} />
-            <Route path="/biblioteca/livro/:nome_livro" element={<h1>Em construção</h1>} />
+            <Route path="/biblioteca/livros/:book_name" element={<Livro />} />
             <Route
-              path="/biblioteca/livros-adm"
+              path="/biblioteca/livros/adm"
               element={
                 <ProtectedRoute>
                   <LivrosAdm />
-                </ProtectedRoute> 
+                </ProtectedRoute>
               }
             />
             <Route path="*" element={<h1>Erro</h1>} />

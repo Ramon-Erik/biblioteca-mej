@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import { useAuth } from "../../context/AuthContext";
-import { listenToBooksAndCatalogue } from "../../firebase/firebase.config";
+import { useAuth } from "../../../context/AuthContext";
+import { listenToBooksAndCatalogue } from "../../../firebase/firebase.config";
 
-import Header from "../../components/header/Header";
-import SquareSection from "../../components/square-section/SquareSection";
-import CatalogControls from "../../components/catalogControls/CatalogControls";
-import Loading from "../../components/loadingBooks/LoadingBooks";
-import FlashMessage from "../../components/flash-message/FlashMessage";
-import Pagination from "../../components/pagination/Pagination";
-import Footer from "../../components/footer/Footer";
+import Header from "../../../components/header/Header";
+import SquareSection from "../../../components/square-section/SquareSection";
+import CatalogControls from "../../../components/catalogControls/CatalogControls";
+import Loading from "../../../components/loadingBooks/LoadingBooks";
+import FlashMessage from "../../../components/flash-message/FlashMessage";
+import Pagination from "../../../components/pagination/Pagination";
+import Footer from "../../../components/footer/Footer";
 
 const LivrosAdm = () => {
   const { user } = useAuth();

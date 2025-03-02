@@ -60,7 +60,7 @@ const Book = ({
             )}
           </p>
           {auth.email === "null" && (
-            <Link className={css.link} target="_self" to={`/biblioteca/livro/${book.name.replaceAll(' ', '_')}`}>Ver mais...</Link>
+            <Link className={css.link} target="_self" to={`/biblioteca/livros/${book.name.replaceAll(' ', '_')}`}>Ver mais...</Link>
           )}
         </div>
       </div>

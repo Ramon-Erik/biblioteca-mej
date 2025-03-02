@@ -76,7 +76,7 @@ const Book = ({
               <span className={css.tooltip}>
                 {book.borrowed
                   ? "Este livro já está emprestado."
-                  : "Você pode pedir este livro emprestado."}
+                  : "Você pode pedir este livro."}
               </span>
             </span>
           )}

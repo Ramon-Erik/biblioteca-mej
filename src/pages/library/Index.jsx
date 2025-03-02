@@ -166,7 +166,7 @@ const Index = () => {
         </Separator>
         <SquareSection>
           <article>
-            <h2>Taxa de empréstimo</h2>
+            <h2>Custo de empréstimo</h2>
             <p>
               A fim de que o movimento pudesse ter uma forma de arrecadar
               dinheiro para suas despesas, é cobrado um valor simbólico de

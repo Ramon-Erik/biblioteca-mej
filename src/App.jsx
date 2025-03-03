@@ -3,8 +3,8 @@ import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 import Index from "./pages/library/Index";
-import LivrosAdm from "./pages/library/livros/Adm";
-import Livro from "./pages/library/livros/Livro";
+import LivrosAdm from "./pages/library/books/Adm";
+import BookDetails from "./pages/library/books/BookDetails";
 import Login from "./pages/library/Login";
 import "./App.css";
 
@@ -17,7 +17,7 @@ function App() {
             <Route path="/" element={<Index />} />
             <Route path="/biblioteca" element={<Index />} />
             <Route path="/biblioteca/login" element={<Login />} />
-            <Route path="/biblioteca/livros/:book_name" element={<Livro />} />
+            <Route path="/biblioteca/livros/:bookName" element={<BookDetails />} />
             <Route
               path="/biblioteca/livros/adm"
               element={

@@ -77,18 +77,33 @@ const BookDetails = () => {
               </p>
               {book.borrowed && (
                 <p>
-                  <strong>Situação:</strong> <span className={`${css.status} ${css.avalible}`}>indisponível!</span> Este livro está nas mãos de alguém
-                  agora... A estimativa de devolução é para o dia{" "}
-                  <span>{new Date(book.returnDate).toLocaleDateString("pt-BR", {
-                    day: "2-digit",
-                    month: "long",
-                    year: "numeric"
-                  })}.</span>
+                  <strong>Situação:</strong>{" "}
+                  <span className={`${css.status} ${css.avalible}`}>
+                    indisponível!
+                  </span>{" "}
+                  Este livro está nas mãos de alguém agora... A estimativa de
+                  devolução é para o dia{" "}
+                  <span>
+                    {new Date(book.returnDate).toLocaleDateString("pt-BR", {
+                      day: "2-digit",
+                      month: "long",
+                      year: "numeric",
+                    })}
+                    .
+                  </span>
                 </p>
               )}
               {!book.borrowed && (
-                <p>
-                  <strong>Situação:</strong> <span className={`${css.status} ${css.avalible}`}>livre!</span> Você pode pedir esse livro emprestado.</p>
+                <>
+                  <p>
+                    <strong>Situação:</strong>{" "}
+                    <span className={`${css.status} ${css.avalible}`}>
+                      livre!
+                    </span>{" "}
+                    Você pode pedir esse livro emprestado.
+                  </p>
+                  <button className={css.borrowButton} type="button">Quero este livro!</button>
+                </>
               )}
             </article>
           </section>

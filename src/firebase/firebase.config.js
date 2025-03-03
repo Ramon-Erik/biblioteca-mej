@@ -51,8 +51,8 @@ const login = async (nome, senha) => {
 
 const logOut = async () => await signOut(auth);
 
-const listenToBooksAndCatalogue = (callback) => { 
-  const q = query(collectionBooks, orderBy("name", "asc"))
+const listenToBooksAndCatalogue = (callback) => {
+  const q = query(collectionBooks, orderBy("name", "asc"));
   const unsubscribe = onSnapshot(q, (snapshot) => {
     const booksData = snapshot.docs.map((doc) => ({
       idDoc: doc.id,
@@ -90,6 +90,15 @@ const updateBook = async (docId, borrowData) => {
   await updateDoc(book, borrowData);
 };
 
+const getBookByName = async (bookName) => {
+  const bookQuery = query(collectionBooks, where("name", "==", bookName));
+  const querySnap = await getDocs(bookQuery);
+  if (!querySnap.empty) {
+    return querySnap.docs[0].data();
+  }
+  return false;
+};
+
 const deleteBook = async (bookId) => await deleteDoc(doc(db, "books", bookId));
 
 export {
@@ -100,4 +109,5 @@ export {
   deleteBook,
   borrowBook,
   updateBook,
+  getBookByName,
 };

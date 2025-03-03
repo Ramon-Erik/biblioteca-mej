@@ -13,6 +13,7 @@ body #root {
 }
 
 main {
+  flex-grow: 1;
   width: 100%;
   max-width: 710px;
   margin: auto;
@@ -62,7 +63,7 @@ main div > img {
   object-fit: cover;
 }
 
-main strong {
+main q strong {
   color: #db162f;
 }
 

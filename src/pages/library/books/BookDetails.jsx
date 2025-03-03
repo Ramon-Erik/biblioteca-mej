@@ -78,7 +78,7 @@ const BookDetails = () => {
               {book.borrowed && (
                 <p>
                   <strong>Situação:</strong>{" "}
-                  <span className={`${css.status} ${css.avalible}`}>
+                  <span className={`${css.status} ${css.unavalible}`}>
                     indisponível!
                   </span>{" "}
                   Este livro está nas mãos de alguém agora... A estimativa de

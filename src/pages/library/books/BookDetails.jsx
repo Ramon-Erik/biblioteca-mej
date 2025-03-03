@@ -66,9 +66,30 @@ const BookDetails = () => {
               <p className={css.description}>
                 <strong>Sobre o livro:</strong> <span>{book.description}</span>
               </p>
+              {book.collection?.title && book.collection?.volume && (
+                <p>
+                  <strong>Coleção:</strong> <span>{book.collection.title}</span>{" "}
+                  - <span>Volume {book.collection.volume}</span>
+                </p>
+              )}
               <p className={css.publisher}>
                 <strong>Editora:</strong> <span>{book.publisher}</span>
               </p>
+              {book.borrowed && (
+                <p>
+                  <strong>Situação:</strong> <span className={`${css.status} ${css.avalible}`}>indisponível!</span> Este livro está nas mãos de alguém
+                  agora... A estimativa de devolução é para o dia{" "}
+                  <span>{new Date(book.returnDate).toLocaleDateString("pt-BR", {
+                    day: "2-digit",
+                    month: "long",
+                    year: "numeric"
+                  })}.</span>
+                </p>
+              )}
+              {!book.borrowed && (
+                <p>
+                  <strong>Situação:</strong> <span className={`${css.status} ${css.avalible}`}>livre!</span> Você pode pedir esse livro emprestado.</p>
+              )}
             </article>
           </section>
         </main>

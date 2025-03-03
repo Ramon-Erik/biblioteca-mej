@@ -15,3 +15,21 @@
 .bookNameTitle {
   margin: 0.8rem 0;
 }
+
+.description {
+  text-align: justify;
+}
+
+.status {
+  display: inline-block;
+  padding: 2px 7px;
+  border-radius: 1rem;
+}
+
+.unavalible {
+  background-color: #ffc107;
+}
+
+.avalible {
+  background-color: #4caf50;
+}

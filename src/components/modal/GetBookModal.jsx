@@ -85,7 +85,6 @@ const GetBookModal = ({ isOpen, setModal, book, setMsg }) => {
     e.preventDefault();
     if (book.filters[0] === filterString) {
       closeModal();
-      await deleteBook(book.idDoc);
       setFilterString("");
       setMsg({ type: "success", msg: "Livro apagado com sucesso!" });
     } else {

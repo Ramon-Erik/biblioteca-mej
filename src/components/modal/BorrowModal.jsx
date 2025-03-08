@@ -20,6 +20,28 @@ const BorrowModal = ({ isOpen, book, setModal, setMsg }) => {
     return formattedDate;
   };
 
+  const dateToLocaleDate = (day) =>
+    new Date(day).toLocaleDateString("pt-BR", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    });
+
+  const loanRates = (day) => {
+    const today = new Date();
+    const returnDate = new Date(day);
+    let rates = 1;
+    if (today < returnDate) {
+      return (
+        "Empréstimo: " +
+        rates.toLocaleString("pt-BR", {
+          style: "currency",
+          currency: "BRL",
+        }) + "Atrasos: R$ 0,00"
+      );
+    }
+  };
+
   const closeModal = () => {
     setModal(false);
     setReturningBook(true);
@@ -31,18 +53,18 @@ const BorrowModal = ({ isOpen, book, setModal, setMsg }) => {
     e.preventDefault();
     const loanId = `loan_${Date.now()}`;
     const borrowData = returningBook
-    ? {
-      borrowed: false,
-      borrowerName: null,
-      returnDate: null,
-      loanId: null,
-    } 
-    : {
-        borrowed: true,
-        borrowerName: name,
-        returnDate,
-        loanId,
-      };
+      ? {
+          borrowed: false,
+          borrowerName: null,
+          returnDate: null,
+          loanId: null,
+        }
+      : {
+          borrowed: true,
+          borrowerName: name,
+          returnDate,
+          loanId,
+        };
     try {
       await borrowBook(book.idDoc, borrowData);
       setMsg({
@@ -52,7 +74,7 @@ const BorrowModal = ({ isOpen, book, setModal, setMsg }) => {
           : "Livro emprestado com sucesso!",
       });
     } catch (err) {
-      console.error(err)
+      console.error(err);
       setMsg({
         type: "Error",
         msg: returningBook
@@ -74,26 +96,43 @@ const BorrowModal = ({ isOpen, book, setModal, setMsg }) => {
           <form className="body" onSubmit={handleSubmit}>
             <div className="radioLabels">
               <h3>O que você deseja fazer?</h3>
-              <label className="radioLabel">
-                Emprestar
-                <input
-                  onClick={() => setReturningBook(false)}
-                  type="radio"
-                  name="returningBook"
-                  value="false"
-                  id="returningBookFalse"
-                />
-              </label>
-              <label className="radioLabel">
-                Confirmar devolução
-                <input
-                  onChange={() => setReturningBook(true)}
-                  type="radio"
-                  name="returningBook"
-                  value="true"
-                  id="returningBookTrue"
-                />
-              </label>
+              {!book.borrowed && (
+                <label className="radioLabel">
+                  Emprestar
+                  <input
+                    onClick={() => setReturningBook(false)}
+                    type="radio"
+                    name="returningBook"
+                    value="false"
+                    id="returningBookFalse"
+                  />
+                </label>
+              )}
+              {book.borrowed && (
+                <>
+                  <p>
+                    Atualmente este livro está nas mãos de {book.borrowerName}.
+                    A data prevista para entrega é de{" "}
+                    {dateToLocaleDate(book.returnDate)}.
+                  </p>
+                  <p>
+                    O total mínimo (entrega + atrasos) a ser recebido pelo
+                    empréstimo é:
+                    <br />
+                    {loanRates(book.returnDate)}
+                  </p>
+                  <label className="radioLabel">
+                    Confirmar devolução
+                    <input
+                      onChange={() => setReturningBook(true)}
+                      type="radio"
+                      name="returningBook"
+                      value="true"
+                      id="returningBookTrue"
+                    />
+                  </label>
+                </>
+              )}
             </div>
             {!returningBook && returningBook !== null && (
               <>

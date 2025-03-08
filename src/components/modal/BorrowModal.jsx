@@ -4,11 +4,11 @@ import "./Modal.css";
 
 const BorrowModal = ({ isOpen, book, setModal, setMsg }) => {
   const [name, setName] = useState("");
-  const [returnDate, setReturnDate] = useState("");
+  const [dueDate, setDueDate] = useState("");
   const [returningBook, setReturningBook] = useState(null);
 
   useEffect(() => {
-    setReturnDate(formattedDate());
+    setDueDate(formattedDate());
   }, []);
 
   const formattedDate = () => {
@@ -27,26 +27,31 @@ const BorrowModal = ({ isOpen, book, setModal, setMsg }) => {
       year: "numeric",
     });
 
-  const loanRates = (day) => {
+  const calculateFine = (day) => {
     const today = new Date();
-    const returnDate = new Date(day);
-    let rates = 1;
-    if (today < returnDate) {
-      return (
-        "Empréstimo: " +
-        rates.toLocaleString("pt-BR", {
-          style: "currency",
-          currency: "BRL",
-        }) + "Atrasos: R$ 0,00"
-      );
+    const dueDate = new Date(day);
+    if (today < dueDate) {
+      return { custo: "R$ 1,00", atrasos: "R$ 0,00", total: "R$ 1,00" };
     }
+    let difference = Math.abs(dueDate - today);
+    difference = Math.floor(difference / (1000 * 60 * 60 * 24));
+    return {
+      custo: "R$ 1,00",
+      atrasos: difference.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+      }),
+      total: (difference + 1).toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+      }),
+    };
   };
 
   const closeModal = () => {
     setModal(false);
-    setReturningBook(true);
     setName("");
-    setReturnDate(formattedDate());
+    setDueDate(formattedDate());
   };
 
   const handleSubmit = async (e) => {
@@ -56,13 +61,13 @@ const BorrowModal = ({ isOpen, book, setModal, setMsg }) => {
       ? {
           borrowed: false,
           borrowerName: null,
-          returnDate: null,
+          dueDate: null,
           loanId: null,
         }
       : {
           borrowed: true,
           borrowerName: name,
-          returnDate,
+          dueDate,
           loanId,
         };
     try {
@@ -95,32 +100,47 @@ const BorrowModal = ({ isOpen, book, setModal, setMsg }) => {
           </div>
           <form className="body" onSubmit={handleSubmit}>
             <div className="radioLabels">
-              <h3>O que você deseja fazer?</h3>
               {!book.borrowed && (
-                <label className="radioLabel">
-                  Emprestar
-                  <input
-                    onClick={() => setReturningBook(false)}
-                    type="radio"
-                    name="returningBook"
-                    value="false"
-                    id="returningBookFalse"
-                  />
-                </label>
+                <>
+                  <h3>Emprestar livro</h3>
+                  <label>
+                    Para quem o livro será emprestado?
+                    <input
+                      type="text"
+                      name="name"
+                      id="name"
+                      required
+                      onChange={(e) => setName(e.target.value)}
+                    />
+                  </label>
+                  <label>
+                    Data da devolução
+                    <input
+                      type="date"
+                      name="date"
+                      id="date"
+                      value={dueDate}
+                      required
+                      onChange={(e) => setDueDate(e.target.value)}
+                    />
+                  </label>
+                </>
               )}
               {book.borrowed && (
                 <>
+                  <h3>Devolução do livro</h3>
                   <p>
                     Atualmente este livro está nas mãos de {book.borrowerName}.
                     A data prevista para entrega é de{" "}
-                    {dateToLocaleDate(book.returnDate)}.
+                    {dateToLocaleDate(book.dueDate)}.
                   </p>
                   <p>
                     O total mínimo (entrega + atrasos) a ser recebido pelo
                     empréstimo é:
-                    <br />
-                    {loanRates(book.returnDate)}
                   </p>
+                  <p>Empéstimo: {calculateFine(book.dueDate).custo}</p>
+                  <p>Atrasos: {calculateFine(book.dueDate).atrasos}</p>
+                  <p>total: {calculateFine(book.dueDate).total}</p>
                   <label className="radioLabel">
                     Confirmar devolução
                     <input
@@ -134,31 +154,6 @@ const BorrowModal = ({ isOpen, book, setModal, setMsg }) => {
                 </>
               )}
             </div>
-            {!returningBook && returningBook !== null && (
-              <>
-                <label>
-                  Para quem o livro será emprestado?
-                  <input
-                    type="text"
-                    name="name"
-                    id="name"
-                    required
-                    onChange={(e) => setName(e.target.value)}
-                  />
-                </label>
-                <label>
-                  Data da devolução
-                  <input
-                    type="date"
-                    name="date"
-                    id="date"
-                    value={returnDate}
-                    required
-                    onChange={(e) => setReturnDate(e.target.value)}
-                  />
-                </label>
-              </>
-            )}
 
             <div className="buttons">
               <button type="button" onClick={closeModal}>

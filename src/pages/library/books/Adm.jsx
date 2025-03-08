@@ -12,7 +12,7 @@ import Footer from "../../../components/footer/Footer";
 
 const LivrosAdm = () => {
   const { user } = useAuth();
-  
+
   const [AllBooks, setAllBooks] = useState([]);
   const [AllBooksId, setAllBooksId] = useState([]);
   const [filteredBooks, setFilteredBooks] = useState([]);
@@ -67,6 +67,7 @@ const LivrosAdm = () => {
         <SquareSection>
           <p>O que deseja fazer?</p>
         </SquareSection>
+        <SquareSection></SquareSection>
         <SquareSection>
           <div>
             <CatalogControls
@@ -75,16 +76,8 @@ const LivrosAdm = () => {
             />
           </div>
         </SquareSection>
-        <SquareSection>
-          <FlashMessage message={message} />
-        </SquareSection>
-        <SquareSection>
-          <Loading
-            loading={loading}
-            books={AllBooks}
-            filtered={filteredBooks}
-          />
-        </SquareSection>
+        <FlashMessage message={message} />
+        <Loading loading={loading} books={AllBooks} filtered={filteredBooks} />
         <SquareSection>
           <div className="full-width">
             <div className="full-width">
@@ -104,7 +97,7 @@ const LivrosAdm = () => {
           </div>
         </SquareSection>
       </main>
-      <Footer auth={{email: "mej@mpe.com"}}/>
+      <Footer auth={{ email: "mej@mpe.com" }} />
     </>
   );
 };

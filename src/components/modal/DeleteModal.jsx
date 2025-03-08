@@ -54,7 +54,7 @@ const DeleteModal = ({ isOpen, setModal, book, setMsg }) => {
           </div>
           <form className="body" onSubmit={handleSubmit}>
             <p>
-              Digite este filtro <span style={filterStyle}>{book.filters[0]}</span> do livro "{book.name}" no campo abaixo para apagar.
+              Digite este filtro <span style={filterStyle}>{book.filters[1]}</span> do livro "{book.name}" no campo abaixo para apagar.
             </p>
             <label>
               <input
@@ -64,9 +64,9 @@ const DeleteModal = ({ isOpen, setModal, book, setMsg }) => {
                 onChange={handleFilterString}
               />
             </label>
-            <p>
+            <div>
               <FlashMessage message={message} />
-            </p>
+            </div>
             <div className="buttons">
               <button type="button" onClick={closeModal}>
                 Cancelar

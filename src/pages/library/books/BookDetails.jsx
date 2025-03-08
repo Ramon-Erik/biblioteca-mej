@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { getBookByName } from "../../../firebase/firebase.config";
 
 import Header from "../../../components/header/Header";
+import GetBookModal from "../../../components/modal/GetBookModal";
 import Footer from "../../../components/footer/Footer";
 
 import css from "../../../assets/css/BookDetails.module.css";
@@ -12,6 +13,14 @@ const BookDetails = () => {
   bookName = bookName.replaceAll("_", " ");
   const [book, setBook] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [getBookModal, setGetBookModal] = useState(false);
+  const [message, setMessage] = useState({ type: "unset", msg: "none" });
+
+  const handleGetBookModal = () => {
+    if (!getBookModal) {
+      setGetBookModal(true);
+    }
+  };
 
   useEffect(() => {
     const fetchBook = async () => {
@@ -102,7 +111,19 @@ const BookDetails = () => {
                     </span>{" "}
                     Você pode pedir esse livro emprestado.
                   </p>
-                  <button className={css.borrowButton} type="button">Quero este livro!</button>
+                  <button
+                    className={css.borrowButton}
+                    type="button"
+                    onClick={handleGetBookModal}
+                  >
+                    Quero este livro!
+                  </button>
+                  <GetBookModal
+                    book={book}
+                    isOpen={getBookModal}
+                    setMsg={setMessage}
+                    setModal={setGetBookModal}
+                  />
                 </>
               )}
             </article>

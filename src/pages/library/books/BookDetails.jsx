@@ -66,7 +66,16 @@ const BookDetails = () => {
         <main>
           <h1 className="text-center">Informações para o livro</h1>
           <section className={css.bookInfo}>
-            <div className={css.bookCover}></div>
+            <div
+              className={css.bookCover}
+              style={{
+                ...(book.url && {
+                  backgroundImage: `url(${book.url})`,
+                }),
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
+            ></div>
             <article>
               <div className={`${css.bookNameTitle} text-center`}>
                 <h2>{bookName}</h2>

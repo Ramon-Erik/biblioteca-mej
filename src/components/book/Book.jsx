@@ -47,6 +47,13 @@ const Book = ({
         <button
           onClick={() => handleShowDescription(index)}
           className="book-cover"
+          style={{
+            ...(book.url && {
+              backgroundImage: `url(${book.url})`,
+            }),
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
         ></button>
         <div className="book-title">
           <span className="name">

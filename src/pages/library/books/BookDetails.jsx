@@ -68,14 +68,23 @@ const BookDetails = () => {
           <section className={css.bookInfo}>
             <div
               className={css.bookCover}
-              style={{
-                ...(book.url && {
-                  backgroundImage: `url(${book.url})`,
-                }),
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              }}
-            ></div>
+              // style={{
+              //   ...(book.url && {
+              //     backgroundImage: `url(${book.url})`,
+              //   }),
+              //   backgroundSize: "cover",
+              //   backgroundPosition: "center",
+              // }}
+            >
+              {book.url && (
+                <img
+                  src={book.url}
+                  alt={`Capa detalhada de ${book.name}`}
+                  width={280}
+                  height={340}
+                ></img>
+              )}
+            </div>
             <article>
               <div className={`${css.bookNameTitle} text-center`}>
                 <h2>{bookName}</h2>

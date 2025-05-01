@@ -102,7 +102,8 @@ const GetBookModal = ({ isOpen, setModal, book, setMsg }) => {
           <div className="header">
             <h2>Pedir livro emprestado</h2>
           </div>
-          <form className="body" onSubmit={handleSubmit}>
+          <h3>Em construção...</h3>
+          {/* <form className="body" onSubmit={handleSubmit}>
             <h3>Para pedir o livro, passe as seguintes informações</h3>
             <label htmlFor="name">Nome:</label>
             <input
@@ -147,7 +148,7 @@ const GetBookModal = ({ isOpen, setModal, book, setMsg }) => {
               </button>
               <button type="submit">Salvar</button>
             </div>
-          </form>
+          </form> */}
         </div>
       </div>
     );

@@ -54,7 +54,6 @@ const BookDetails = () => {
             O livro <span>{bookName}</span> não foi encontrado no banco de
             dados...
           </p>
-          ;
         </main>
         <Footer />
       </>

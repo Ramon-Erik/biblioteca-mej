@@ -78,7 +78,7 @@ const BookDetails = () => {
             >
               {book.url && (
                 <img
-                  src={book.url}
+                  src={`${book.url}`}
                   alt={`Capa detalhada de ${book.name}`}
                   width={280}
                   height={340}

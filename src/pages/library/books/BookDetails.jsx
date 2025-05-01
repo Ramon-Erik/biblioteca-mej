@@ -26,6 +26,7 @@ const BookDetails = () => {
     const fetchBook = async () => {
       try {
         const bookData = await getBookByName(bookName);
+        // console.log(bookData.returnDate)
         setBook(bookData);
       } catch (error) {
         console.log(error);
@@ -110,7 +111,7 @@ const BookDetails = () => {
                   Este livro está nas mãos de alguém agora... A estimativa de
                   devolução é para o dia{" "}
                   <span>
-                    {new Date(book.returnDate).toLocaleDateString("pt-BR", {
+                    {new Date(book.dueDate).toLocaleDateString("pt-BR", {
                       day: "2-digit",
                       month: "long",
                       year: "numeric",

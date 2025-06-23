@@ -3,8 +3,6 @@ import { deleteBook } from "../../firebase/firebase.config";
 import FlashMessage from "../../components/flash-message/FlashMessage";
 import "./Modal.css";
 
-import React from "react";
-
 const DeleteModal = ({ isOpen, setModal, book, setMsg }) => {
   const filterStyle = {
     padding: "2px 5px",
@@ -32,7 +30,7 @@ const DeleteModal = ({ isOpen, setModal, book, setMsg }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (book.filters[0] === filterString) {
+    if (book.filters[1] === filterString) {
       closeModal();
       await deleteBook(book.idDoc);
       setFilterString("");

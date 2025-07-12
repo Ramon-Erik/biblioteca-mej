@@ -54,7 +54,18 @@ const Index = () => {
   };
 
   const handleFilterChange = (value) => {
-    const booksData = AllBooks.filter((b) => b.filters.includes(value));
+    let booksData
+    switch (value) {
+      case "Disponíveis":
+        booksData = AllBooks.filter((b) => !b.borrowed)
+        break;
+      case "Emprestados":
+        booksData = AllBooks.filter((b) => b.borrowed)
+        break;
+      default:
+        booksData = AllBooks.filter((b) => b.filters.includes(value));
+        break;
+    }
     setFilteredBooks(booksData);
     setResults(booksData.length);
     setCurrentPage(1);

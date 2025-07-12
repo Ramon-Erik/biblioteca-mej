@@ -7,6 +7,8 @@ const CatalogControls = ({results="nenhum", handleChangeValue}) => {
       <span>Filtro&#58;&nbsp;</span>
       <select name="filters" id="filters" className={css.filterSelect} onChange={handleChange}>
         <option value="Todos">Todos</option>
+        <option value="Disponíveis">Disponíveis</option>
+        <option value="Emprestados">Emprestados</option>
         <option value="Sacramentos">Sacramentos</option>
         <option value="Igreja">Igreja</option>
         <option value="Doutrina">Doutrina</option>

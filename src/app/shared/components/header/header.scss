@@ -1,0 +1,10 @@
+.container__header{
+  width: 100vw;
+  min-height: 100px;
+  background-color: var(--red);
+
+  h1 {
+    text-transform: uppercase;
+    color: var(--white);
+  }
+}

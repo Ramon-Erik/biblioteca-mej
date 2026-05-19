@@ -6,8 +6,6 @@ import { Header } from './shared/components/header/header';
   selector: 'app-root',
   imports: [RouterOutlet, Header],
   templateUrl: './app.html',
-  styleUrl: './app.scss',
-  encapsulation: ViewEncapsulation.None,
 })
 export class App {
   protected readonly title = signal('biblioteca-mej');

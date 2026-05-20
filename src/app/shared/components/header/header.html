@@ -4,5 +4,10 @@
     <img [src]="logoPath" alt="Logo MEJ">
     <h1>mej - maranguape</h1>
   </div>
-  <div class="menu"><i class="bi bi-list"></i></div>
+  <div class="menu"><button (click)="toogleMenuButton()" [class.botao-ativo]="showMenu"><i class="bi bi-list"></i></button></div>  
+  @if(showMenu){
+    <div class="menu-bar">
+      <app-menu></app-menu>
+    </div>
+  }
 </div>

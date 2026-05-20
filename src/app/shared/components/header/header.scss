@@ -1,5 +1,5 @@
 .container__header{
-  width: 100vw;
+  width: 100svw;
   min-height: 104px;
   background-color: var(--red);
   display: flex;
@@ -11,13 +11,13 @@
     position: absolute;
     right: 0;
     top: 0;
-    
+
     button{
       background-color: transparent;
       border: none;
       color: var(--white);
       margin: 5px 5px 0px 0px;
-      border-radius: 5px;
+      border-radius: 6px;
 
       &.botao-ativo{
         background-color: var(--white);

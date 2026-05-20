@@ -1,5 +1,5 @@
-import { Component, } from '@angular/core';
-import { Menu } from './components/menu/menu'; 
+import { Component } from '@angular/core';
+import { Menu } from './components/menu/menu';
 
 @Component({
   selector: 'app-header',
@@ -9,9 +9,9 @@ import { Menu } from './components/menu/menu';
 })
 export class Header {
   logoPath = 'logo/logo-mej.png';
-  showMenu: boolean = false;
+  showMenu = false;
 
-  toogleMenuButton(){
+  toogleMenuButton() {
     this.showMenu = !this.showMenu;
   }
 }

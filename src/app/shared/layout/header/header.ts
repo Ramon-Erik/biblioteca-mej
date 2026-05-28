@@ -6,6 +6,4 @@ import { Component } from '@angular/core';
   templateUrl: './header.html',
   styleUrl: './header.scss',
 })
-export class Header {
-  logoPath = 'logo/logo-mej.png';
-}
+export class Header {}

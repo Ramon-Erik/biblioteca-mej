@@ -7,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrl: './menu.scss',
 })
 export class Menu {
+  public isOpen = false;
 
+  toggleMenu() {
+    this.isOpen = !this.isOpen;
+  }
 }

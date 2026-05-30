@@ -7,6 +7,11 @@ export const routes: Routes = [
     loadComponent: () => import('./modules/leitor/home/home').then((m) => m.Home),
   },
   {
+    path: 'home',
+    pathMatch: 'full',
+    redirectTo: '',
+  },
+  {
     path: 'catalogo-de-livros',
     pathMatch: 'full',
     loadComponent: () => import('./modules/leitor/catalog/catalog').then((m) => m.Catalog),

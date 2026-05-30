@@ -3,6 +3,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
+  // border: 1px solid black; // for debug only
 }
 
 #toast-container * {
@@ -33,21 +34,5 @@ main {
   h2,
   h3 {
     font-weight: bolder;
-  }
-}
-
-section {
-  width: 80vw;
-  min-width: 18.75rem;
-  max-width: 48.75rem;
-  margin: 0 auto 1rem;
-  border-radius: 0.5rem;
-
-  h2 {
-    text-align: center;
-  }
-
-  article {
-    margin: 1rem 0;
   }
 }

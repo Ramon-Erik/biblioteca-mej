@@ -4,3 +4,11 @@
 />
 
 <app-catalog-filter />
+
+@if (books$ | async; as books) {
+  @for (book of books; track book.id) {
+    <p>{{ book.nomeObra }}</p>
+  } @empty {
+    <p>Sem livros no momento...</p>
+  }
+}

@@ -14,13 +14,13 @@ export interface IBookResponse {
   nomeObra: string;
   autor: string;
   editora: string;
-  volume: string;
+  volume: string | null;
   descricao: string;
-  categorias: string;
-  quantidade: 1;
+  categorias: string[];
+  quantidade: number;
   fotoCapaUrl: string;
-  oculto: false;
-  motivoOcultacao: null;
+  oculto: boolean;
+  motivoOcultacao: string | null;
   criadoPorId: string;
   editadoPorId: null;
   criadoEm: string;

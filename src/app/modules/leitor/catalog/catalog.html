@@ -7,7 +7,7 @@
 
 @if (books$ | async; as books) {
   @for (book of books; track book.id) {
-    <p>{{ book.nomeObra }}</p>
+    <app-book-info [book]="book" />
   } @empty {
     <p>Sem livros no momento...</p>
   }

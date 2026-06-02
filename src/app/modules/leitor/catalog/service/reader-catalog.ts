@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject, map, tap } from 'rxjs';
 import { IBookResponse } from '../../../../shared/interfaces/book.interface';
 import { HttpClient } from '@angular/common/http';
 
@@ -7,13 +7,17 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class ReaderCatalog {
-  private apiKey = 'localhost:8080/livros';
+  private apiKey = 'http://localhost:8080/livros';
   private http = inject(HttpClient);
 
   private books = new BehaviorSubject<IBookResponse[]>([]);
 
   get booksCatalog() {
     return this.books.asObservable();
+  }
+
+  get catalogLength() {
+    return this.books.pipe(map((catalog) => catalog.length));
   }
 
   public updateCatalogList() {

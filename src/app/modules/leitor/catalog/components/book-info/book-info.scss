@@ -1,0 +1,20 @@
+:host {
+  .disponibility {
+    &::before {
+      content: '';
+      display: block;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      transition: background-color 0.3s ease;
+    }
+
+    &.avalible::before {
+      background-color: #4cd964;
+    }
+
+    &:not(.avalible)::before {
+      background-color: #ff6575;
+    }
+  }
+}

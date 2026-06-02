@@ -4,13 +4,12 @@ export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    // loadComponent: () => import('./modules/leitor/home/home').then((m) => m.Home),
-    redirectTo: '/catalog',
+    loadComponent: () => import('./modules/leitor/home/home').then((m) => m.Home),
   },
   {
     path: 'home',
     pathMatch: 'full',
-    redirectTo: '/catalog',
+    redirectTo: '/',
   },
   {
     path: 'catalogo-de-livros',

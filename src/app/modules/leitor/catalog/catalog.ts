@@ -3,7 +3,7 @@ import { PageTitle } from '../../../shared/components/page-title/page-title';
 import { CatalogFilter } from '../../../shared/components/catalog-filter/catalog-filter';
 import { ReaderCatalog } from './service/reader-catalog';
 import { AsyncPipe } from '@angular/common';
-import { BookInfo } from "./components/book-info/book-info";
+import { BookInfo } from './components/book-info/book-info';
 
 @Component({
   selector: 'app-catalog',

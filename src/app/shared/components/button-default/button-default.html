@@ -1,1 +1,3 @@
-<button type="submit" [ngClass]="{ 'button-disabled': disable }">{{ title }}</button>
+<button type="submit" [ngClass]="{ 'button-disabled': disable }" [disabled]="disable">
+  {{ title }}
+</button>

@@ -1,5 +1,5 @@
 <app-page-title title="Realizar login" subtitle="Entre na sua conta" />
-<form action="" [formGroup]="loginForm">
+<form action="" [formGroup]="loginForm" (ngSubmit)="fazerLogin()">
   <app-input label="Email" placeholder="Digite seu email" type="email" [control]="emailControl" />
   <app-input
     label="Senha"

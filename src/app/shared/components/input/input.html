@@ -1,0 +1,15 @@
+<div>
+  <label for="input-default">{{ label }}</label>
+  <input [type]="type" id="input-default" [placeholder]="placeholder" [formControl]="control" />
+
+  @if (control.invalid && control.touched) {
+    <div>
+      @for (error of getErrorKeys(); track error) {
+        <small>{{ getErrorMessage(error) }}</small>
+      }
+    </div>
+  }
+  @if (underLink.length > 0) {
+    <button type="button">{{ underLink }}</button>
+  }
+</div>

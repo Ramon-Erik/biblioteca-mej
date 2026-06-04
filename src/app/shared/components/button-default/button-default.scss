@@ -1,0 +1,24 @@
+button {
+  background-color: var(--bg-button-enable);
+  color: white;
+  padding: 8px;
+  border: none;
+  border-radius: 5px;
+}
+
+button :active {
+  background-color: var(--bg-button-enable-active);
+}
+
+.button-disabled{
+  background-color: var(--bg-button-disable);
+}
+
+:host-context(.buttons-container) {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  button {
+    width: 100%;
+  }
+}

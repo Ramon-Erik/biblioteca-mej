@@ -1,0 +1,15 @@
+<app-page-title title="Realizar login" subtitle="Entre na sua conta" />
+<form action="" [formGroup]="loginForm">
+  <app-input label="Email" placeholder="Digite seu email" type="email" [control]="emailControl" />
+  <app-input
+    label="Senha"
+    placeholder="Digite sua senha"
+    type="password"
+    [control]="passwordControl"
+    underLink="Alterar senha"
+  />
+
+  <div class="buttons-container">
+    <app-button-default title="Login" [disable]="!loginForm.valid"></app-button-default>
+  </div>
+</form>

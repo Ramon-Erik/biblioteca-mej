@@ -16,4 +16,9 @@ export const routes: Routes = [
     pathMatch: 'full',
     loadComponent: () => import('./modules/leitor/catalog/catalog').then((m) => m.Catalog),
   },
+  {
+    path: 'perfil',
+    pathMatch: 'full',
+    loadComponent: () => import('./modules/visitante/login/login').then((m) => m.Login),
+  },
 ];

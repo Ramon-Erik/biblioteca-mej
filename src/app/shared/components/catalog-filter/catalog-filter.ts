@@ -15,8 +15,6 @@ export class CatalogFilter implements OnInit {
   public responsesText = signal('');
 
   private formatResultsText(l: number) {
-    console.log(l, 'aa');
-
     if (l == 0) return 'Nenhum resultado.';
     if (l == 1) return 'Um resultado.';
     return l + ' resultados.';

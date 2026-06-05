@@ -1,0 +1,30 @@
+<div
+  class="modal fade"
+  [class.show]="isOpen()"
+  [class.d-block]="isOpen()"
+  tabindex="-1"
+  role="dialog"
+>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content shadow">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          <ng-content select="[modal-title]"></ng-content>
+        </h5>
+        <button type="button" class="btn-close" (click)="onClose()"></button>
+      </div>
+
+      <div class="modal-body">
+        <ng-content select="[modal-body]"></ng-content>
+      </div>
+
+      <div class="modal-footer bg-light">
+        <ng-content select="[modal-footer]"></ng-content>
+      </div>
+    </div>
+  </div>
+</div>
+
+@if (isOpen()) {
+  <div class="modal-backdrop fade show" (click)="onClose()"></div>
+}

@@ -1,0 +1,20 @@
+<div class="modal-header">
+  <h5 class="modal-title fw-bold">Cadastrar Novo Livro</h5>
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Close"
+    (click)="activeModal.dismiss()"
+  ></button>
+</div>
+
+<div class="modal-body">
+  <p>Insira as informações do livro para adicioná-lo ao catálogo.</p>
+</div>
+
+<div class="modal-footer d-flex align-items-center justify-content-between gap-4">
+  <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss()">Cancelar</button>
+  <button type="button" class="btn btn-success" (click)="activeModal.close('Livro salvo!')">
+    Cadastrar
+  </button>
+</div>

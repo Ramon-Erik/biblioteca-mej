@@ -4,7 +4,7 @@ export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    loadComponent: () => import('./modules/leitor/home/home').then((m) => m.Home),
+    loadComponent: () => import('./modules/reader/home/home').then((m) => m.Home),
   },
   {
     path: 'home',
@@ -14,6 +14,11 @@ export const routes: Routes = [
   {
     path: 'catalogo-de-livros',
     pathMatch: 'full',
-    loadComponent: () => import('./modules/leitor/catalog/catalog').then((m) => m.Catalog),
+    loadComponent: () => import('./modules/reader/catalog/catalog').then((m) => m.Catalog),
+  },
+  {
+    path: 'admin/catalogo-de-livros',
+    pathMatch: 'full',
+    loadComponent: () => import('./modules/reader/catalog/catalog').then((m) => m.Catalog),
   },
 ];

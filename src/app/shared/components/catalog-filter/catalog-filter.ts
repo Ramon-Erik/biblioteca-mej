@@ -1,7 +1,7 @@
 import { Component, inject, signal, OnInit, DestroyRef } from '@angular/core';
-import { ReaderCatalog } from '../../../modules/leitor/catalog/service/reader-catalog';
 import { map } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ReaderCatalog } from '@modules/reader/catalog/service/reader-catalog';
 
 @Component({
   selector: 'app-catalog-filter',

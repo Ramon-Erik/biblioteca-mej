@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ReactiveFormsModule, FormControl } from '@angular/forms';
+import { ReactiveFormsModule, FormControl, Validators } from '@angular/forms';
 
 type ErrorKey = 'required' | 'email' | 'minlength' | 'maxlength' | 'pattern' | 'min' | 'max';
 
@@ -26,6 +26,7 @@ export class InputDefault {
   @Input() control: FormControl = new FormControl('');
   @Input() errorMessages: Partial<Record<ErrorKey, string>> = {};
   @Input() underLink = '';
+  @Input() inputId = '';
 
   getErrorKeys(): ErrorKey[] {
     return (this.control.errors ? Object.keys(this.control.errors) : []) as ErrorKey[];
@@ -34,5 +35,12 @@ export class InputDefault {
   getErrorMessage(error: string): string {
     const errorKey = error as ErrorKey;
     return this.errorMessages[errorKey] || DEFAULT_ERROR_MESSAGES[errorKey] || 'Campo inválido';
+  }
+
+  get isRequired(): boolean {
+    if (!this.control) return false;
+    const hasRequiredValidator = this.control.hasValidator(Validators.required);
+
+    return hasRequiredValidator;
   }
 }

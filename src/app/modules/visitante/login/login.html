@@ -1,12 +1,19 @@
 <app-page-title title="Realizar login" subtitle="Entre na sua conta" />
 <form action="" [formGroup]="loginForm" (ngSubmit)="fazerLogin()">
-  <app-input label="Email" placeholder="Digite seu email" type="email" [control]="emailControl" />
+  <app-input
+    label="Email"
+    placeholder="Digite seu email"
+    type="email"
+    [control]="emailControl"
+    inputId="email"
+  />
   <app-input
     label="Senha"
     placeholder="Digite sua senha"
     type="password"
     [control]="passwordControl"
     underLink="Alterar senha"
+    inputId="password"
   />
 
   <div class="buttons-container">

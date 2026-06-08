@@ -1,6 +1,13 @@
 <div>
-  <label for="input-default">{{ label }}</label>
-  <input [type]="type" id="input-default" [placeholder]="placeholder" [formControl]="control" />
+  <label [for]="inputId">{{ label }}</label>
+  <input
+    [type]="type"
+    [id]="inputId"
+    [placeholder]="placeholder"
+    [formControl]="control"
+    autocomplete="true"
+    [required]="isRequired"
+  />
 
   @if (control.invalid && control.touched) {
     <div>

@@ -1,27 +1,29 @@
-input {
-  border: none;
-  background-color: var(--bg-input);
-  border-radius: 5px;
-  width: 100%;
-  padding: 10px 12px;
-}
+:host {
+  input {
+    border: none;
+    background-color: var(--bg-input);
+    border-radius: 5px;
+    width: 100%;
+    padding: 10px 12px;
+  }
 
-label {
-  font-weight: 600;
-}
+  label {
+    font-weight: 600;
+  }
 
-small {
-  color: var(--red);
-}
+  small {
+    color: var(--red);
+  }
 
-button {
-  border: none;
-  background-color: transparent;
-  font-size: .875rem;
-  text-decoration: underline;
-  color: var(--input-link);
-}
+  button {
+    border: none;
+    background-color: transparent;
+    font-size: .875rem;
+    text-decoration: underline;
+    color: var(--input-link);
+  }
 
-button :active{
-  color: var(--input-link-active);
+  button :active{
+    color: var(--input-link-active);
+  }
 }

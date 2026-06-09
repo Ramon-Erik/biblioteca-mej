@@ -36,3 +36,9 @@ main {
     font-weight: bolder;
   }
 }
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 17px
+}

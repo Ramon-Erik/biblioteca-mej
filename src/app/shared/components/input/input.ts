@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ReactiveFormsModule, FormControl, Validators } from '@angular/forms';
 
 type ErrorKey = 'required' | 'email' | 'minlength' | 'maxlength' | 'pattern' | 'min' | 'max';
@@ -28,6 +28,8 @@ export class InputDefault {
   @Input() underLink = '';
   @Input() inputId = '';
 
+  @Output() underLinkClicked = new EventEmitter();
+
   getErrorKeys(): ErrorKey[] {
     return (this.control.errors ? Object.keys(this.control.errors) : []) as ErrorKey[];
   }
@@ -42,5 +44,9 @@ export class InputDefault {
     const hasRequiredValidator = this.control.hasValidator(Validators.required);
 
     return hasRequiredValidator;
+  }
+
+  onUnderLink(): void {
+    this.underLinkClicked.emit();
   }
 }

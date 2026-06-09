@@ -21,4 +21,10 @@ export const routes: Routes = [
     pathMatch: 'full',
     loadComponent: () => import('./modules/visitante/login/login').then((m) => m.Login),
   },
+  {
+    path: 'alterar-senha',
+    pathMatch: 'full',
+    loadComponent: () =>
+      import('./modules/visitante/alterar-senha/alterar-senha').then((m) => m.AlterarSenha),
+  },
 ];

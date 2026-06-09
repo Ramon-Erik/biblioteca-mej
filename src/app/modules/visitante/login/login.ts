@@ -29,7 +29,7 @@ export class Login {
     return this.loginForm.controls.password;
   }
 
-  fazerLogin() {
+  protected fazerLogin(): void {
     if (this.loginForm.valid) {
       const identificador = this.emailControl.value || '';
       const senha = this.passwordControl.value || '';
@@ -63,5 +63,9 @@ export class Login {
     } else {
       alert('Preencha todos os campos corretamente!');
     }
+  }
+
+  protected routeToAlterarSenha(): void {
+    this.router.navigate(['alterar-senha']);
   }
 }

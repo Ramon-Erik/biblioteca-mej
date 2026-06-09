@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { PageTitle } from '../../../shared/components/page-title/page-title';
 import { InputDefault } from '../../../shared/components/input/input';
 import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -15,15 +15,29 @@ import { AlterarSenhaService } from './service/alterar-senha-service';
 export class AlterarSenha {
   private readonly alterarSenhaService = inject(AlterarSenhaService);
   private readonly router = inject(Router);
+  protected alderyClicked = signal(false);
 
   protected counter = 0;
 
   recoverForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
+    code: new FormControl(),
   });
 
   get emailControl(): FormControl {
     return this.recoverForm.controls.email;
+  }
+
+  get codeControl(): FormControl {
+    return this.recoverForm.controls.code;
+  }
+
+  get underLinkMensage(): string {
+    if (this.counter > 0) {
+      return 'Reenviar código em ' + this.counter + ' segundos.';
+    } else {
+      return '';
+    }
   }
 
   protected enviarCodigo(): void {

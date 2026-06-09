@@ -6,15 +6,24 @@
     type="email"
     [control]="emailControl"
     inputId="email"
+    [underLink]="underLinkMensage"
   />
-  @if (counter > 0) {
-    <span>Reenviar código em {{ counter }} segundos.</span>
+
+  @if (alderyClicked()) {
+    <app-input
+      label="Código verificação"
+      placeholder="XXX-XXX"
+      type="number"
+      [control]="codeControl"
+      inputId="code-verify"
+    />
   }
 
   <div class="buttons-container">
     <app-button-default
       title="Enviar código"
       [disable]="!recoverForm.valid || counter > 0"
+      (clicked)="alderyClicked.set(true)"
     ></app-button-default>
   </div>
 </form>

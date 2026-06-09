@@ -1,3 +1,8 @@
-<button type="submit" [ngClass]="{ 'button-disabled': disable }" [disabled]="disable">
+<button
+  type="submit"
+  [ngClass]="{ 'button-disabled': disable }"
+  (click)="clicked.emit()"
+  [disabled]="disable"
+>
   {{ title }}
 </button>

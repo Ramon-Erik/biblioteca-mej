@@ -9,7 +9,66 @@
 </div>
 
 <div class="modal-body">
-  <p>Insira as informações do livro para adicioná-lo ao catálogo.</p>
+  <form [formGroup]="bookForm">
+    <div class="input-line">
+      <app-input
+        label="Nome da Obra:"
+        placeholder="Digite o nome do livro"
+        [control]="bookForm.controls.nomeObra"
+      />
+    </div>
+
+    <div class="input-line">
+      <app-input label="Autor:" placeholder="Nome do autor" [control]="bookForm.controls.autor" />
+    </div>
+
+    <div class="input-line">
+      <app-input
+        label="Editora:"
+        placeholder="Nome da editora"
+        [control]="bookForm.controls.editora"
+      />
+    </div>
+
+    <div class="input-line">
+      <app-input label="Volume:" placeholder="Ex: Vol. 1" [control]="bookForm.controls.volume" />
+    </div>
+
+    <div class="input-line">
+      <app-input
+        label="Descrição:"
+        placeholder="Breve resumo da obra"
+        [control]="bookForm.controls.descricao"
+      />
+    </div>
+
+    <div class="input-line">
+      <app-input
+        label="Quantidade:"
+        type="number"
+        placeholder="0"
+        [control]="bookForm.controls.quantidade"
+      />
+    </div>
+
+    <div class="input-line">
+      <app-input
+        label="URL da Foto de Capa:"
+        type="url"
+        placeholder="https://..."
+        [control]="bookForm.controls.fotoCapaUrl"
+      />
+    </div>
+
+    <!-- <div formArrayName="categoriasIds">
+      <label class="fw-semibold d-block mb-2">IDs das Categorias:</label>
+       @for (categoria of categorias.controls; track $index) {
+        <div class="input-line mb-2">
+          <app-input label="ID Categoria:" [control]="bookForm.controls.categoriasIds" />
+        </div>
+      }
+    </div> -->
+  </form>
 </div>
 
 <div class="modal-footer d-flex align-items-center justify-content-between gap-4">

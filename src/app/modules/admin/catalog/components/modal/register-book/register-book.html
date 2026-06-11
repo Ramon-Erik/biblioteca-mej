@@ -14,31 +14,49 @@
       <app-input
         label="Nome da Obra:"
         placeholder="Digite o nome do livro"
-        [control]="bookForm.controls.nomeObra"
+        id="nomeObra"
+        type="text"
+        formControlName="nomeObra"
       />
     </div>
 
     <div class="input-line">
-      <app-input label="Autor:" placeholder="Nome do autor" [control]="bookForm.controls.autor" />
+      <app-input
+        label="Autor:"
+        placeholder="Nome do autor"
+        id="autor"
+        type="text"
+        formControlName="autor"
+      />
     </div>
 
     <div class="input-line">
       <app-input
         label="Editora:"
         placeholder="Nome da editora"
-        [control]="bookForm.controls.editora"
+        id="editora"
+        type="text"
+        formControlName="editora"
       />
     </div>
 
     <div class="input-line">
-      <app-input label="Volume:" placeholder="Ex: Vol. 1" [control]="bookForm.controls.volume" />
+      <app-input
+        label="Volume:"
+        placeholder="Ex: Vol. 1"
+        id="volume"
+        type="text"
+        formControlName="volume"
+      />
     </div>
 
     <div class="input-line">
       <app-input
         label="Descrição:"
         placeholder="Breve resumo da obra"
-        [control]="bookForm.controls.descricao"
+        id="descricao"
+        type="text"
+        formControlName="descricao"
       />
     </div>
 
@@ -47,7 +65,9 @@
         label="Quantidade:"
         type="number"
         placeholder="0"
-        [control]="bookForm.controls.quantidade"
+        id="quantidade"
+        type="text"
+        formControlName="quantidade"
       />
     </div>
 
@@ -56,7 +76,9 @@
         label="URL da Foto de Capa:"
         type="url"
         placeholder="https://..."
-        [control]="bookForm.controls.fotoCapaUrl"
+        id="fotoCapaUrl"
+        type="text"
+        formControlName="fotoCapaUrl"
       />
     </div>
 
@@ -64,7 +86,7 @@
       <label class="fw-semibold d-block mb-2">IDs das Categorias:</label>
        @for (categoria of categorias.controls; track $index) {
         <div class="input-line mb-2">
-          <app-input label="ID Categoria:" [control]="bookForm.controls.categoriasIds" />
+          <app-input label="ID Categoria: id="categoriasIds" type="text"" formControlName="categoriasIds" />
         </div>
       }
     </div> -->

@@ -1,11 +1,5 @@
 import { Component, inject } from '@angular/core';
-import {
-  ReactiveFormsModule,
-  FormBuilder,
-  Validators,
-  FormGroup,
-  FormControl,
-} from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { InputDefault } from '@shared/components/input/input';
 
@@ -19,14 +13,14 @@ export class RegisterBook {
   public activeModal = inject(NgbActiveModal);
   private fb = inject(FormBuilder);
 
-  public bookForm = new FormGroup({
-    nomeObra: new FormControl('', [Validators.required]),
-    autor: new FormControl('', [Validators.required]),
-    editora: new FormControl(''),
-    volume: new FormControl(''),
-    descricao: new FormControl(''),
-    categoriasIds: new FormControl([]),
-    quantidade: new FormControl(''),
-    fotoCapaUrl: new FormControl(''),
+  public bookForm = this.fb.group({
+    nomeObra: ['', [Validators.required]],
+    autor: ['', [Validators.required]],
+    editora: [''],
+    volume: [''],
+    descricao: [''],
+    categoriasIds: [[]],
+    quantidade: [''],
+    fotoCapaUrl: [''],
   });
 }

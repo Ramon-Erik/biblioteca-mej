@@ -1,5 +1,5 @@
 import { Component, input, OnChanges, signal } from '@angular/core';
-import { IBookResponse } from '../../../../../shared/interfaces/book.interface';
+import { Book } from '../../../../../shared/interfaces/book.interface';
 import { NgClass } from '@angular/common';
 
 @Component({
@@ -9,7 +9,7 @@ import { NgClass } from '@angular/common';
   styleUrl: './book-info.scss',
 })
 export class BookInfo implements OnChanges {
-  public book = input.required<IBookResponse>();
+  public book = input.required<Book>();
   public alt = signal('');
   public isAvalible = signal(false);
 

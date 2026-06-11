@@ -1,21 +1,21 @@
-<div>
-  <label for="input-default">{{ label }}</label>
-  <input
-    class="input"
-    [type]="type"
-    id="input-default"
-    [placeholder]="placeholder"
-    [formControl]="control"
-  />
+<label [for]="id() + '-id'" class="form-label mt-3">
+  {{ label() }}
+  @if (isRequired()) {
+    <span class="text-danger">*</span>
+  }
+</label>
 
-  @if (control.invalid && control.touched) {
-    <div>
-      @for (error of getErrorKeys(); track error) {
-        <small>{{ getErrorMessage(error) }}</small>
-      }
-    </div>
-  }
-  @if (underLink.length > 0) {
-    <button type="button">{{ underLink }}</button>
-  }
-</div>
+<input
+  class="form-control"
+  [type]="type()"
+  [id]="id() + '-id'"
+  [name]="id() + '-name'"
+  [placeholder]="placeholder()"
+  autocomplete="off"
+  [disabled]="isDisabled"
+  [min]="minValue()"
+  [max]="maxValue()"
+  [(ngModel)]="inputValue"
+  (focus)="onToutched && onToutched()"
+  (input)="onChange && onChange(inputValue)"
+/>

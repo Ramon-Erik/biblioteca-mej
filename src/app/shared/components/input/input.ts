@@ -1,38 +1,50 @@
-import { Component, Input } from '@angular/core';
-import { ReactiveFormsModule, FormControl } from '@angular/forms';
-
-type ErrorKey = 'required' | 'email' | 'minlength' | 'maxlength' | 'pattern' | 'min' | 'max';
-
-const DEFAULT_ERROR_MESSAGES: Record<ErrorKey, string> = {
-  required: 'Campo obrigatório',
-  email: 'Email em formato inválido',
-  minlength: 'Valor muito curto',
-  maxlength: 'Valor muito longo',
-  pattern: 'Formato inválido',
-  min: 'Valor muito baixo',
-  max: 'Valor muito alto',
-};
+import { Component, forwardRef, input } from '@angular/core';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'app-input',
-  imports: [ReactiveFormsModule],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => InputDefault),
+      multi: true,
+    },
+  ],
+  imports: [FormsModule],
   templateUrl: './input.html',
   styleUrl: './input.scss',
 })
-export class InputDefault {
-  @Input() placeholder = '';
-  @Input() label = '';
-  @Input() type = 'text';
-  @Input() control: FormControl = new FormControl('');
-  @Input() errorMessages: Partial<Record<ErrorKey, string>> = {};
-  @Input() underLink = '';
+export class InputDefault implements ControlValueAccessor {
+  public id = input.required<string>();
+  public type = input.required<string>();
+  public label = input.required<string>();
+  public isRequired = input<boolean>(false);
+  public placeholder = input<string>('');
+  public minValue = input<string>();
+  public maxValue = input<string>();
 
-  getErrorKeys(): ErrorKey[] {
-    return (this.control.errors ? Object.keys(this.control.errors) : []) as ErrorKey[];
+  public inputValue = '';
+
+  // eslint-disable-next-line
+  protected onToutched?: () => {};
+  // eslint-disable-next-line
+  protected onChange?: (value: string) => {};
+  protected isDisabled = false;
+
+  writeValue(obj: string): void {
+    this.inputValue = obj;
+  }
+  // eslint-disable-next-line
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
   }
 
-  getErrorMessage(error: string): string {
-    const errorKey = error as ErrorKey;
-    return this.errorMessages[errorKey] || DEFAULT_ERROR_MESSAGES[errorKey] || 'Campo inválido';
+  // eslint-disable-next-line
+  registerOnTouched(fn: any): void {
+    this.onToutched = fn;
+  }
+
+  setDisabledState?(isDisabled: boolean): void {
+    this.isDisabled = isDisabled;
   }
 }

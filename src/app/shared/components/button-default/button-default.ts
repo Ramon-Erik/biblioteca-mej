@@ -1,5 +1,7 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { NgClass } from '@angular/common';
+
+type ButtonType = 'primary' | 'secondary';
 
 @Component({
   selector: 'app-button-default',
@@ -8,8 +10,19 @@ import { NgClass } from '@angular/common';
   styleUrl: './button-default.scss',
 })
 export class ButtonDefault {
-  @Input() title = '';
-  @Input() disable = false;
+  public title = input.required<string>();        
+  public disable = input<boolean>(false);        
+  public type = input.required<ButtonType>();    
 
-  @Output() clicked = new EventEmitter();
+  public clicked = output<void>();               
+
+  protected get buttonClasses(): string {
+    const classes :string[] = [this.type()];
+    
+    if (this.disable()) {           
+      classes.push('button-disabled');
+    }
+    
+    return classes.join(' ');
+  }
 }

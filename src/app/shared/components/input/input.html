@@ -1,22 +1,32 @@
-<div>
-  <label [for]="inputId">{{ label }}</label>
-  <input
-    [type]="type"
-    [id]="inputId"
-    [placeholder]="placeholder"
-    [formControl]="control"
-    autocomplete="true"
-    [required]="isRequired"
-  />
+<label [for]="id() + '-id'" class="form-label mt-3">
+  {{ label() }}
+  @if (isRequired()) {
+    <span class="text-danger">*</span>
+  }
+</label>
 
-  @if (control.invalid && control.touched) {
-    <div>
-      @for (error of getErrorKeys(); track error) {
-        <small>{{ getErrorMessage(error) }}</small>
-      }
-    </div>
-  }
-  @if (underLink.length > 0) {
-    <button type="button" (click)="onUnderLink()">{{ underLink }}</button>
-  }
-</div>
+<input
+  class="form-control"
+  [type]="type()"
+  [id]="id() + '-id'"
+  [name]="id() + '-name'"
+  [placeholder]="placeholder()"
+  autocomplete="off"
+  [min]="minValue()"
+  [max]="maxValue()"
+  [formControl]="control()"
+/>
+
+@if (control().invalid && (control().touched || control().dirty)) {
+  <div class="invalid-feedback d-block">
+    @for (error of getErrorKeys(); track error) {
+      <small>{{ getErrorMessage(error) }}</small>
+    }
+  </div>
+}
+
+@if (underLink().length > 0) {
+  <button type="button" class="btn btn-link p-0 mt-1" (click)="onUnderLink()">
+    {{ underLink() }}
+  </button>
+}

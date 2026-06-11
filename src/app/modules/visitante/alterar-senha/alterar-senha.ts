@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { PageTitle } from '../../../shared/components/page-title/page-title';
 import { InputDefault } from '../../../shared/components/input/input';
-import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ReactiveFormsModule, FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ButtonDefault } from '../../../shared/components/button-default/button-default';
 import { Router } from '@angular/router';
 import { AlterarSenhaService } from './service/alterar-senha-service';
@@ -16,21 +16,17 @@ export class AlterarSenha {
   private readonly alterarSenhaService = inject(AlterarSenhaService);
   private readonly router = inject(Router);
   protected alderyClicked = signal(false);
+  private readonly fb = inject(FormBuilder);
 
   protected counter = 0;
 
-  recoverForm = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
-    code: new FormControl(),
+  recoverForm: FormGroup<{
+    email: FormControl<string | null>;
+    code: FormControl<string | null>;
+  }> = this.fb.group({
+    email: ['', [Validators.required, Validators.email]],
+    code: ['']
   });
-
-  get emailControl(): FormControl {
-    return this.recoverForm.controls.email;
-  }
-
-  get codeControl(): FormControl {
-    return this.recoverForm.controls.code;
-  }
 
   get underLinkMensage(): string {
     if (this.counter > 0) {

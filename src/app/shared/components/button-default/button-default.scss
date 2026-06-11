@@ -6,11 +6,24 @@ button {
   border-radius: 5px;
 }
 
-button :active {
-  background-color: var(--bg-button-enable-active);
+.primary {
+  background-color: var(--bg-button-primary);
+
+  &:hover {
+    background-color: var(--bg-button-primary-hover);
+  }
+}
+
+.secondary {
+  background-color: var(--bg-button-secondary);
+
+  &:hover {
+    background-color: var(--bg-button-secondary-hover);
+  }
 }
 
 .button-disabled{
+  color: var(--color-button-secondary);
   background-color: var(--bg-button-disable);
 }
 

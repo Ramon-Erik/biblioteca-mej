@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { PageTitle } from '../../../shared/components/page-title/page-title';
 import { InputDefault } from '../../../shared/components/input/input';
-import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ReactiveFormsModule, FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ButtonDefault } from '../../../shared/components/button-default/button-default';
 import { Router } from '@angular/router';
 import { LoginService } from './service/login-service';
@@ -15,24 +15,20 @@ import { LoginService } from './service/login-service';
 export class Login {
   private readonly loginService = inject(LoginService);
   private readonly router = inject(Router);
+  private readonly fb = inject(FormBuilder); 
 
-  loginForm = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required]),
+  loginForm: FormGroup<{
+    email: FormControl<string | null>;
+    password: FormControl<string | null>;
+  }> = this.fb.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required]]
   });
-
-  get emailControl(): FormControl {
-    return this.loginForm.controls.email;
-  }
-
-  get passwordControl(): FormControl {
-    return this.loginForm.controls.password;
-  }
 
   protected fazerLogin(): void {
     if (this.loginForm.valid) {
-      const identificador = this.emailControl.value || '';
-      const senha = this.passwordControl.value || '';
+      const identificador = this.loginForm.controls['email'].value || '';
+      const senha = this.loginForm.controls['password'].value || '';
 
       this.loginService.login(identificador, senha).subscribe({
         next: (response) => {

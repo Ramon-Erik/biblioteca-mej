@@ -4,8 +4,8 @@
     label="E-mail"
     placeholder="Digite seu email"
     type="email"
-    [control]="emailControl"
-    inputId="email"
+    [control]="recoverForm.controls['email']"
+    id="email"
     [underLink]="underLinkMensage"
   />
 
@@ -14,8 +14,8 @@
       label="Código verificação"
       placeholder="XXX-XXX"
       type="number"
-      [control]="codeControl"
-      inputId="code-verify"
+      [control]="recoverForm.controls['code']"
+      id="code-verify"
     />
   }
 
@@ -24,6 +24,7 @@
       title="Enviar código"
       [disable]="!recoverForm.valid || counter > 0"
       (clicked)="alderyClicked.set(true)"
+      type="primary"
     ></app-button-default>
   </div>
 </form>

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, input, Output } from '@angular/core';
 import { ReactiveFormsModule, FormControl, Validators } from '@angular/forms';
 
 type ErrorKey = 'required' | 'email' | 'minlength' | 'maxlength' | 'pattern' | 'min' | 'max';
@@ -20,30 +20,49 @@ const DEFAULT_ERROR_MESSAGES: Record<ErrorKey, string> = {
   styleUrl: './input.scss',
 })
 export class InputDefault {
-  @Input() placeholder = '';
-  @Input() label = '';
-  @Input() type = 'text';
-  @Input() control: FormControl = new FormControl('');
-  @Input() errorMessages: Partial<Record<ErrorKey, string>> = {};
-  @Input() underLink = '';
-  @Input() inputId = '';
-
+  public id = input.required<string>();
+  public type = input.required<string>();
+  public label = input.required<string>();
+  public isRequired = input<boolean>(false);
+  public placeholder = input<string>('');
+  public minValue = input<string>();
+  public maxValue = input<string>();
+  public underLink = input<string>('');
+  
+  public control = input.required<FormControl>();
+  
   @Output() underLinkClicked = new EventEmitter();
 
   getErrorKeys(): ErrorKey[] {
-    return (this.control.errors ? Object.keys(this.control.errors) : []) as ErrorKey[];
+    const control = this.control();
+    return (control.errors ? Object.keys(control.errors) : []) as ErrorKey[];
   }
 
   getErrorMessage(error: string): string {
     const errorKey = error as ErrorKey;
-    return this.errorMessages[errorKey] || DEFAULT_ERROR_MESSAGES[errorKey] || 'Campo inválido';
-  }
+    const control = this.control();
+    
+    if (errorKey === 'minlength' && control.errors?.['minlength']) {
+      const requiredLength = control.errors['minlength'].requiredLength;
+      return `Valor muito curto. Mínimo: ${requiredLength} caracteres`;
+    }
+    
+    if (errorKey === 'maxlength' && control.errors?.['maxlength']) {
+      const requiredLength = control.errors['maxlength'].requiredLength;
+      return `Valor muito longo. Máximo: ${requiredLength} caracteres`;
+    }
+    
+    if (errorKey === 'min' && control.errors?.['min']) {
+      const min = control.errors['min'].min;
+      return `Valor muito baixo. Mínimo: ${min}`;
+    }
+    
+    if (errorKey === 'max' && control.errors?.['max']) {
+      const max = control.errors['max'].max;
+      return `Valor muito alto. Máximo: ${max}`;
+    }
 
-  get isRequired(): boolean {
-    if (!this.control) return false;
-    const hasRequiredValidator = this.control.hasValidator(Validators.required);
-
-    return hasRequiredValidator;
+    return DEFAULT_ERROR_MESSAGES[errorKey] || 'Campo inválido';
   }
 
   onUnderLink(): void {

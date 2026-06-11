@@ -4,20 +4,20 @@
     label="E-mail"
     placeholder="Digite seu email"
     type="email"
-    [control]="emailControl"
-    inputId="email"
+    [control]="loginForm.controls['email']"
+    id="email"
   />
   <app-input
     label="Senha"
     placeholder="Digite sua senha"
     type="password"
-    [control]="passwordControl"
+    [control]="loginForm.controls['password']"
     underLink="Alterar senha"
-    inputId="password"
+    id="password"
     (underLinkClicked)="routeToAlterarSenha()"
   />
 
   <div class="buttons-container">
-    <app-button-default title="Login" [disable]="!loginForm.valid"></app-button-default>
+    <app-button-default title="Login" [disable]="!loginForm.valid" type="primary"></app-button-default>
   </div>
 </form>

@@ -1,18 +1,13 @@
-import { Component, inject, signal, OnInit, DestroyRef } from '@angular/core';
-import { map } from 'rxjs';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ReaderCatalog } from '@modules/reader/catalog/service/reader-catalog';
-
+import { Component, signal, OnChanges, input } from '@angular/core';
 @Component({
   selector: 'app-catalog-filter',
   imports: [],
   templateUrl: './catalog-filter.html',
   styleUrl: './catalog-filter.scss',
 })
-export class CatalogFilter implements OnInit {
-  private catalogService = inject(ReaderCatalog);
-  private destroyRef = inject(DestroyRef);
+export class CatalogFilter implements OnChanges {
   public responsesText = signal('');
+  protected len = input.required<number>();
 
   private formatResultsText(l: number) {
     if (l == 0) return 'Nenhum resultado.';
@@ -20,9 +15,7 @@ export class CatalogFilter implements OnInit {
     return l + ' resultados.';
   }
 
-  ngOnInit() {
-    this.catalogService.catalogLength
-      .pipe(takeUntilDestroyed(this.destroyRef), map(this.formatResultsText))
-      .subscribe((res) => this.responsesText.set(res));
+  ngOnChanges() {
+    this.responsesText.set(this.formatResultsText(this.len()));
   }
 }

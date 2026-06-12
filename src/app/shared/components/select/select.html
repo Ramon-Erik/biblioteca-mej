@@ -1,6 +1,6 @@
 <div class="mb-3">
   @if (label() && inputId()) {
-    <label [attr.for]="inputId()" class="form-label fw-semibold text-body">{{ label() }}</label>
+    <span [attr.for]="inputId()" class="form-label fw-semibold text-body">{{ label() }}</span>
   }
 
   <div ngbDropdown class="d-inline-block w-100" [id]="inputId()">

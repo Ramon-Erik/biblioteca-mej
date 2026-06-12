@@ -1,1 +1,18 @@
-<p>catalog works!</p>
+<app-page-title
+  title="Catálogo"
+  subtitle="Veja abaixo o acervo de livros disponíveis para empréstimo."
+/>
+
+<app-catalog-filter />
+
+@if (true) {
+  <app-min-button icon="plus" (btnClick)="openRegisterModal()">
+    cadastrar novo livro
+  </app-min-button>
+}
+
+@if (books$ | async; as books) {
+  @for (book of books; track book.id) {
+    <app-book-card [book]="book" />
+  }
+}

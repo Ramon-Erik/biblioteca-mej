@@ -1,16 +1,26 @@
-import { Component, inject } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import { Component, inject, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { CatalogService } from '@modules/catalog/service/catalog.service';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { InputDefault } from '@shared/components/input/input';
+import { CustomSelectComponent, SelectOption } from '@shared/components/select/select';
+import { Category } from '@shared/interfaces/book.interface';
+import { map } from 'rxjs';
+import { RegisterCategory } from '../register-category/register-category';
+import { BlurOnClick } from '@shared/directives/blur-on-click';
+import { DeleteCategory } from '../delete-category/delete-category';
 
 @Component({
   selector: 'app-register-book',
-  imports: [ReactiveFormsModule, InputDefault],
+  imports: [ReactiveFormsModule, InputDefault, CustomSelectComponent, AsyncPipe, BlurOnClick],
   templateUrl: './register-book.html',
   styleUrl: './register-book.scss',
 })
-export class RegisterBook {
+export class RegisterBook implements OnInit {
+  private modalService = inject(NgbModal);
   public activeModal = inject(NgbActiveModal);
+  private catalogService = inject(CatalogService);
   private fb = inject(FormBuilder);
 
   public bookForm = this.fb.group({
@@ -19,8 +29,72 @@ export class RegisterBook {
     editora: [''],
     volume: [''],
     descricao: [''],
-    categoriasIds: [[]],
+    categoriasIds: [[] as SelectOption[]],
     quantidade: [''],
     fotoCapaUrl: [''],
   });
+
+  isFieldInvalid(field: string): boolean {
+    const control = this.bookForm.get(field);
+    return !!(control && control.invalid && (control.dirty || control.touched));
+  }
+
+  private formatOptions(cat: Category[]): SelectOption[] {
+    return cat.map((c) => ({ value: c.id, label: c.nome }));
+  }
+
+  public categories$ = this.catalogService.categoriesList.pipe(map(this.formatOptions));
+
+  public openNewCategoryModal() {
+    const modalRef = this.modalService.open(RegisterCategory, {
+      centered: true,
+      modalDialogClass: 'sub-modal',
+    });
+    modalRef.result.then(
+      (c) => {
+        if (!c || !c.category || c!.mark) return;
+        const categoriesControl = this.bookForm.get('categoriasIds');
+        if (categoriesControl && c.mark) {
+          const values = categoriesControl.value ?? [];
+          categoriesControl.setValue([...values, c.category]);
+          categoriesControl.markAllAsTouched();
+        }
+      },
+      () => {
+        /* angular placeholder*/
+      },
+    );
+  }
+
+  public openDeleteCategoryModal() {
+    const modalRef = this.modalService.open(DeleteCategory, {
+      centered: true,
+      modalDialogClass: 'sub-modal',
+    });
+
+    modalRef.result.then(
+      (deletedIds: string[] | undefined) => {
+        if (!deletedIds || deletedIds.length === 0) return;
+
+        const categoriesControl = this.bookForm.get('categoriasIds');
+        if (categoriesControl) {
+          const currentValues = categoriesControl.value ?? [];
+
+          // Filtra o formulário mantendo apenas os IDs que NÃO foram excluídos
+          const remainingValues = currentValues.filter((c) => !deletedIds.includes(c.value));
+
+          // Atualiza o formulário do livro de forma limpa e reativa
+          categoriesControl.setValue(remainingValues);
+          categoriesControl.markAsTouched();
+        }
+      },
+      () => {
+        /* angular placeholder */
+      },
+    );
+  }
+
+  ngOnInit() {
+    this.catalogService.updateCategoriesList().subscribe();
+  }
 }

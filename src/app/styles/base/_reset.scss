@@ -36,3 +36,9 @@ main {
     font-weight: bolder;
   }
 }
+
+.sub-modal {
+  margin: auto;
+  width: calc(100% - 3rem);
+  max-width: 430px;
+}

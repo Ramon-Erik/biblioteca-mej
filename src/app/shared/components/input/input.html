@@ -1,4 +1,4 @@
-<label [for]="id() + '-id'" class="form-label mt-3">
+<label [for]="inputId() + '-id'" class="form-label mt-3">
   {{ label() }}
   @if (isRequired()) {
     <span class="text-danger">*</span>
@@ -8,8 +8,8 @@
 <input
   class="form-control"
   [type]="type()"
-  [id]="id() + '-id'"
-  [name]="id() + '-name'"
+  [id]="inputId() + '-id'"
+  [name]="inputId() + '-name'"
   [placeholder]="placeholder()"
   autocomplete="off"
   [disabled]="isDisabled"

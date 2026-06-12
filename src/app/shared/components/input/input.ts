@@ -15,7 +15,7 @@ import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/f
   styleUrl: './input.scss',
 })
 export class InputDefault implements ControlValueAccessor {
-  public id = input.required<string>();
+  public inputId = input.required<string>();
   public type = input.required<string>();
   public label = input.required<string>();
   public isRequired = input<boolean>(false);

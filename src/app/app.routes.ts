@@ -14,11 +14,6 @@ export const routes: Routes = [
   {
     path: 'catalogo-de-livros',
     pathMatch: 'full',
-    loadComponent: () => import('./modules/reader/catalog/catalog').then((m) => m.Catalog),
-  },
-  {
-    path: 'admin/catalogo-de-livros',
-    pathMatch: 'full',
-    loadComponent: () => import('./modules/admin/catalog/catalog').then((m) => m.Catalog),
+    loadComponent: () => import('./modules/catalog/catalog').then((m) => m.Catalog),
   },
 ];

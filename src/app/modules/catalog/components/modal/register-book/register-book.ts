@@ -10,10 +10,18 @@ import { map } from 'rxjs';
 import { RegisterCategory } from '../register-category/register-category';
 import { BlurOnClick } from '@shared/directives/blur-on-click';
 import { DeleteCategory } from '../delete-category/delete-category';
+import { CustomTextareaComponent } from '@shared/components/textarea/textarea';
 
 @Component({
   selector: 'app-register-book',
-  imports: [ReactiveFormsModule, InputDefault, CustomSelectComponent, AsyncPipe, BlurOnClick],
+  imports: [
+    ReactiveFormsModule,
+    InputDefault,
+    CustomSelectComponent,
+    AsyncPipe,
+    BlurOnClick,
+    CustomTextareaComponent,
+  ],
   templateUrl: './register-book.html',
   styleUrl: './register-book.scss',
 })

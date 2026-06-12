@@ -50,12 +50,13 @@
       />
     </div>
 
-    <div class="input-line">
-      <app-input
-        label="Descrição:"
-        placeholder="Breve resumo da obra"
+    <div class="input-line mt-4">
+      <app-textarea
+        [isRequired]="true"
         inputId="descricao"
         type="text"
+        label="Descrição"
+        placeholder="Breve resumo da obra"
         formControlName="descricao"
       />
     </div>

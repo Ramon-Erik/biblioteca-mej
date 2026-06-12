@@ -1,0 +1,28 @@
+<div class="mb-3">
+  @if (label() && inputId()) {
+    <label [attr.for]="inputId()" class="form-label fw-semibold text-body">
+      {{ label() }}
+      @if (isRequired()) {
+        <span class="text-danger" aria-hidden="true">*</span>
+      }
+    </label>
+  }
+
+  <textarea
+    [id]="inputId()"
+    [rows]="rows()"
+    [placeholder]="placeholder()"
+    [disabled]="disabled"
+    [value]="value"
+    (input)="onTextareaChange($event)"
+    (blur)="onTouched()"
+    class="form-control"
+    [class.is-invalid]="isInvalid()"
+  ></textarea>
+
+  @if (isInvalid() && errorMessage()) {
+    <div class="invalid-feedback d-block mt-1">
+      {{ errorMessage() }}
+    </div>
+  }
+</div>

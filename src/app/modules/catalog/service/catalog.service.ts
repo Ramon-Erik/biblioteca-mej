@@ -73,7 +73,7 @@ export class CatalogService {
       .post<Category>(this.categoryUrl, { nome: name, decricao: 'Descrição padrão' })
       .pipe(this.reloadCategories());
   }
-  
+
   public deleteCategories(ids: string | string[]) {
     const idList = Array.isArray(ids) ? ids : [ids];
 

@@ -6,13 +6,15 @@
 <app-catalog-filter />
 
 @if (true) {
-  <app-min-button icon="plus" (btnClick)="openRegisterModal()">
+  <app-min-button icon="bi-plus-lg" (btnClick)="openRegisterModal()">
     cadastrar novo livro
   </app-min-button>
 }
 
 @if (books$ | async; as books) {
-  @for (book of books; track book.id) {
-    <app-book-card [book]="book" />
-  }
+  <div class="my-4">
+    @for (book of books; track book.id) {
+      <app-book-card [book]="book" />
+    }
+  </div>
 }

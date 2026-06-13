@@ -1,9 +1,11 @@
+import { NgClass } from '@angular/common';
 import { Component, input, OnChanges, signal } from '@angular/core';
 import { Book } from '@shared/interfaces/book.interface';
+import { MinButton } from '../min-button/min-button';
 
 @Component({
   selector: 'app-book-card',
-  imports: [],
+  imports: [NgClass, MinButton],
   templateUrl: './book-card.html',
   styleUrl: './book-card.scss',
 })

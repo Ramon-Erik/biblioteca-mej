@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { PageTitle } from '@shared/components/page-title/page-title';
 import { CatalogFilter } from './components/catalog-filter/catalog-filter';
 import { MinButton } from './components/min-button/min-button';
@@ -14,12 +14,16 @@ import { BookCard } from './components/book-card/book-card';
   templateUrl: './catalog.html',
   styleUrl: './catalog.scss',
 })
-export class Catalog {
+export class Catalog implements OnInit {
   private catalogService = inject(CatalogService);
   public books$ = this.catalogService.booksList;
 
   private modalService = inject(NgbModal);
   public openRegisterModal() {
     this.modalService.open(RegisterBook, { centered: true, scrollable: true });
+  }
+
+  ngOnInit() {
+    this.catalogService.updateCatalogList().subscribe();
   }
 }

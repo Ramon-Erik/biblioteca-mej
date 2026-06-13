@@ -1,1 +1,45 @@
-<p>book-card works!</p>
+<div class="mb-5">
+  <div class="book-header d-flex gap-2">
+    <div
+      class="img d-block overflow-hidden flex-shrink-0 rounded"
+      style="background: #ebebeb; height: 140px; width: 115px"
+    >
+      <img [src]="book().fotoCapaUrl" [alt]="alt()" width="110" class="rounded" />
+    </div>
+    <div class="book-info">
+      <p>
+        <strong>{{ book().nomeObra }}</strong>
+        <span>, por {{ book().autor }}</span>
+      </p>
+      <p class="fs-6">
+        @if (book().volume) {
+          {{ book().volume }}
+        } @else {
+          Volume único.
+        }
+      </p>
+      <p class="d-flex align-items-center gap-2">
+        <span
+          [ngClass]="{
+            disponibility: true,
+            avalible: isAvalible,
+          }"
+        ></span>
+        <span>{{ book().quantidade > 0 ? 'disponível' : 'emprestado' }}</span>
+      </p>
+    </div>
+  </div>
+  @if (true) {
+    <div class="book-actions mt-3">
+      <p>
+        Ações:
+        <app-min-button icon="bi-pencil" color="var(--bg-btn-edit)" />
+        <app-min-button icon="bi-send" color="var(--bg-btn-send)" />
+        <app-min-button icon="bi-trash" color="var(--bg-btn-delete)" />
+      </p>
+    </div>
+  }
+  <div class="book-description">
+    <p class="mt-3"><strong>Descrição: </strong>{{ book().descricao }}</p>
+  </div>
+</div>

@@ -5,7 +5,7 @@ import { CatalogService } from '@modules/catalog/service/catalog.service';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { InputDefault } from '@shared/components/input/input';
 import { CustomSelectComponent, SelectOption } from '@shared/components/select/select';
-import { Category } from '@shared/interfaces/book.interface';
+import { Category, RawBook } from '@shared/interfaces/book.interface';
 import { map } from 'rxjs';
 import { RegisterCategory } from '../register-category/register-category';
 import { BlurOnClick } from '@shared/directives/blur-on-click';
@@ -32,19 +32,37 @@ export class RegisterBook implements OnInit {
   private fb = inject(FormBuilder);
 
   public bookForm = this.fb.group({
-    nomeObra: ['', [Validators.required]],
-    autor: ['', [Validators.required]],
-    editora: [''],
-    volume: [''],
-    descricao: [''],
-    categoriasIds: [[] as SelectOption[]],
-    quantidade: [''],
-    fotoCapaUrl: [''],
+    nomeObra: ['teste', [Validators.required]],
+    autor: ['teste', [Validators.required]],
+    editora: ['teste'],
+    volume: ['1'],
+    descricao: ['teste'],
+    categoriasIds: [[] as string[]],
+    quantidade: [1],
+    fotoCapaUrl: ['https://res.cloudinary.com/teste.webp'],
   });
 
-  isFieldInvalid(field: string): boolean {
+  public isFieldInvalid(field: string): boolean {
     const control = this.bookForm.get(field);
     return !!(control && control.invalid && (control.dirty || control.touched));
+  }
+
+  public createBook() {
+    if (this.bookForm.invalid) return;
+
+    const bookForm = this.bookForm.value;
+
+    const rawBook: RawBook = {
+      nomeObra: bookForm.nomeObra ?? '',
+      autor: bookForm.autor ?? '',
+      categoriasIds: bookForm.categoriasIds ?? [],
+      descricao: bookForm.descricao ?? '',
+      editora: bookForm.editora ?? '',
+      fotoCapaUrl: bookForm.fotoCapaUrl ?? '',
+      quantidade: bookForm.quantidade ?? 0,
+      volume: bookForm.volume ?? '',
+    };
+    this.catalogService.createBook(rawBook).subscribe();
   }
 
   private formatOptions(cat: Category[]): SelectOption[] {
@@ -89,7 +107,7 @@ export class RegisterBook implements OnInit {
           const currentValues = categoriesControl.value ?? [];
 
           // Filtra o formulário mantendo apenas os IDs que NÃO foram excluídos
-          const remainingValues = currentValues.filter((c) => !deletedIds.includes(c.value));
+          const remainingValues = currentValues.filter((c) => !deletedIds.includes(c));
 
           // Atualiza o formulário do livro de forma limpa e reativa
           categoriesControl.setValue(remainingValues);

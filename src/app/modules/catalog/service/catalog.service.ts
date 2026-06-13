@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Book, Category, PageResponse } from '@shared/interfaces/book.interface';
+import { Book, Category, PageResponse, RawBook } from '@shared/interfaces/book.interface';
 import { environment } from 'environments/environment';
-import { BehaviorSubject, forkJoin, map, tap } from 'rxjs';
+import { BehaviorSubject, forkJoin, map, switchMap, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -28,11 +28,18 @@ export class CatalogService {
   }
 
   public updateCatalogList() {
+    console.log('up chamad');
     return this.http.get<PageResponse<Book>>(this.bookUrl).pipe(
       tap((booksResponse) => {
         this.books$.next(booksResponse.content);
       }),
     );
+  }
+
+  public createBook(book: RawBook) {
+    console.warn('criar livro', book);
+
+    return this.http.post(this.bookUrl, book).pipe(switchMap(() => this.updateCatalogList()));
   }
 
   public updateCategoriesList() {
@@ -42,8 +49,6 @@ export class CatalogService {
   }
 
   public createCategory(name: string) {
-    console.log(name);
-
     return this.http
       .post<Category>(this.categoryUrl, { nome: name, decricao: 'Descrição padrão' })
       .pipe(map((cat) => cat.id));

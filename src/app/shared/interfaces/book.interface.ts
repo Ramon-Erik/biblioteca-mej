@@ -3,6 +3,16 @@ export interface Category {
   nome: string;
   descricao: string;
 }
+export interface RawBook {
+  nomeObra: string;
+  autor: string;
+  editora: string;
+  volume: string | null; // Note que a API pode mandar nulo
+  descricao: string;
+  categoriasIds: string[]; // Substitua por 'Categoria[]' caso tenha uma interface para categorias
+  quantidade: number;
+  fotoCapaUrl: string;
+}
 
 export interface Book {
   id: string;
@@ -11,7 +21,7 @@ export interface Book {
   editora: string;
   volume: string | null; // Note que a API pode mandar nulo
   descricao: string;
-  categorias: Category[]; // Substitua por 'Categoria[]' caso tenha uma interface para categorias
+  categoriasIds: Category[]; // Substitua por 'Categoria[]' caso tenha uma interface para categorias
   quantidade: number;
   fotoCapaUrl: string;
 }

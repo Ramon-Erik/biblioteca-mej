@@ -19,15 +19,21 @@ export class CatalogService {
     return this.books$.asObservable();
   }
 
-  get categoriesList() {
-    return this.categories$.asObservable();
-  }
-
   get catalogLength() {
     return this.books$.pipe(map((catalog) => catalog.length));
   }
 
-  public updateCatalogList() {
+  get categoriesList() {
+    return this.categories$.asObservable();
+  }
+
+  public createBook(book: RawBook) {
+    console.warn('criar livro', book);
+
+    return this.http.post(this.bookUrl, book).pipe(switchMap(() => this.getCatalogList()));
+  }
+
+  public getCatalogList() {
     console.log('up chamad');
     return this.http.get<PageResponse<Book>>(this.bookUrl).pipe(
       tap((booksResponse) => {
@@ -36,13 +42,7 @@ export class CatalogService {
     );
   }
 
-  public createBook(book: RawBook) {
-    console.warn('criar livro', book);
-
-    return this.http.post(this.bookUrl, book).pipe(switchMap(() => this.updateCatalogList()));
-  }
-
-  public updateCategoriesList() {
+  public getCategoriesList() {
     return this.http
       .get<Category[]>(this.categoryUrl)
       .pipe(tap((categoriesResponse) => this.categories$.next(categoriesResponse)));
@@ -58,6 +58,6 @@ export class CatalogService {
 
     const deleteRequests = idList.map((id) => this.http.delete<void>(`${this.categoryUrl}/${id}`));
 
-    return forkJoin(deleteRequests).pipe(tap(() => this.updateCategoriesList().subscribe()));
+    return forkJoin(deleteRequests).pipe(tap(() => this.getCategoriesList().subscribe()));
   }
 }

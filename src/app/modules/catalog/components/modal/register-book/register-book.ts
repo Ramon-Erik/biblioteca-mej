@@ -121,6 +121,6 @@ export class RegisterBook implements OnInit {
   }
 
   ngOnInit() {
-    this.catalogService.updateCategoriesList().subscribe();
+    this.catalogService.getCategoriesList().subscribe();
   }
 }

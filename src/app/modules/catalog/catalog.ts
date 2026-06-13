@@ -24,6 +24,6 @@ export class Catalog implements OnInit {
   }
 
   ngOnInit() {
-    this.catalogService.updateCatalogList().subscribe();
+    this.catalogService.getCatalogList().subscribe();
   }
 }

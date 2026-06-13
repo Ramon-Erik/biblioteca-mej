@@ -78,8 +78,9 @@ export class RegisterBook implements OnInit {
     });
     modalRef.result.then(
       (c) => {
-        if (!c || !c.category || c!.mark) return;
+        if (!c || !c.category || !c.mark) return;
         const categoriesControl = this.bookForm.get('categoriasIds');
+
         if (categoriesControl && c.mark) {
           const values = categoriesControl.value ?? [];
           categoriesControl.setValue([...values, c.category]);

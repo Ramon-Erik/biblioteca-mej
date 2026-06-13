@@ -31,6 +31,10 @@ export class CatalogService {
     return switchMap(() => this.getCatalogList());
   }
 
+  private reloadCategories() {
+    return switchMap(() => this.getCategoriesList());
+  }
+
   public createBook(book: RawBook) {
     console.warn('criar livro', book);
 
@@ -67,8 +71,9 @@ export class CatalogService {
   public createCategory(name: string) {
     return this.http
       .post<Category>(this.categoryUrl, { nome: name, decricao: 'Descrição padrão' })
-      .pipe(map((cat) => cat.id));
+      .pipe(this.reloadCategories());
   }
+  
   public deleteCategories(ids: string | string[]) {
     const idList = Array.isArray(ids) ? ids : [ids];
 

@@ -26,9 +26,14 @@ export class RegisterCategory {
         name: this.form.value.nome ?? '',
         mark: this.form.value.markOnSave ?? false,
       };
-      this.catalogService
-        .createCategory(params.name)
-        .subscribe((c) => this.activeModal.close({ category: c, mark: params.mark }));
+      this.catalogService.createCategory(params.name).subscribe((c) => {
+        const newCategoryId = c.filter((cat) => cat.nome === params.name).map((cat) => cat.id);
+
+        this.activeModal.close({
+          category: newCategoryId[0],
+          mark: params.mark,
+        });
+      });
     }
   }
 }

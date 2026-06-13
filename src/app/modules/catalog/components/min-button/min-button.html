@@ -1,13 +1,13 @@
 <button
   type="button"
-  class="btn d-inline-flex align-items-center justify-content-center p-0 rounded-0 border-0"
+  class="btn d-inline-flex align-items-center justify-content-center p-0 rounded border-0"
   [style.background-color]="color()"
   [style.width]="size()"
   [style.height]="size()"
   appBlurOnClick
   (click)="onClick()"
 >
-  <i class="bi bi-plus-lg text-white" [style.font-size]="'calc(' + size() + ' * 0.6)'"></i>
+  <i class="bi {{ icon() }} text-white" [style.font-size]="'calc(' + size() + ' * 0.6)'"></i>
 </button>
 <span class="d-inline-block ms-2">
   <ng-content></ng-content>

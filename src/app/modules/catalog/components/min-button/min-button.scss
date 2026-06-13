@@ -1,0 +1,25 @@
+:host {
+  button {
+    transition:
+      transform 0.12s cubic-bezier(0.4, 0, 0.2, 1),
+      filter 0.15s ease-in-out;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent; /* Remove aquele quadrado azul nativo do Android ao tocar */
+
+    // Efeito para Computador (Mouse)
+    @media (hover: hover) {
+      &:hover {
+        filter: brightness(0.9);
+        transform: scale(1.08); // Aumenta sutilmente ao passar o mouse
+      }
+    }
+
+    // Efeito de Clique / Toque (Funciona perfeitamente no Mobile e Desktop)
+    &:active {
+      filter: brightness(0.85);
+      transform: scale(
+        0.92
+      ); // Efeito "push" (afunda um pouquinho) que dá um feedback tátil excelente no celular!
+    }
+  }
+}

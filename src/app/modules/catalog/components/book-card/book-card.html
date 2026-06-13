@@ -2,7 +2,7 @@
   <div class="book-header d-flex gap-2">
     <div
       class="img d-block overflow-hidden flex-shrink-0 rounded"
-      style="background: #ebebeb; height: 140px; width: 115px"
+      style="background: #ebebeb; height: 140px; width: 110px"
     >
       <img [src]="book().fotoCapaUrl" [alt]="alt()" width="110" class="rounded" />
     </div>
@@ -13,12 +13,13 @@
       </p>
       <p class="fs-6">
         @if (book().volume) {
-          {{ book().volume }}
+          {{ book().volume }},
         } @else {
           Volume único.
         }
+        <span class="fst-italic">{{ book().editora }}</span>
       </p>
-      <p class="d-flex align-items-center gap-2">
+      <p class="d-flex align-items-center gap-2 fs-6">
         <span
           [ngClass]="{
             disponibility: true,
@@ -33,7 +34,11 @@
     <div class="book-actions mt-3">
       <p>
         Ações:
-        <app-min-button icon="bi-pencil" color="var(--bg-btn-edit)" />
+        <app-min-button
+          icon="bi-pencil"
+          color="var(--bg-btn-edit)"
+          (btnClick)="openEditBookModal()"
+        />
         <app-min-button icon="bi-send" color="var(--bg-btn-send)" />
         <app-min-button
           icon="bi-trash"

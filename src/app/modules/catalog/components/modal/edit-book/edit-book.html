@@ -1,0 +1,100 @@
+<div class="modal-header">
+  @if (book(); as b) {
+    <h5 class="modal-title">
+      Editar Obra: <span class="text-muted">{{ b.nomeObra }}</span>
+    </h5>
+  } @else {
+    <h5 class="modal-title">Editar Livro</h5>
+  }
+  <button
+    type="button"
+    class="btn-close"
+    (click)="activeModal.dismiss()"
+    aria-label="close"
+  ></button>
+</div>
+
+<div class="modal-body" style="max-height: 70vh; overflow-y: auto">
+  <form [formGroup]="bookForm">
+    <app-input
+      type="text"
+      inputId="editNomeObra"
+      formControlName="nomeObra"
+      label="Nome da Obra"
+      placeholder="Ex: O Senhor dos Anéis"
+    />
+
+    <div class="row">
+      <div class="col-md-6">
+        <app-input
+          type="text"
+          inputId="editAutor"
+          formControlName="autor"
+          label="Autor"
+          placeholder="Nome do autor..."
+        />
+      </div>
+      <div class="col-md-6">
+        <app-input
+          type="text"
+          inputId="editEditora"
+          formControlName="editora"
+          label="Editora"
+          placeholder="Nome da editora..."
+        />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <app-input
+          type="text"
+          inputId="editVolume"
+          formControlName="volume"
+          label="Volume"
+          placeholder="Ex: Vol. 1 ou Único"
+        />
+      </div>
+      <div class="col-md-6">
+        <app-input
+          inputId="editQuantidade"
+          formControlName="quantidade"
+          label="Quantidade em Estoque"
+          type="number"
+        />
+      </div>
+    </div>
+
+    @if (categories$ | async; as categories) {
+      <app-select
+        inputId="editCategoriasIds"
+        formControlName="categoriasIds"
+        [options]="categories"
+        label="Categorias da Obra"
+        placeholder="Selecione as categorias..."
+        [isMultiple]="true"
+      />
+    }
+
+    <app-input
+      type="text"
+      inputId="editFotoCapaUrl"
+      formControlName="fotoCapaUrl"
+      label="URL da Foto de Capa (Cloudinary)"
+      placeholder="https://res.cloudinary.com/..."
+    />
+
+    <app-textarea
+      inputId="editDescricao"
+      formControlName="descricao"
+      label="Sinopse / Descrição"
+      placeholder="Digite o resumo do livro..."
+      [rows]="4"
+    />
+  </form>
+</div>
+
+<div class="modal-footer d-flex align-items-center justify-content-between gap-4">
+  <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss()">Cancelar</button>
+  <button type="button" class="btn btn-primary" (click)="updateBook()">Salvar Alterações</button>
+</div>

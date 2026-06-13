@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Book, Category, PageResponse, RawBook } from '@shared/interfaces/book.interface';
 import { environment } from 'environments/environment';
-import { BehaviorSubject, forkJoin, map, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, forkJoin, map, shareReplay, switchMap, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -24,7 +24,7 @@ export class CatalogService {
   }
 
   get categoriesList() {
-    return this.categories$.asObservable();
+    return this.categories$.asObservable().pipe(shareReplay(1));
   }
 
   private reloadCatalog() {
@@ -49,6 +49,13 @@ export class CatalogService {
   public deleteBook(bookId: string) {
     const book = `${this.bookUrl}/${bookId}`;
     return this.http.delete<void>(book).pipe(this.reloadCatalog());
+  }
+
+  public updateBook(id: string, book: RawBook) {
+    const bookId = `${this.bookUrl}/${id}`;
+    console.log(book);
+
+    return this.http.put<void>(bookId, book).pipe(this.reloadCatalog());
   }
 
   public getCategoriesList() {

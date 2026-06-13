@@ -21,9 +21,15 @@ export interface Book {
   editora: string;
   volume: string | null; // Note que a API pode mandar nulo
   descricao: string;
-  categoriasIds: Category[]; // Substitua por 'Categoria[]' caso tenha uma interface para categorias
+  categorias: Category[]; // Substitua por 'Categoria[]' caso tenha uma interface para categorias
   quantidade: number;
   fotoCapaUrl: string;
+  oculto: false;
+  motivoOcultacao: string | null;
+  criadoPorId: '213b9541-76ca-4259-bc4a-43722108acee';
+  editadoPorId: null;
+  criadoEm: '2026-06-13T14:16:03.970142';
+  editadoEm: null;
 }
 
 // 2. Interface auxiliar para o mapeamento interno de "pageable"

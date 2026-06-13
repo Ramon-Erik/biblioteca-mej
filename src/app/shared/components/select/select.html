@@ -1,46 +1,44 @@
-<div class="mb-3">
-  @if (label() && inputId()) {
-    <span [attr.for]="inputId()" class="form-label fw-semibold text-body">{{ label() }}</span>
-  }
+@if (label() && inputId()) {
+  <span [attr.for]="inputId()" class="form-label fw-semibold text-body">{{ label() }}</span>
+}
 
-  <div ngbDropdown class="d-inline-block w-100" [id]="inputId()">
-    <button
-      [disabled]="disabled"
-      type="button"
-      class="form-control text-start d-flex justify-content-between align-items-center bg-light text-body dropdown-toggle"
-      ngbDropdownToggle
-    >
-      <span class="text-truncate">
-        @if (selectedValues.length === 0) {
-          {{ placeholder() }}
-        } @else {
-          {{ selectedValues.length }} selecionada(s)
-        }
-      </span>
-    </button>
-
-    <div ngbDropdownMenu class="w-100 overflow-auto shadow" style="max-height: 250px">
-      @for (option of options(); track option.value) {
-        <label
-          class="dropdown-item d-flex align-items-center gap-2 m-0 py-2 custom-option"
-          style="cursor: pointer"
-        >
-          <input
-            type="checkbox"
-            class="form-check-input my-0"
-            [disabled]="disabled"
-            [checked]="isOptionSelected(option.value)"
-            (change)="toggleOption(option.value)"
-          />
-          <span class="text-body">{{ option.label }}</span>
-        </label>
+<div ngbDropdown class="d-inline-block w-100" [id]="inputId()">
+  <button
+    [disabled]="disabled"
+    type="button"
+    class="form-control text-start d-flex justify-content-between align-items-center bg-light text-body dropdown-toggle"
+    ngbDropdownToggle
+  >
+    <span class="text-truncate">
+      @if (selectedValues.length === 0) {
+        {{ placeholder() }}
+      } @else {
+        {{ selectedValues.length }} selecionada(s)
       }
-    </div>
-  </div>
+    </span>
+  </button>
 
-  @if (isInvalid() && errorMessage()) {
-    <div class="text-danger small mt-1 d-block">
-      {{ errorMessage() }}
-    </div>
-  }
+  <div ngbDropdownMenu class="w-100 overflow-auto shadow" style="max-height: 250px">
+    @for (option of options(); track option.value) {
+      <label
+        class="dropdown-item d-flex align-items-center gap-2 m-0 py-2 custom-option"
+        style="cursor: pointer"
+      >
+        <input
+          type="checkbox"
+          class="form-check-input my-0"
+          [disabled]="disabled"
+          [checked]="isOptionSelected(option.value)"
+          (change)="toggleOption(option.value)"
+        />
+        <span class="text-body">{{ option.label }}</span>
+      </label>
+    }
+  </div>
 </div>
+
+@if (isInvalid() && errorMessage()) {
+  <div class="text-danger small mt-1 d-block">
+    {{ errorMessage() }}
+  </div>
+}

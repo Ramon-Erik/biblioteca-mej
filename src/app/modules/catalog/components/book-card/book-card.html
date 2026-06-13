@@ -35,7 +35,11 @@
         Ações:
         <app-min-button icon="bi-pencil" color="var(--bg-btn-edit)" />
         <app-min-button icon="bi-send" color="var(--bg-btn-send)" />
-        <app-min-button icon="bi-trash" color="var(--bg-btn-delete)" />
+        <app-min-button
+          icon="bi-trash"
+          color="var(--bg-btn-delete)"
+          (btnClick)="openDeleteBook()"
+        />
       </p>
     </div>
   }

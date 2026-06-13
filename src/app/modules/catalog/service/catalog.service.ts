@@ -27,10 +27,14 @@ export class CatalogService {
     return this.categories$.asObservable();
   }
 
+  private reloadCatalog() {
+    return switchMap(() => this.getCatalogList());
+  }
+
   public createBook(book: RawBook) {
     console.warn('criar livro', book);
 
-    return this.http.post(this.bookUrl, book).pipe(switchMap(() => this.getCatalogList()));
+    return this.http.post(this.bookUrl, book).pipe(this.reloadCatalog());
   }
 
   public getCatalogList() {
@@ -40,6 +44,11 @@ export class CatalogService {
         this.books$.next(booksResponse.content);
       }),
     );
+  }
+
+  public deleteBook(bookId: string) {
+    const book = `${this.bookUrl}/${bookId}`;
+    return this.http.delete<void>(book).pipe(this.reloadCatalog());
   }
 
   public getCategoriesList() {

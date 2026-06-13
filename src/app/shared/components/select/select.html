@@ -1,5 +1,7 @@
 @if (label() && inputId()) {
-  <span [attr.for]="inputId()" class="form-label fw-semibold text-body">{{ label() }}</span>
+  <label [attr.for]="inputId()" class="form-label fw-semibold text-body">
+    {{ label() }}
+  </label>
 }
 
 <div ngbDropdown class="d-inline-block w-100" [id]="inputId()">
@@ -10,11 +12,7 @@
     ngbDropdownToggle
   >
     <span class="text-truncate">
-      @if (selectedValues.length === 0) {
-        {{ placeholder() }}
-      } @else {
-        {{ selectedValues.length }} selecionada(s)
-      }
+      {{ buttonLabel }}
     </span>
   </button>
 
@@ -25,7 +23,8 @@
         style="cursor: pointer"
       >
         <input
-          type="checkbox"
+          [type]="isMultiple() ? 'checkbox' : 'radio'"
+          [name]="inputId()"
           class="form-check-input my-0"
           [disabled]="disabled"
           [checked]="isOptionSelected(option.value)"

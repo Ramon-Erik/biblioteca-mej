@@ -1,0 +1,13 @@
+<p class="d-flex flex-wrap gap-4 align-items-center">
+  Filtro:
+  @if (categories$ | async; as categories) {
+    <app-select
+      inputId="filterCategories"
+      [(ngModel)]="selectedCategory"
+      (ngModelChange)="onFilterChange($event)"
+      [options]="categories"
+      [isMultiple]="false"
+    />
+  }
+  <span>{{ responsesText() }}</span>
+</p>

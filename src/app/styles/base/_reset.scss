@@ -37,6 +37,12 @@ main {
   }
 }
 
+.sub-modal {
+  margin: auto;
+  width: calc(100% - 3rem);
+  max-width: 430px;
+}
+
 form {
   display: flex;
   flex-direction: column;

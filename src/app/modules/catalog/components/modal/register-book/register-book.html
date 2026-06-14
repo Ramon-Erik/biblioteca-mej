@@ -1,0 +1,123 @@
+<div class="modal-header">
+  <h5 class="modal-title fw-bold">Cadastrar Novo Livro</h5>
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Close"
+    (click)="activeModal.dismiss()"
+  ></button>
+</div>
+
+<div class="modal-body">
+  <form [formGroup]="bookForm">
+    <div class="input-line">
+      <app-input
+        label="Nome da Obra:"
+        placeholder="Digite o nome do livro"
+        inputId="nomeObra"
+        type="text"
+        formControlName="nomeObra"
+      />
+    </div>
+
+    <div class="input-line">
+      <app-input
+        label="Autor:"
+        placeholder="Nome do autor"
+        inputId="autor"
+        type="text"
+        formControlName="autor"
+      />
+    </div>
+
+    <div class="input-line">
+      <app-input
+        label="Editora:"
+        placeholder="Nome da editora"
+        inputId="editora"
+        type="text"
+        formControlName="editora"
+      />
+    </div>
+
+    <div class="input-line">
+      <app-input
+        label="Volume:"
+        placeholder="Ex: Vol. 1"
+        inputId="volume"
+        type="text"
+        formControlName="volume"
+      />
+    </div>
+
+    <div class="input-line mt-4">
+      <app-textarea
+        [isRequired]="true"
+        inputId="descricao"
+        type="text"
+        label="Descrição"
+        placeholder="Breve resumo da obra"
+        formControlName="descricao"
+      />
+    </div>
+
+    <div class="input-line">
+      <app-input
+        label="Quantidade:"
+        type="number"
+        placeholder="0"
+        inputId="quantidade"
+        type="text"
+        formControlName="quantidade"
+      />
+    </div>
+
+    <div class="input-line">
+      <app-input
+        label="URL da Foto de Capa:"
+        type="url"
+        placeholder="https://..."
+        inputId="fotoCapaUrl"
+        type="text"
+        formControlName="fotoCapaUrl"
+      />
+    </div>
+
+    @if (categories$ | async; as categories) {
+      <app-select
+        class="d-block mt-3"
+        inputId="categoriasIds"
+        formControlName="categoriasIds"
+        [options]="categories"
+        label="Categoria Principal"
+        placeholder="Escolha a categoria do livro"
+        [isMultiple]="true"
+        [isInvalid]="isFieldInvalid('categoriasIds')"
+        errorMessage="A categoria principal é obrigatória."
+      ></app-select>
+      <div class="d-flex gap-3 mt-3">
+        <button
+          type="button"
+          class="btn btn-link p-0 text-decoration-none"
+          (click)="openNewCategoryModal()"
+          appBlurOnClick
+        >
+          <small>Nova categoria</small>
+        </button>
+        <button
+          type="button"
+          class="btn btn-link p-0 text-decoration-none"
+          (click)="openDeleteCategoryModal()"
+          appBlurOnClick
+        >
+          <small>Apagar categoria</small>
+        </button>
+      </div>
+    }
+  </form>
+</div>
+
+<div class="modal-footer d-flex align-items-center justify-content-between gap-4">
+  <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss()">Cancelar</button>
+  <button type="button" class="btn btn-success" (click)="createBook()">Cadastrar</button>
+</div>

@@ -1,0 +1,28 @@
+<app-page-title
+  title="Catálogo"
+  subtitle="Veja abaixo o acervo de livros disponíveis para empréstimo."
+/>
+
+<app-catalog-filter />
+
+@if (true) {
+  <app-min-button icon="bi-plus-lg" (btnClick)="openRegisterModal()">
+    cadastrar novo livro
+  </app-min-button>
+}
+
+@if (books$ | async; as books) {
+  @if (books.length !== 0 && (paginationInfo | async); as pag) {
+    <app-pagination [paginationInfo]="pag" (pageChange)="changePage($event)" />
+  }
+  <div class="my-4">
+    @for (book of books; track book.id) {
+      <app-book-card [book]="book" />
+    } @empty {
+      <p class="text-center fw-bold my-5">Tente um filtro novo ;)</p>
+    }
+  </div>
+  @if (books.length > 4 && (paginationInfo | async); as pag) {
+    <app-pagination [paginationInfo]="pag" (pageChange)="changePage($event)" />
+  }
+}

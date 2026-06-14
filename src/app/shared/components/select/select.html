@@ -1,0 +1,49 @@
+@if (label() && inputId()) {
+  <label [attr.for]="inputId()" class="form-label fw-semibold text-body">
+    {{ label() }}
+  </label>
+}
+
+<div ngbDropdown class="d-inline-block w-100" [id]="inputId()">
+  <button
+    [disabled]="disabled"
+    type="button"
+    class="form-control text-start d-flex justify-content-between align-items-center bg-light text-body dropdown-toggle"
+    ngbDropdownToggle
+  >
+    <span class="text-truncate">
+      {{ buttonLabel }}
+    </span>
+  </button>
+
+  <div ngbDropdownMenu class="w-100 overflow-auto shadow" style="max-height: 250px">
+    @for (option of options(); track option.value) {
+      <div
+        role="button"
+        [attr.tabindex]="disabled ? -1 : 0"
+        class="dropdown-item d-flex align-items-center gap-2 m-0 py-2 custom-option"
+        style="cursor: pointer"
+        (click)="toggleOption(option.value)"
+        (keydown.enter)="toggleOption(option.value)"
+        (keydown.space)="$event.preventDefault(); toggleOption(option.value)"
+      >
+        <input
+          [type]="isMultiple() ? 'checkbox' : 'radio'"
+          [name]="inputId()"
+          class="form-check-input my-0"
+          style="cursor: pointer"
+          [disabled]="disabled"
+          [checked]="isOptionSelected(option.value)"
+          (click)="$event.stopPropagation(); $event.preventDefault(); toggleOption(option.value)"
+        />
+        <span class="text-body">{{ option.label }}</span>
+      </div>
+    }
+  </div>
+</div>
+
+@if (isInvalid() && errorMessage()) {
+  <div class="text-danger small mt-1 d-block">
+    {{ errorMessage() }}
+  </div>
+}

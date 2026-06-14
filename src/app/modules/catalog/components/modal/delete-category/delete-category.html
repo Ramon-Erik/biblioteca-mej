@@ -1,0 +1,36 @@
+<div class="modal-header">
+  <h5 class="modal-title">Apagar Categorias</h5>
+  <button
+    type="button"
+    class="btn-close"
+    (click)="activeModal.dismiss()"
+    aria-label="close"
+  ></button>
+</div>
+
+<div class="modal-body">
+  <form [formGroup]="form">
+    @if (categories$ | async; as categories) {
+      <app-select
+        inputId="deleteCategoriasIds"
+        formControlName="categoriasIds"
+        [options]="categories"
+        label="Selecione as categorias para remover"
+        placeholder="Escolha uma ou mais categorias..."
+        [isMultiple]="true"
+        [isInvalid]="isFieldInvalid()"
+        errorMessage="Selecione ao menos uma categoria para apagar."
+      ></app-select>
+    }
+  </form>
+  <div class="alert alert-warning mt-3 py-2 d-flex align-items-center gap-2" role="alert">
+    <small><strong>Atenção:</strong> Esta ação é irreversível.</small>
+  </div>
+</div>
+
+<div class="modal-footer d-flex align-items-center justify-content-between gap-4">
+  <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss()">Cancelar</button>
+  <button type="button" class="btn btn-danger" (click)="confirmDelete()">
+    Apagar Selecionadas
+  </button>
+</div>

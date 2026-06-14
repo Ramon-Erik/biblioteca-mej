@@ -1,0 +1,23 @@
+<div class="d-flex align-items-center justify-content-center gap-3 my-3">
+  <button
+    type="button"
+    [ngClass]="{ 'btn btn-outline-secondary btn-sm': true, 'opacity-50': paginationInfo().first }"
+    [disabled]="paginationInfo().first"
+    (click)="onPageClick(paginationInfo().pageNumber - 1)"
+  >
+    Voltar
+  </button>
+
+  <span class="text-body fw-medium">
+    página {{ paginationInfo().pageNumber + 1 }} / {{ paginationInfo().totalPages }}
+  </span>
+
+  <button
+    type="button"
+    [ngClass]="{ 'btn btn-outline-secondary btn-sm': true, 'opacity-50': paginationInfo().last }"
+    [disabled]="paginationInfo().last"
+    (click)="onPageClick(paginationInfo().pageNumber + 1)"
+  >
+    Próximo
+  </button>
+</div>

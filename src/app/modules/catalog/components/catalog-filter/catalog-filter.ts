@@ -5,15 +5,17 @@ import { map } from 'rxjs';
 import { CustomSelectComponent } from '@shared/components/select/select';
 import { AsyncPipe } from '@angular/common';
 import { Category } from '@shared/interfaces/book.interface';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-catalog-filter',
-  imports: [CustomSelectComponent, AsyncPipe],
+  imports: [CustomSelectComponent, FormsModule, AsyncPipe],
   templateUrl: './catalog-filter.html',
   styleUrl: './catalog-filter.scss',
 })
 export class CatalogFilter implements OnInit {
   private catalogService = inject(CatalogService);
   private destroyRef = inject(DestroyRef);
+  public selectedCategory = '';
 
   public responsesText = signal('');
 
@@ -25,6 +27,10 @@ export class CatalogFilter implements OnInit {
     if (l == 0) return 'Nenhum resultado.';
     if (l == 1) return 'Um resultado.';
     return l + ' resultados.';
+  }
+
+  public onFilterChange(categoriaId: string): void {
+    this.catalogService.getCatalogList({ categoriaId, page: 0 }).subscribe();
   }
 
   ngOnInit() {

@@ -1,6 +1,12 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Book, Category, PageResponse, RawBook } from '@shared/interfaces/book.interface';
+import {
+  Book,
+  CatalogFilters,
+  Category,
+  PageResponse,
+  RawBook,
+} from '@shared/interfaces/book.interface';
 import { environment } from 'environments/environment';
 import { BehaviorSubject, forkJoin, map, shareReplay, switchMap, tap } from 'rxjs';
 
@@ -11,6 +17,12 @@ export class CatalogService {
   private http = inject(HttpClient);
   private readonly bookUrl = `${environment.apiUrl}/livros`;
   private readonly categoryUrl = `${environment.apiUrl}/categorias`;
+
+  private currentFilters: CatalogFilters = {
+    page: 0,
+    size: 10,
+    sort: 'criadoEm,DESC',
+  };
 
   private books$ = new BehaviorSubject<Book[]>([]);
   private categories$ = new BehaviorSubject<Category[]>([]);
@@ -41,8 +53,21 @@ export class CatalogService {
     return this.http.post(this.bookUrl, book).pipe(this.reloadCatalog());
   }
 
-  public getCatalogList() {
-    return this.http.get<PageResponse<Book>>(this.bookUrl).pipe(
+  public getCatalogList(filters?: Partial<CatalogFilters>) {
+    if (filters) {
+      this.currentFilters = { ...this.currentFilters, ...filters };
+    }
+
+    let params = new HttpParams()
+      .set('page', this.currentFilters.page.toString())
+      .set('size', this.currentFilters.size.toString())
+      .set('sort', this.currentFilters.sort);
+
+    if (this.currentFilters.categoriaId) {
+      params = params.set('categoriaId', this.currentFilters.categoriaId);
+    }
+
+    return this.http.get<PageResponse<Book>>(this.bookUrl, { params }).pipe(
       tap((booksResponse) => {
         this.books$.next(booksResponse.content);
       }),
@@ -78,6 +103,6 @@ export class CatalogService {
 
     const deleteRequests = idList.map((id) => this.http.delete<void>(`${this.categoryUrl}/${id}`));
 
-    return forkJoin(deleteRequests).pipe(tap(() => this.getCategoriesList().subscribe()));
+    return forkJoin(deleteRequests).pipe(this.reloadCategories());
   }
 }

@@ -32,14 +32,14 @@ export class RegisterBook implements OnInit {
   private fb = inject(FormBuilder);
 
   public bookForm = this.fb.group({
-    nomeObra: ['teste', [Validators.required]],
-    autor: ['teste', [Validators.required]],
-    editora: ['teste'],
-    volume: ['1'],
-    descricao: ['teste'],
+    nomeObra: ['', [Validators.required]],
+    autor: ['', [Validators.required]],
+    editora: ['', [Validators.required]],
+    volume: ['', [Validators.required]],
+    descricao: ['', [Validators.required]],
     categoriasIds: [[] as string[]],
-    quantidade: [1],
-    fotoCapaUrl: ['https://res.cloudinary.com/teste.webp'],
+    quantidade: [1, [Validators.required]],
+    fotoCapaUrl: ['', [Validators.required]],
   });
 
   public isFieldInvalid(field: string): boolean {

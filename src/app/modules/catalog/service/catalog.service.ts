@@ -42,7 +42,6 @@ export class CatalogService {
   }
 
   public getCatalogList() {
-    console.log('up chamad');
     return this.http.get<PageResponse<Book>>(this.bookUrl).pipe(
       tap((booksResponse) => {
         this.books$.next(booksResponse.content);

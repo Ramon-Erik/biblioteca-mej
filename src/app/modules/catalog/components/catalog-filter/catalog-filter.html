@@ -1,11 +1,7 @@
-<p class="d-flex gap-4">
-  <span>
-    Filtro:
-    <select id="filter">
-      <option>santos</option>
-      <option>igreja</option>
-      <option>doutrina</option>
-    </select>
-  </span>
+<p class="d-flex flex-wrap gap-4 align-items-center">
+  Filtro:
+  @if (categories$ | async; as categories) {
+    <app-select inputId="filterCategories" [options]="categories" [isMultiple]="false" />
+  }
   <span>{{ responsesText() }}</span>
 </p>

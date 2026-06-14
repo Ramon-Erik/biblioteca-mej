@@ -7,20 +7,26 @@ import { RegisterBook } from './components/modal/register-book/register-book';
 import { CatalogService } from './service/catalog.service';
 import { AsyncPipe } from '@angular/common';
 import { BookCard } from './components/book-card/book-card';
+import { Pagination } from '@shared/components/pagination/pagination';
 
 @Component({
   selector: 'app-catalog',
-  imports: [PageTitle, CatalogFilter, MinButton, AsyncPipe, BookCard],
+  imports: [AsyncPipe, PageTitle, CatalogFilter, MinButton, AsyncPipe, BookCard, Pagination],
   templateUrl: './catalog.html',
   styleUrl: './catalog.scss',
 })
 export class Catalog implements OnInit {
   private catalogService = inject(CatalogService);
   public books$ = this.catalogService.booksList;
+  public paginationInfo = this.catalogService.pagination;
 
   private modalService = inject(NgbModal);
   public openRegisterModal() {
     this.modalService.open(RegisterBook, { centered: true, scrollable: true });
+  }
+
+  public changePage(page: number) {
+    this.catalogService.goToPage(page).subscribe();
   }
 
   ngOnInit() {

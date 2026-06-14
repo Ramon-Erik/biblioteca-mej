@@ -7,6 +7,7 @@ import {
   PageResponse,
   RawBook,
 } from '@shared/interfaces/book.interface';
+import { PaginationState } from '@shared/interfaces/pagination.interface';
 import { environment } from 'environments/environment';
 import { BehaviorSubject, forkJoin, map, shareReplay, switchMap, tap } from 'rxjs';
 
@@ -18,14 +19,25 @@ export class CatalogService {
   private readonly bookUrl = `${environment.apiUrl}/livros`;
   private readonly categoryUrl = `${environment.apiUrl}/categorias`;
 
+  private pagination$ = new BehaviorSubject<PaginationState>({
+    pageNumber: 0,
+    pageSize: 6,
+    totalPages: 1,
+    first: true,
+    last: true,
+  });
+
   private currentFilters: CatalogFilters = {
     page: 0,
-    size: 10,
-    sort: 'criadoEm,DESC',
+    size: 6,
   };
 
   private books$ = new BehaviorSubject<Book[]>([]);
   private categories$ = new BehaviorSubject<Category[]>([]);
+
+  get pagination() {
+    return this.pagination$.asObservable();
+  }
 
   get booksList() {
     return this.books$.asObservable();
@@ -60,8 +72,7 @@ export class CatalogService {
 
     let params = new HttpParams()
       .set('page', this.currentFilters.page.toString())
-      .set('size', this.currentFilters.size.toString())
-      .set('sort', this.currentFilters.sort);
+      .set('size', this.currentFilters.size.toString());
 
     if (this.currentFilters.categoriaId) {
       params = params.set('categoriaId', this.currentFilters.categoriaId);
@@ -70,8 +81,20 @@ export class CatalogService {
     return this.http.get<PageResponse<Book>>(this.bookUrl, { params }).pipe(
       tap((booksResponse) => {
         this.books$.next(booksResponse.content);
+
+        this.pagination$.next({
+          pageNumber: booksResponse.number,
+          pageSize: booksResponse.size,
+          totalPages: booksResponse.totalPages,
+          first: booksResponse.first,
+          last: booksResponse.last,
+        });
       }),
     );
+  }
+
+  public goToPage(page: number) {
+    return this.getCatalogList({ page });
   }
 
   public deleteBook(bookId: string) {

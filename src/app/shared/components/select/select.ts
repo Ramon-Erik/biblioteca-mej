@@ -55,12 +55,10 @@ export class CustomSelectComponent implements ControlValueAccessor {
     return `${selected.length} selecionada(s)`;
   }
 
-  // PLACEHOLDER ATRIBUÍDO: Função vazia para interceptar as mudanças do formulário pai
   onChange: (value: string | string[]) => void = (_value: string | string[]) => {
     /* angular placeholder */
   };
 
-  // PLACEHOLDER ATRIBUÍDO: Função vazia para interceptar o evento de touch/blur do formulário pai
   onTouched: () => void = () => {
     /* angular placeholder */
   };
@@ -94,17 +92,26 @@ export class CustomSelectComponent implements ControlValueAccessor {
 
     if (this.isMultiple()) {
       const currentValues = Array.isArray(this.value) ? this.value : [];
+
       if (currentValues.includes(optionValue)) {
         this.value = currentValues.filter((val) => val !== optionValue);
       } else {
         this.value = [...currentValues, optionValue];
       }
-    } else {
-      this.value = optionValue;
-      this.dropdown()?.close();
-    }
 
-    this.onChange(this.value);
-    this.onTouched();
+      this.onChange(this.value);
+      this.onTouched();
+    } else {
+      if (optionValue === this.value) {
+        this.value = '';
+        this.onChange(this.value);
+        this.onTouched();
+      } else {
+        this.value = optionValue;
+        this.onChange(this.value);
+        this.onTouched();
+        this.dropdown()?.close();
+      }
+    }
   }
 }

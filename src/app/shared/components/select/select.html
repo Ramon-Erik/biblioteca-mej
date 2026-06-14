@@ -18,20 +18,26 @@
 
   <div ngbDropdownMenu class="w-100 overflow-auto shadow" style="max-height: 250px">
     @for (option of options(); track option.value) {
-      <label
+      <div
+        role="button"
+        [attr.tabindex]="disabled ? -1 : 0"
         class="dropdown-item d-flex align-items-center gap-2 m-0 py-2 custom-option"
         style="cursor: pointer"
+        (click)="toggleOption(option.value)"
+        (keydown.enter)="toggleOption(option.value)"
+        (keydown.space)="$event.preventDefault(); toggleOption(option.value)"
       >
         <input
           [type]="isMultiple() ? 'checkbox' : 'radio'"
           [name]="inputId()"
           class="form-check-input my-0"
+          style="cursor: pointer"
           [disabled]="disabled"
           [checked]="isOptionSelected(option.value)"
-          (change)="toggleOption(option.value)"
+          (click)="$event.stopPropagation(); $event.preventDefault(); toggleOption(option.value)"
         />
         <span class="text-body">{{ option.label }}</span>
-      </label>
+      </div>
     }
   </div>
 </div>

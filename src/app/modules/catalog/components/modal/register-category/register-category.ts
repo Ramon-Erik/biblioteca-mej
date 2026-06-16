@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CatalogService } from '@modules/catalog/service/catalog.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { InputDefault } from '@shared/components/input/input';
@@ -20,6 +20,14 @@ export class RegisterCategory {
     markOnSave: [true],
   });
 
+  get nomeControl(): FormControl {
+    return this.form.get('nome') as FormControl;
+  }
+  
+  get isAdmin(): boolean {
+    return sessionStorage.getItem('token')?true:false;
+  }
+  
   public saveCategory() {
     if (this.form.valid) {
       const params = {

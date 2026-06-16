@@ -14,9 +14,9 @@
       <app-input
         label="Nome da Obra:"
         placeholder="Digite o nome do livro"
-        inputId="nomeObra"
+        id="nomeObra"
         type="text"
-        formControlName="nomeObra"
+        [control]="getControl('nomeObra')"
       />
     </div>
 
@@ -24,9 +24,9 @@
       <app-input
         label="Autor:"
         placeholder="Nome do autor"
-        inputId="autor"
+        id="autor"
         type="text"
-        formControlName="autor"
+        [control]="getControl('autor')"
       />
     </div>
 
@@ -34,9 +34,9 @@
       <app-input
         label="Editora:"
         placeholder="Nome da editora"
-        inputId="editora"
+        id="editora"
         type="text"
-        formControlName="editora"
+        [control]="getControl('editora')"
       />
     </div>
 
@@ -44,9 +44,9 @@
       <app-input
         label="Volume:"
         placeholder="Ex: Vol. 1"
-        inputId="volume"
+        id="volume"
         type="text"
-        formControlName="volume"
+        [control]="getControl('volume')"
       />
     </div>
 
@@ -66,9 +66,8 @@
         label="Quantidade:"
         type="number"
         placeholder="0"
-        inputId="quantidade"
-        type="text"
-        formControlName="quantidade"
+        id="quantidade"
+        [control]="getControl('quantidade')"
       />
     </div>
 
@@ -77,9 +76,8 @@
         label="URL da Foto de Capa:"
         type="url"
         placeholder="https://..."
-        inputId="fotoCapaUrl"
-        type="text"
-        formControlName="fotoCapaUrl"
+        id="fotoCapaUrl"
+        [control]="getControl('fotoCapaUrl')"
       />
     </div>
 

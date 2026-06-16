@@ -10,9 +10,9 @@
 <div class="modal-body">
   <form [formGroup]="form">
     <app-input
-      inputId="nome"
+      id="nome"
       placeholder="Um nome curto..."
-      formControlName="nome"
+      [control]="nomeControl"
       label="Nome da categoria"
       type="text"
     />

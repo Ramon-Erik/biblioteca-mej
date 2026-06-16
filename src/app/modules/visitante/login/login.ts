@@ -17,10 +17,7 @@ export class Login {
   private readonly router = inject(Router);
   private readonly fb = inject(FormBuilder); 
 
-  loginForm: FormGroup<{
-    email: FormControl<string | null>;
-    password: FormControl<string | null>;
-  }> = this.fb.group({
+  loginForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required]]
   });
@@ -32,18 +29,8 @@ export class Login {
 
       this.loginService.login(identificador, senha).subscribe({
         next: (response) => {
-          sessionStorage.setItem('token', response.token);
-          sessionStorage.setItem('userId', response.id);
-          sessionStorage.setItem('userName', response.nomeCompleto);
-          sessionStorage.setItem('userEmail', response.email);
-          sessionStorage.setItem('userRole', response.role);
-          sessionStorage.setItem('userPhone', response.telefoneWhatsapp);
-
-          //if (response.role === 'ADMIN') {
+          this.loginService.setUserData(response);
           this.router.navigate(['catalogo-de-livros']);
-          //} else {
-          //  this.router.navigate(['catalogo-de-livros']);
-          //}
         },
         error: (error) => {
           console.error('Erro no login:', error);

@@ -36,7 +36,7 @@
     color: var(--white);
     background: var(--yellow);
 
-    border-radius: 1.2rem;
+    border-radius: 1rem;
     border-right: 6px solid var(--dark-yellow);
     border-bottom: 6px solid var(--dark-yellow);
     transition: all 0.1s ease-in-out;
@@ -87,29 +87,5 @@
       content: '...';
       display: block;
     }
-  }
-}
-
-.button-alugar {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 25px 0px;
-
-  button {
-    border: none;
-    box-shadow: inset -3px -4px 0px var(--dark-yellow);
-    background-color: var(--yellow);
-    color: var(--white);
-    border-radius: 20px;
-    padding: 10px 35px;
-    font-size: 20px;
-    font-weight: 700;
-  }
-
-  button:active {
-    box-shadow: inset 3px 4px 0px var(--yellow);
-    background-color: var(--dark-yellow);
   }
 }

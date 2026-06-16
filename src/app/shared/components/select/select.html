@@ -4,7 +4,12 @@
   </label>
 }
 
-<div ngbDropdown class="d-inline-block w-100" [id]="inputId()">
+<div
+  ngbDropdown
+  class="d-inline-block w-100"
+  [id]="inputId()"
+  [autoClose]="isMultiple() ? 'outside' : true"
+>
   <button
     [disabled]="disabled"
     type="button"

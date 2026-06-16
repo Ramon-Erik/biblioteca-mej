@@ -7,6 +7,7 @@ import { InputDefault } from '@shared/components/input/input';
 import { CustomSelectComponent } from '@shared/components/select/select';
 import { CustomTextareaComponent } from '@shared/components/textarea/textarea';
 import { Book, Category, RawBook } from '@shared/interfaces/book.interface';
+import { ToastrService } from 'ngx-toastr';
 import { map } from 'rxjs';
 
 @Component({
@@ -22,6 +23,7 @@ import { map } from 'rxjs';
   templateUrl: './edit-book.html',
 })
 export class EditBook implements OnInit {
+  private toastr = inject(ToastrService);
   public activeModal = inject(NgbActiveModal);
   private catalogService = inject(CatalogService);
   private fb = inject(FormBuilder);
@@ -87,10 +89,13 @@ export class EditBook implements OnInit {
 
     this.catalogService.updateBook(bookId, payload).subscribe({
       next: () => {
-        this.activeModal.close({ sucesso: true });
+        this.activeModal.close();
+        this.toastr.success('Livro editado com sucesso!');
       },
-      error: (err) => {
-        console.error('Erro ao atualizar livro:', err);
+      error: (error) => {
+        const title = error.error.erro || 'Erro ao realizar operação';
+        const msg = error.error.mensagem || 'Problemas com o servidor';
+        this.toastr.error(msg, title, { timeOut: 5500 });
       },
     });
   }

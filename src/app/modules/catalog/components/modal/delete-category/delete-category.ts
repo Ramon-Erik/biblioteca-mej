@@ -4,7 +4,9 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CatalogService } from '@modules/catalog/service/catalog.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CustomSelectComponent, SelectOption } from '@shared/components/select/select';
+import { ApiHttpErrorResponse } from '@shared/interfaces/api-error.interface';
 import { Category } from '@shared/interfaces/book.interface';
+import { ToastrService } from 'ngx-toastr';
 import { map } from 'rxjs';
 
 @Component({
@@ -14,6 +16,7 @@ import { map } from 'rxjs';
   templateUrl: './delete-category.html',
 })
 export class DeleteCategory {
+  private toastr = inject(ToastrService);
   public activeModal = inject(NgbActiveModal);
   private catalogService = inject(CatalogService);
   private fb = inject(FormBuilder);
@@ -26,7 +29,6 @@ export class DeleteCategory {
     return cat.map((c) => ({ value: c.id, label: c.nome }));
   }
 
-  // Consome a mesma lista do pai reativamente
   public categories$ = this.catalogService.categoriesList.pipe(map(this.formatOptions));
 
   public isFieldInvalid(): boolean {
@@ -42,14 +44,15 @@ export class DeleteCategory {
 
     const idsParaDeletar = this.form.value.categoriasIds as string[];
 
-    // Dispara a exclusão no servidor
     this.catalogService.deleteCategories(idsParaDeletar).subscribe({
       next: () => {
-        // Fecha o modal devolvendo a lista de IDs que foram apagados com sucesso
         this.activeModal.close(idsParaDeletar);
+        this.toastr.success('categoria apagada com sucesso');
       },
-      error: (err) => {
-        console.error('Erro ao apagar categorias:', err);
+      error: (error: ApiHttpErrorResponse) => {
+        const title = error.error.erro || 'Erro ao realizar operação';
+        const msg = error.error.mensagem || 'Problemas com o servidor';
+        this.toastr.error(msg, title, { timeOut: 5500 });
       },
     });
   }

@@ -1,6 +1,6 @@
-import { Component, forwardRef, input, viewChild } from '@angular/core';
+import { Component, forwardRef, input } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
-import { NgbDropdown, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 export interface SelectOption {
   value: string;
@@ -29,8 +29,6 @@ export class CustomSelectComponent implements ControlValueAccessor {
   public isMultiple = input(true);
   public errorMessage = input('');
   public isInvalid = input(false);
-
-  private dropdown = viewChild(NgbDropdown);
 
   public value: string | string[] = [];
   public disabled = false;
@@ -110,7 +108,6 @@ export class CustomSelectComponent implements ControlValueAccessor {
         this.value = optionValue;
         this.onChange(this.value);
         this.onTouched();
-        this.dropdown()?.close();
       }
     }
   }

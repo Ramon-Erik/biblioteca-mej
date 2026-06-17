@@ -11,6 +11,7 @@ import { RegisterCategory } from '../register-category/register-category';
 import { BlurOnClick } from '@shared/directives/blur-on-click';
 import { DeleteCategory } from '../delete-category/delete-category';
 import { CustomTextareaComponent } from '@shared/components/textarea/textarea';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register-book',
@@ -26,6 +27,7 @@ import { CustomTextareaComponent } from '@shared/components/textarea/textarea';
   styleUrl: './register-book.scss',
 })
 export class RegisterBook implements OnInit {
+  private toastr = inject(ToastrService);
   private modalService = inject(NgbModal);
   public activeModal = inject(NgbActiveModal);
   private catalogService = inject(CatalogService);
@@ -62,7 +64,17 @@ export class RegisterBook implements OnInit {
       quantidade: bookForm.quantidade ?? 0,
       volume: bookForm.volume ?? '',
     };
-    this.catalogService.createBook(rawBook).subscribe();
+    this.catalogService.createBook(rawBook).subscribe({
+      next: () => {
+        this.activeModal.close();
+        this.toastr.success('Livro cadastrado com sucesso!');
+      },
+      error: (error) => {
+        const title = error.error.erro || 'Erro ao realizar operação';
+        const msg = error.error.mensagem || 'Problemas com o servidor';
+        this.toastr.error(msg, title, { timeOut: 5500 });
+      },
+    });
   }
 
   private formatOptions(cat: Category[]): SelectOption[] {

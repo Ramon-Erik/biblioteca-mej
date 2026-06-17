@@ -7,11 +7,14 @@
         </a>
       </li>
     }
-    <li>
-      <span>
-        <!-- acrescentar função de deslogar no span -->
-        <i class="bi-box-arrow-right"></i>
-      </span>
-    </li>
+    @if (isUserLogado$ | async) {
+      <li>
+        <span
+          (click)="logout()"
+        >
+          <i class="bi-box-arrow-right"></i>
+        </span>
+      </li>
+    }
   </ul>
 </nav>

@@ -1,0 +1,54 @@
+<app-page-title title="Alterar senha" subtitle="Recuperar o acesso a sua conta" />
+
+<form [formGroup]="recoverForm">
+  <app-input
+    label="E-mail"
+    placeholder="Digite seu email"
+    type="email"
+    [control]="email"
+    id="email"
+    [underLink]="underLinkMensage"
+    (underLinkClicked)="reenviarCodigo()"
+  />
+
+  @if (codeEnviado()) {
+    <app-input
+      label="Código de verificação"
+      placeholder="XXXXXX"
+      type="text"
+      [control]="code"
+      id="code-verify"
+    />
+  }
+
+  <div class="buttons-container">
+    @if (!codeEnviado()) {
+      <app-button-default
+        title="Enviar código"
+        [disable]="isFormInvalid"
+        (clicked)="enviarCodigo()"
+        type="primary"
+      ></app-button-default>
+    }
+
+    @if (codeEnviado()) {
+      <app-button-default
+        title="Verificar código"
+        [disable]="isCodeFormInvalid"
+        (clicked)="verificarCode()"
+        type="primary"
+      ></app-button-default>
+    }
+
+    <div class="text-center mt-3">
+      <button
+        type="button"
+        class="btn btn-link text-decoration-none"
+        (click)="voltarParaLogin()"
+      >
+        <i class="bi bi-arrow-left me-1"></i>
+        Voltar para o login
+      </button>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,8 @@
+<button
+  type="submit"
+  [ngClass]="buttonClasses"
+  (click)="clicked.emit()"
+  [disabled]="disable()"
+>
+  {{ title() }}
+</button>

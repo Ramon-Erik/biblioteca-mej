@@ -1,6 +1,6 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { CatalogService } from '@modules/catalog/service/catalog.service';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { InputDefault } from '@shared/components/input/input';
@@ -131,6 +131,14 @@ export class RegisterBook implements OnInit {
         /* angular placeholder */
       },
     );
+  }
+
+  public getControl(controlName: string): FormControl {
+    const control = this.bookForm.get(controlName);
+    if (!control) {
+      throw new Error(`Controle '${controlName}' não encontrado no formulário`);
+    }
+    return control as FormControl;
   }
 
   ngOnInit() {

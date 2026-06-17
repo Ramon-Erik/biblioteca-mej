@@ -1,8 +1,10 @@
 :host {
   input {
+    border: none;
     background-color: var(--bg-input);
     border-radius: 5px;
     width: 100%;
+    padding: 10px 12px;
   }
 
   label {
@@ -16,12 +18,12 @@
   button {
     border: none;
     background-color: transparent;
-    font-size: 0.875rem;
+    font-size: .875rem;
     text-decoration: underline;
     color: var(--input-link);
   }
 
-  button :active {
+  button :active{
     color: var(--input-link-active);
   }
 }

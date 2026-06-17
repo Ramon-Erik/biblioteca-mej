@@ -1,6 +1,6 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, inject, OnInit, input } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CatalogService } from '@modules/catalog/service/catalog.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { InputDefault } from '@shared/components/input/input';
@@ -98,5 +98,13 @@ export class EditBook implements OnInit {
         this.toastr.error(msg, title, { timeOut: 5500 });
       },
     });
+  }
+  
+  public getControl(controlName: string): FormControl {
+    const control = this.bookForm.get(controlName);
+    if (!control) {
+      throw new Error(`Controle '${controlName}' não encontrado no formulário`);
+    }
+    return control as FormControl;
   }
 }

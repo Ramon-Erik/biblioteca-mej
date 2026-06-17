@@ -1,5 +1,17 @@
-import { Component, forwardRef, input } from '@angular/core';
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, EventEmitter, forwardRef, input, Output } from '@angular/core';
+import { ReactiveFormsModule, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+
+type ErrorKey = 'required' | 'email' | 'minlength' | 'maxlength' | 'pattern' | 'min' | 'max';
+
+const DEFAULT_ERROR_MESSAGES: Record<ErrorKey, string> = {
+  required: 'Campo obrigatório',
+  email: 'Email em formato inválido',
+  minlength: 'Valor muito curto',
+  maxlength: 'Valor muito longo',
+  pattern: 'Formato inválido',
+  min: 'Valor muito baixo',
+  max: 'Valor muito alto',
+};
 
 @Component({
   selector: 'app-input',
@@ -10,41 +22,57 @@ import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/f
       multi: true,
     },
   ],
-  imports: [FormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './input.html',
   styleUrl: './input.scss',
 })
-export class InputDefault implements ControlValueAccessor {
-  public inputId = input.required<string>();
+export class InputDefault {
+  public id = input.required<string>();
   public type = input.required<string>();
   public label = input.required<string>();
   public isRequired = input<boolean>(false);
   public placeholder = input<string>('');
   public minValue = input<string>();
   public maxValue = input<string>();
+  public underLink = input<string>('');
 
-  public inputValue = '';
+  public control = input.required<FormControl>();
 
-  // eslint-disable-next-line
-  protected onToutched?: () => {};
-  // eslint-disable-next-line
-  protected onChange?: (value: string) => {};
-  protected isDisabled = false;
+  @Output() underLinkClicked = new EventEmitter();
 
-  writeValue(obj: string): void {
-    this.inputValue = obj;
-  }
-  // eslint-disable-next-line
-  registerOnChange(fn: any): void {
-    this.onChange = fn;
+  getErrorKeys(): ErrorKey[] {
+    const control = this.control();
+    return (control.errors ? Object.keys(control.errors) : []) as ErrorKey[];
   }
 
-  // eslint-disable-next-line
-  registerOnTouched(fn: any): void {
-    this.onToutched = fn;
+  getErrorMessage(error: string): string {
+    const errorKey = error as ErrorKey;
+    const control = this.control();
+
+    if (errorKey === 'minlength' && control.errors?.['minlength']) {
+      const requiredLength = control.errors['minlength'].requiredLength;
+      return `Valor muito curto. Mínimo: ${requiredLength} caracteres`;
+    }
+
+    if (errorKey === 'maxlength' && control.errors?.['maxlength']) {
+      const requiredLength = control.errors['maxlength'].requiredLength;
+      return `Valor muito longo. Máximo: ${requiredLength} caracteres`;
+    }
+
+    if (errorKey === 'min' && control.errors?.['min']) {
+      const min = control.errors['min'].min;
+      return `Valor muito baixo. Mínimo: ${min}`;
+    }
+
+    if (errorKey === 'max' && control.errors?.['max']) {
+      const max = control.errors['max'].max;
+      return `Valor muito alto. Máximo: ${max}`;
+    }
+
+    return DEFAULT_ERROR_MESSAGES[errorKey] || 'Campo inválido';
   }
 
-  setDisabledState?(isDisabled: boolean): void {
-    this.isDisabled = isDisabled;
+  onUnderLink(): void {
+    this.underLinkClicked.emit();
   }
 }

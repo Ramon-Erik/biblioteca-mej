@@ -18,8 +18,8 @@
   <form [formGroup]="bookForm">
     <app-input
       type="text"
-      inputId="editNomeObra"
-      formControlName="nomeObra"
+      id="editNomeObra"
+      [control]="getControl('nomeObra')"
       label="Nome da Obra"
       placeholder="Ex: O Senhor dos Anéis"
     />
@@ -28,8 +28,8 @@
       <div class="col-md-6">
         <app-input
           type="text"
-          inputId="editAutor"
-          formControlName="autor"
+          id="editAutor"
+          [control]="getControl('autor')"
           label="Autor"
           placeholder="Nome do autor..."
         />
@@ -37,8 +37,8 @@
       <div class="col-md-6">
         <app-input
           type="text"
-          inputId="editEditora"
-          formControlName="editora"
+          id="editEditora"
+          [control]="getControl('editora')"
           label="Editora"
           placeholder="Nome da editora..."
         />
@@ -49,16 +49,16 @@
       <div class="col-md-6">
         <app-input
           type="text"
-          inputId="editVolume"
-          formControlName="volume"
+          id="editVolume"
+          [control]="getControl('volume')"
           label="Volume"
           placeholder="Ex: Vol. 1 ou Único"
         />
       </div>
       <div class="col-md-6">
         <app-input
-          inputId="editQuantidade"
-          formControlName="quantidade"
+          id="editQuantidade"
+          [control]="getControl('quantidade')"
           label="Quantidade em Estoque"
           type="number"
         />
@@ -79,8 +79,8 @@
 
     <app-input
       type="text"
-      inputId="editFotoCapaUrl"
-      formControlName="fotoCapaUrl"
+      id="editFotoCapaUrl"
+      [control]="getControl('fotoCapaUrl')"
       label="URL da Foto de Capa (Cloudinary)"
       placeholder="https://res.cloudinary.com/..."
     />

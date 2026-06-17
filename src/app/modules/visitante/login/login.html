@@ -1,0 +1,23 @@
+<app-page-title title="Realizar login" subtitle="Entre na sua conta" />
+<form action="" [formGroup]="loginForm" (ngSubmit)="fazerLogin()">
+  <app-input
+    label="E-mail"
+    placeholder="Digite seu email"
+    type="email"
+    [control]="loginForm.controls['email']"
+    id="email"
+  />
+  <app-input
+    label="Senha"
+    placeholder="Digite sua senha"
+    type="password"
+    [control]="loginForm.controls['password']"
+    underLink="Alterar senha"
+    id="password"
+    (underLinkClicked)="routeToAlterarSenha()"
+  />
+
+  <div class="buttons-container">
+    <app-button-default title="Login" [disable]="!loginForm.valid" type="primary"></app-button-default>
+  </div>
+</form>

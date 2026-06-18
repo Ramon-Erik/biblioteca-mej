@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { AuthGuard } from './core/guards/auth-guard';
 
 export const routes: Routes = [
   {
@@ -19,7 +20,8 @@ export const routes: Routes = [
   {
     path: 'perfil',
     pathMatch: 'full',
-    loadComponent: () => import('./modules/visitante/login/login').then((m) => m.Login),
+    loadComponent: () => import('./modules/logged-in/perfil/perfil').then((m) => m.Perfil),
+    canActivate: [AuthGuard]
   },
   {
     path: 'login',

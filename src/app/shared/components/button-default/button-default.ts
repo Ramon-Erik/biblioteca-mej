@@ -10,19 +10,20 @@ type ButtonType = 'primary' | 'secondary';
   styleUrl: './button-default.scss',
 })
 export class ButtonDefault {
-  public title = input.required<string>();        
-  public disable = input<boolean>(false);        
-  public type = input.required<ButtonType>();    
+  public title = input.required<string>();
+  public disable = input<boolean>(false);
+  public type = input.required<ButtonType>();
+  public isLoading = input<boolean>(false);
 
-  public clicked = output<void>();               
+  public clicked = output<void>();
 
   protected get buttonClasses(): string {
-    const classes :string[] = [this.type()];
-    
-    if (this.disable()) {           
+    const classes: string[] = [this.type()];
+
+    if (this.disable() || this.isLoading()) {
       classes.push('button-disabled');
     }
-    
+
     return classes.join(' ');
   }
 }

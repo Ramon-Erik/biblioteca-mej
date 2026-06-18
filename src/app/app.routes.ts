@@ -21,7 +21,7 @@ export const routes: Routes = [
     path: 'perfil',
     pathMatch: 'full',
     loadComponent: () => import('./modules/logged-in/perfil/perfil').then((m) => m.Perfil),
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
   },
   {
     path: 'login',

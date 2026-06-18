@@ -6,6 +6,7 @@ import { ButtonDefault } from '../../../shared/components/button-default/button-
 import { Router } from '@angular/router';
 import { AlterarSenhaService } from './service/alterar-senha-service';
 import { CommonModule } from '@angular/common';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-alterar-senha',
@@ -17,17 +18,17 @@ export class AlterarSenha implements OnDestroy {
   private readonly alterarSenhaService = inject(AlterarSenhaService);
   private readonly router = inject(Router);
   private readonly fb = inject(FormBuilder);
-  
-  protected loading = signal(false);
+
+  protected isLoading = signal(false);
   protected counter = signal(0);
   protected codeEnviado = signal(false);
   protected emailEnviado = signal('');
-  
-  private timerInterval: any;
+
+  private timerInterval?: number;
 
   recoverForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
-    code: ['', [Validators.required, Validators.minLength(6)]]
+    code: ['', [Validators.required, Validators.minLength(6)]],
   });
 
   get email(): FormControl {
@@ -37,7 +38,7 @@ export class AlterarSenha implements OnDestroy {
   get code(): FormControl {
     return this.recoverForm.get('code') as FormControl;
   }
-  
+
   get underLinkMensage(): string {
     if (this.counter() > 0) {
       return `Reenviar código em ${this.counter()} segundos.`;
@@ -57,12 +58,12 @@ export class AlterarSenha implements OnDestroy {
   }
 
   get isFormInvalid(): boolean {
-    return this.loading() || this.isEmailInvalid;
+    return this.isLoading() || this.isEmailInvalid;
   }
 
   get isCodeFormInvalid(): boolean {
-    return this.loading() || this.isCodeInvalid;
-  } 
+    return this.isLoading() || this.isCodeInvalid;
+  }
 
   protected enviarCodigo(): void {
     console.log('clicked');
@@ -71,28 +72,36 @@ export class AlterarSenha implements OnDestroy {
       return;
     }
 
-    this.loading.set(true);
+    this.isLoading.set(true);
 
     const email = this.email?.value || '';
 
-    this.alterarSenhaService.solicitarAlteracao(email).subscribe({
-      next: () => {
-        this.loading.set(false);
-        this.codeEnviado.set(true);
-        this.emailEnviado.set(email);
-        
-        this.counter.set(60);
-        this.iniciarContador();
-        
-        setTimeout(() => {
-          document.getElementById('code-verify')?.focus();
-        }, 100);
-      },
-      error: (error) => {
-        this.loading.set(false);
-        console.error('Erro ao enviar código:', error);
-      }
-    });
+    this.alterarSenhaService
+      .solicitarAlteracao(email)
+      .pipe(
+        finalize(() => {
+          this.isLoading.set(false);
+        }),
+      )
+
+      .subscribe({
+        next: () => {
+          this.isLoading.set(false);
+          this.codeEnviado.set(true);
+          this.emailEnviado.set(email);
+
+          this.counter.set(60);
+          this.iniciarContador();
+
+          setTimeout(() => {
+            document.getElementById('code-verify')?.focus();
+          }, 100);
+        },
+        error: (error) => {
+          this.isLoading.set(false);
+          console.error('Erro ao enviar código:', error);
+        },
+      });
   }
 
   protected reenviarCodigo(): void {
@@ -107,25 +116,25 @@ export class AlterarSenha implements OnDestroy {
       return;
     }
 
-    this.loading.set(true);
+    this.isLoading.set(true);
 
     const token = this.code?.value || '';
-    const email = this.emailEnviado();
+    //const email = this.emailEnviado();
 
     this.alterarSenhaService.validarToken(token).subscribe({
       next: (response) => {
-        this.loading.set(false);
-        
+        this.isLoading.set(false);
+
         if (response.valido) {
           this.router.navigate(['/confirmar-alteracao-senha'], {
-            queryParams: { token: token }
+            queryParams: { token: token },
           });
         }
       },
       error: (error) => {
-        this.loading.set(false);
+        this.isLoading.set(false);
         console.error('Erro ao validar código:', error);
-      }
+      },
     });
   }
 
@@ -135,7 +144,7 @@ export class AlterarSenha implements OnDestroy {
     }
 
     this.timerInterval = setInterval(() => {
-      this.counter.update(value => {
+      this.counter.update((value) => {
         if (value <= 1) {
           clearInterval(this.timerInterval);
           return 0;

@@ -1,0 +1,25 @@
+<app-page-title title="Usuários" subtitle="Veja os usuários registrados" />
+
+<app-filter
+  [options]="filters"
+  (optionSelected)="filterList($event)"
+  [responseLength]="responsesLength$ | async"
+/>
+
+@if (paginationInfo | async; as info) {
+  <app-pagination [paginationInfo]="info" (pageChange)="changePage($event)" />
+}
+
+@if (usersList$ | async; as users) {
+  <div class="users d-flex gap-3 flex-column">
+    @for (user of users; track user.id) {
+      <app-user-card [user]="user" />
+    } @empty {
+      <p class="text-center">Nenhum usuário cadastrado...</p>
+    }
+  </div>
+}
+
+@if (paginationInfo | async; as info) {
+  <app-pagination [paginationInfo]="info" (pageChange)="changePage($event)" />
+}

@@ -17,6 +17,11 @@ export const routes: Routes = [
     loadComponent: () => import('./modules/catalog/catalog').then((m) => m.Catalog),
   },
   {
+    path: 'usuarios',
+    pathMatch: 'full',
+    loadComponent: () => import('./modules/coordination/users/users').then((m) => m.Users),
+  },
+  {
     path: 'perfil',
     pathMatch: 'full',
     loadComponent: () => import('./modules/visitante/login/login').then((m) => m.Login),

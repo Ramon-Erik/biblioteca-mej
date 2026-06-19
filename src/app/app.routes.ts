@@ -26,26 +26,24 @@ export const routes: Routes = [
   {
     path: 'login',
     pathMatch: 'full',
-    loadComponent: () => import('./modules/visitante/login/login').then((m) => m.Login),
+    loadComponent: () => import('./modules/guest/login/login').then((m) => m.Login),
   },
   {
     path: 'alterar-senha',
     pathMatch: 'full',
     loadComponent: () =>
-      import('./modules/visitante/alterar-senha/alterar-senha').then((m) => m.AlterarSenha),
+      import('./modules/guest/alterar-senha/alterar-senha').then((m) => m.AlterarSenha),
   },
   {
     path: 'criar-conta',
     pathMatch: 'full',
     loadComponent: () =>
-      import('./modules/visitante/criar-conta/criar-conta').then((m) => m.CriarConta),
+      import('./modules/guest/criar-conta/criar-conta').then((m) => m.CriarConta),
   },
   {
     path: 'confirmar-codigo/:email',
     pathMatch: 'full',
     loadComponent: () =>
-      import('./modules/visitante/confirmar-codigo/confirmar-codigo').then(
-        (m) => m.ConfirmarCodigo,
-      ),
+      import('./modules/guest/confirmar-codigo/confirmar-codigo').then((m) => m.ConfirmarCodigo),
   },
 ];

@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { LoginService } from '@modules/visitante/login/service/login-service';
+import { LoginService } from '@modules/guest/login/service/login-service';
 import { AsyncPipe } from '@angular/common';
 
 @Component({
@@ -12,7 +12,7 @@ import { AsyncPipe } from '@angular/common';
 export class Menu {
   private loginService = inject(LoginService);
   public isUserLogado$ = this.loginService.isAuthenticated$;
-  
+
   public navLinks = [
     {
       icon: 'bi-person-fill',

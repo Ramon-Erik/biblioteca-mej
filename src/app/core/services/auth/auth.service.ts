@@ -12,7 +12,7 @@ import {
   cadastroRequest,
   cadastroResponse,
   confirmarCadastroRequest,
-} from './../../../modules/visitante/criar-conta/interfaces/cadastro';
+} from './../../../modules/guest/criar-conta/interfaces/cadastro';
 
 @Injectable({
   providedIn: 'root',

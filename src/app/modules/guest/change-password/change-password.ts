@@ -14,7 +14,7 @@ import { finalize } from 'rxjs';
   templateUrl: './change-password.html',
   styleUrl: './change-password.scss',
 })
-export class AlterarSenha implements OnDestroy {
+export class ChangePassword implements OnDestroy {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
   private readonly fb = inject(FormBuilder);
@@ -141,7 +141,7 @@ export class AlterarSenha implements OnDestroy {
     }
   }
 
-  protected voltarParaLogin(): void {
-    this.router.navigate(['/perfil']);
+  protected backToLogin(): void {
+    this.router.navigate(['/login']);
   }
 }

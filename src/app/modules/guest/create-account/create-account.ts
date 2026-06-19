@@ -19,7 +19,7 @@ import { AuthService } from 'app/core/services/auth/auth.service';
   templateUrl: './create-account.html',
   styleUrl: './create-account.scss',
 })
-export class CriarConta {
+export class CreateAccount {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
   private readonly fb = inject(FormBuilder);
@@ -27,9 +27,9 @@ export class CriarConta {
 
   cadastroForm = this.fb.group(
     {
-      nome: ['', [Validators.required, Validators.minLength(3)]],
+      name: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
-      fone: ['', [Validators.required, Validators.pattern('^[0-9]{11}$')]],
+      phone: ['', [Validators.required, Validators.pattern('^[0-9]{11}$')]],
       password: ['', [Validators.required]],
       passwordConf: ['', [Validators.required]],
     },
@@ -62,13 +62,13 @@ export class CriarConta {
 
     this.isLoading.set(true);
 
-    const nome = this.cadastroForm.get('nome')?.value || '';
+    const name = this.cadastroForm.get('name')?.value || '';
     const email = this.cadastroForm.get('email')?.value || '';
-    const fone = this.cadastroForm.get('fone')?.value || '';
+    const phone = this.cadastroForm.get('phone')?.value || '';
     const senha = this.cadastroForm.get('password')?.value || '';
 
     this.authService
-      .cadastro(nome, email, fone, senha)
+      .cadastro(name, email, phone, senha)
       .pipe(
         finalize(() => {
           this.isLoading.set(false);
@@ -85,7 +85,7 @@ export class CriarConta {
       });
   }
 
-  protected voltarParaLogin(): void {
+  protected backToLogin(): void {
     this.router.navigate(['/login']);
   }
 }

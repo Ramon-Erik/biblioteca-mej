@@ -13,7 +13,7 @@ import { finalize } from 'rxjs';
   templateUrl: './confirm-code.html',
   styleUrl: './confirm-code.scss',
 })
-export class ConfirmarCodigo implements OnInit {
+export class ConfirmCode implements OnInit {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
   private readonly actRouter = inject(ActivatedRoute);

@@ -32,18 +32,18 @@ export const routes: Routes = [
     path: 'change-password',
     pathMatch: 'full',
     loadComponent: () =>
-      import('./modules/guest/change-password/change-password').then((m) => m.AlterarSenha),
+      import('./modules/guest/change-password/change-password').then((m) => m.ChangePassword),
   },
   {
     path: 'create-account',
     pathMatch: 'full',
     loadComponent: () =>
-      import('./modules/guest/create-account/create-account').then((m) => m.CriarConta),
+      import('./modules/guest/create-account/create-account').then((m) => m.CreateAccount),
   },
   {
     path: 'confirm-code/:email',
     pathMatch: 'full',
     loadComponent: () =>
-      import('./modules/guest/confirm-code/confirm-code').then((m) => m.ConfirmarCodigo),
+      import('./modules/guest/confirm-code/confirm-code').then((m) => m.ConfirmCode),
   },
 ];

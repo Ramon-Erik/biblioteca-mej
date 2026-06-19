@@ -4,8 +4,8 @@
     label="Nome completo"
     placeholder="Digite seu nome completo"
     type="text"
-    [control]="cadastroForm.controls['nome']"
-    id="nome"
+    [control]="cadastroForm.controls['name']"
+    id="name"
   />
   <app-input
     label="E-mail"
@@ -18,8 +18,8 @@
     label="Telefone whatsaap"
     placeholder="Digite seu número que contenha whatsaap"
     type="number"
-    [control]="cadastroForm.controls['fone']"
-    id="fone"
+    [control]="cadastroForm.controls['phone']"
+    id="phone"
   />
   <app-input
     label="Senha"
@@ -50,7 +50,7 @@
       title="Voltar para o login"
       [isSubmit]="false"
       type="tertiary"
-      (clicked)="voltarParaLogin()"
+      (clicked)="backToLogin()"
       [isLoading]="isLoading()"
     ></app-button-default>
   </div>

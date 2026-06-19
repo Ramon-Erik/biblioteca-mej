@@ -5,7 +5,7 @@
 
 <app-catalog-filter />
 
-@if (isAdmin$) {
+@if (isAdmin$ | async) {
   <app-min-button icon="bi-plus-lg" (btnClick)="openRegisterModal()">
     cadastrar novo livro
   </app-min-button>

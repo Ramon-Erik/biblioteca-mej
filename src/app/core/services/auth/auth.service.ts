@@ -1,19 +1,24 @@
 import { inject, Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'environments/environment';
+import { Router } from '@angular/router';
 import {
   LoginRequest,
   LoginResponse,
   UserData,
-} from '../../../../shared/interfaces/login.interface';
-import { environment } from 'environments/environment';
-import { Router } from '@angular/router';
+} from './../../../shared/interfaces/login.interface';
+import {
+  cadastroRequest,
+  cadastroResponse,
+  confirmarCadastroRequest,
+} from './../../../modules/visitante/criar-conta/interfaces/cadastro';
 
 @Injectable({
   providedIn: 'root',
 })
-export class LoginService {
-  private apiKey = `${environment.apiUrl}/auth/login`;
+export class AuthService {
+  private apiUrl = `${environment.apiUrl}/auth`;
   private http = inject(HttpClient);
   private router = inject(Router);
 
@@ -37,9 +42,11 @@ export class LoginService {
     if (token && user) {
       this.isAuthenticatedSubject.next(true);
       this.userSubject.next(user);
+      this.userRoleSubject.next(user.role || null);
     } else {
       this.isAuthenticatedSubject.next(false);
       this.userSubject.next(null);
+      this.userRoleSubject.next(null);
     }
   }
 
@@ -82,7 +89,32 @@ export class LoginService {
       senha: senha,
     };
 
-    return this.http.post<LoginResponse>(this.apiKey, body);
+    return this.http.post<LoginResponse>(`${this.apiUrl}/login`, body);
+  }
+
+  public cadastro(
+    nome: string,
+    email: string,
+    telefone: string,
+    senha: string,
+  ): Observable<cadastroResponse> {
+    const body: cadastroRequest = {
+      nomeCompleto: nome,
+      email: email,
+      telefoneWhatsaap: telefone,
+      senha: senha,
+    };
+
+    return this.http.post<cadastroResponse>(`${this.apiUrl}/cadastro`, body);
+  }
+
+  public confirmarCadastro(email: string, codigo: string): Observable<cadastroResponse> {
+    const body: confirmarCadastroRequest = {
+      email: email,
+      codigo: codigo,
+    };
+
+    return this.http.post<cadastroResponse>(`${this.apiUrl}/cadastro/confirmar`, body);
   }
 
   public setUserData(response: LoginResponse): void {
@@ -94,7 +126,9 @@ export class LoginService {
     sessionStorage.setItem('userPhone', response.telefoneWhatsapp);
 
     this.isAuthenticatedSubject.next(true);
-    this.userSubject.next(this.getUserData());
+    const userData = this.getUserData();
+    this.userSubject.next(userData);
+    this.userRoleSubject.next(userData.role || null);
   }
 
   public logout(): void {
@@ -107,6 +141,7 @@ export class LoginService {
 
     this.isAuthenticatedSubject.next(false);
     this.userSubject.next(null);
+    this.userRoleSubject.next(null);
 
     this.router.navigate(['']);
   }
@@ -125,5 +160,9 @@ export class LoginService {
 
   public isAdmin(): Observable<boolean> {
     return this.userRole$.pipe(map((role) => role === 'ADMIN'));
+  }
+
+  public isAdminSync(): boolean {
+    return this.getUserRole() === 'ADMIN';
   }
 }

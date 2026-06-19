@@ -10,8 +10,8 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ButtonDefault } from '@shared/components/button-default/button-default';
-import { CadastroService } from './service/cadastro-service';
 import { finalize } from 'rxjs';
+import { AuthService } from 'app/core/services/auth/auth.service';
 
 @Component({
   selector: 'app-criar-conta',
@@ -20,7 +20,7 @@ import { finalize } from 'rxjs';
   styleUrl: './criar-conta.scss',
 })
 export class CriarConta {
-  private readonly cadastroService = inject(CadastroService);
+  private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
   private readonly fb = inject(FormBuilder);
   protected isLoading = signal(false);
@@ -67,7 +67,7 @@ export class CriarConta {
     const fone = this.cadastroForm.get('fone')?.value || '';
     const senha = this.cadastroForm.get('password')?.value || '';
 
-    this.cadastroService
+    this.authService
       .cadastro(nome, email, fone, senha)
       .pipe(
         finalize(() => {

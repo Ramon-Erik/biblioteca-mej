@@ -4,8 +4,8 @@ import { InputDefault } from '../../../shared/components/input/input';
 import { ReactiveFormsModule, Validators, FormBuilder } from '@angular/forms';
 import { ButtonDefault } from '../../../shared/components/button-default/button-default';
 import { Router } from '@angular/router';
-import { LoginService } from './service/login-service';
 import { finalize } from 'rxjs';
+import { AuthService } from 'app/core/services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +14,7 @@ import { finalize } from 'rxjs';
   styleUrl: './login.scss',
 })
 export class Login {
-  private readonly loginService = inject(LoginService);
+  private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
   private readonly fb = inject(FormBuilder);
   protected isLoading = signal(false);
@@ -30,7 +30,7 @@ export class Login {
       const identificador = this.loginForm.controls['email'].value || '';
       const senha = this.loginForm.controls['password'].value || '';
 
-      this.loginService
+      this.authService
         .login(identificador, senha)
         .pipe(
           finalize(() => {
@@ -39,7 +39,7 @@ export class Login {
         )
         .subscribe({
           next: (response) => {
-            this.loginService.setUserData(response);
+            this.authService.setUserData(response);
             this.router.navigate(['catalogo-de-livros']);
           },
           error: (error) => {

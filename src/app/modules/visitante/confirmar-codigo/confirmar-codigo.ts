@@ -3,9 +3,8 @@ import { PageTitle } from '@shared/components/page-title/page-title';
 import { InputDefault } from '@shared/components/input/input';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CadastroService } from '../criar-conta/service/cadastro-service';
+import { AuthService } from 'app/core/services/auth/auth.service';
 import { ButtonDefault } from '@shared/components/button-default/button-default';
-import { LoginService } from '../login/service/login-service';
 import { finalize } from 'rxjs';
 
 @Component({
@@ -15,8 +14,7 @@ import { finalize } from 'rxjs';
   styleUrl: './confirmar-codigo.scss',
 })
 export class ConfirmarCodigo implements OnInit {
-  private readonly loginService = inject(LoginService);
-  private readonly cadastroService = inject(CadastroService);
+  private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
   private readonly actRouter = inject(ActivatedRoute);
   private readonly fb = inject(FormBuilder);
@@ -48,7 +46,7 @@ export class ConfirmarCodigo implements OnInit {
 
     this.isLoading.set(true);
 
-    this.cadastroService
+    this.authService
       .confirmarCadastro(email, code)
       .pipe(
         finalize(() => {
@@ -57,7 +55,7 @@ export class ConfirmarCodigo implements OnInit {
       )
       .subscribe({
         next: (response) => {
-          this.loginService.setUserData(response);
+          this.authService.setUserData(response);
           this.router.navigate(['/catalogo-de-livros']);
         },
         error: (error) => {

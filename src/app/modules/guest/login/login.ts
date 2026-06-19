@@ -59,10 +59,10 @@ export class Login {
   }
 
   protected routeToAlterarSenha(): void {
-    this.router.navigate(['alterar-senha']);
+    this.router.navigate(['change-password']);
   }
 
   protected routeToCriarConta(): void {
-    this.router.navigate(['criar-conta']);
+    this.router.navigate(['create-account']);
   }
 }

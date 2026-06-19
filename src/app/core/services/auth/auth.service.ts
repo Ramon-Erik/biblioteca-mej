@@ -1,3 +1,12 @@
+import {
+  AlterarSenhaRequest,
+  AlterarSenhaResponse,
+  cadastroRequest,
+  cadastroResponse,
+  confirmarCadastroRequest,
+  SolicitarAlteracaoRequest,
+  SolicitarAlteracaoResponse,
+} from './../../interfaces/auth';
 import { inject, Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
@@ -8,11 +17,6 @@ import {
   LoginResponse,
   UserData,
 } from './../../../shared/interfaces/login.interface';
-import {
-  cadastroRequest,
-  cadastroResponse,
-  confirmarCadastroRequest,
-} from './../../../modules/guest/criar-conta/interfaces/cadastro';
 
 @Injectable({
   providedIn: 'root',
@@ -117,6 +121,31 @@ export class AuthService {
     return this.http.post<cadastroResponse>(`${this.apiUrl}/cadastro/confirmar`, body);
   }
 
+  public solicitarAlteracaoSenha(email: string): Observable<SolicitarAlteracaoResponse> {
+    const body: SolicitarAlteracaoRequest = { email };
+    return this.http.post<SolicitarAlteracaoResponse>(
+      `${this.apiUrl}/senha/solicitar-alteracao`,
+      body,
+    );
+  }
+
+  public confirmarAlteracaoSenha(
+    token: string,
+    novaSenha: string,
+    confirmarSenha: string,
+  ): Observable<AlterarSenhaResponse> {
+    const body: AlterarSenhaRequest = {
+      token,
+      novaSenha,
+      confirmarSenha,
+    };
+    return this.http.post<AlterarSenhaResponse>(`${this.apiUrl}/senha/confirmar-alteracao`, body);
+  }
+
+  public validarTokenAlteracaoSenha(token: string): Observable<{ valido: boolean }> {
+    return this.http.get<{ valido: boolean }>(`${this.apiUrl}/senha/validar-token/${token}`);
+  }
+
   public setUserData(response: LoginResponse): void {
     sessionStorage.setItem('token', response.token);
     sessionStorage.setItem('userId', response.id);
@@ -146,6 +175,7 @@ export class AuthService {
     this.router.navigate(['']);
   }
 
+  // ============== Verificações ==============
   public isLoggedIn(): boolean {
     return this.isAuthenticatedSubject.value;
   }

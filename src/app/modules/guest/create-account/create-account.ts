@@ -14,10 +14,10 @@ import { finalize } from 'rxjs';
 import { AuthService } from 'app/core/services/auth/auth.service';
 
 @Component({
-  selector: 'app-criar-conta',
+  selector: 'app-create-account',
   imports: [PageTitle, InputDefault, ReactiveFormsModule, ButtonDefault],
-  templateUrl: './criar-conta.html',
-  styleUrl: './criar-conta.scss',
+  templateUrl: './create-account.html',
+  styleUrl: './create-account.scss',
 })
 export class CriarConta {
   private readonly authService = inject(AuthService);
@@ -77,7 +77,7 @@ export class CriarConta {
       .subscribe({
         next: () => {
           const email = this.cadastroForm.get('email')?.value || '';
-          this.router.navigate([`/confirmar-codigo/${email}`]);
+          this.router.navigate([`/confirm-code/${email}`]);
         },
         error: (error) => {
           console.error('Erro ao realizar cadastro:', error);

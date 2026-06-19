@@ -8,10 +8,10 @@ import { ButtonDefault } from '@shared/components/button-default/button-default'
 import { finalize } from 'rxjs';
 
 @Component({
-  selector: 'app-confirmar-codigo',
+  selector: 'app-confirm-code',
   imports: [PageTitle, InputDefault, ReactiveFormsModule, ButtonDefault],
-  templateUrl: './confirmar-codigo.html',
-  styleUrl: './confirmar-codigo.scss',
+  templateUrl: './confirm-code.html',
+  styleUrl: './confirm-code.scss',
 })
 export class ConfirmarCodigo implements OnInit {
   private readonly authService = inject(AuthService);

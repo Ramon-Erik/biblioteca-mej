@@ -1,21 +1,21 @@
+import { AuthService } from 'app/core/services/auth/auth.service';
 import { Component, inject, signal, OnDestroy } from '@angular/core';
 import { PageTitle } from '../../../shared/components/page-title/page-title';
 import { InputDefault } from '../../../shared/components/input/input';
 import { ReactiveFormsModule, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ButtonDefault } from '../../../shared/components/button-default/button-default';
 import { Router } from '@angular/router';
-import { AlterarSenhaService } from './service/alterar-senha-service';
 import { CommonModule } from '@angular/common';
 import { finalize } from 'rxjs';
 
 @Component({
-  selector: 'app-alterar-senha',
+  selector: 'app-change-password',
   imports: [CommonModule, PageTitle, InputDefault, ReactiveFormsModule, ButtonDefault],
-  templateUrl: './alterar-senha.html',
-  styleUrl: './alterar-senha.scss',
+  templateUrl: './change-password.html',
+  styleUrl: './change-password.scss',
 })
 export class AlterarSenha implements OnDestroy {
-  private readonly alterarSenhaService = inject(AlterarSenhaService);
+  private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
   private readonly fb = inject(FormBuilder);
 
@@ -76,8 +76,8 @@ export class AlterarSenha implements OnDestroy {
 
     const email = this.email?.value || '';
 
-    this.alterarSenhaService
-      .solicitarAlteracao(email)
+    this.authService
+      .solicitarAlteracaoSenha(email)
       .pipe(
         finalize(() => {
           this.isLoading.set(false);
@@ -117,25 +117,6 @@ export class AlterarSenha implements OnDestroy {
     }
 
     this.isLoading.set(true);
-
-    const token = this.code?.value || '';
-    //const email = this.emailEnviado();
-
-    this.alterarSenhaService.validarToken(token).subscribe({
-      next: (response) => {
-        this.isLoading.set(false);
-
-        if (response.valido) {
-          this.router.navigate(['/confirmar-alteracao-senha'], {
-            queryParams: { token: token },
-          });
-        }
-      },
-      error: (error) => {
-        this.isLoading.set(false);
-        console.error('Erro ao validar código:', error);
-      },
-    });
   }
 
   private iniciarContador(): void {

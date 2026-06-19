@@ -45,7 +45,8 @@
     <div class="text-center mt-3">
       <app-button-default
         title="Voltar para o login"
-        type="primary"
+        [isSubmit]="false"
+        type="tertiary"
         (clicked)="voltarParaLogin()"
         [isLoading]="isLoading()"
       ></app-button-default>

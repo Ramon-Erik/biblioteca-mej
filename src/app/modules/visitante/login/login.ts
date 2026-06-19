@@ -61,4 +61,8 @@ export class Login {
   protected routeToAlterarSenha(): void {
     this.router.navigate(['alterar-senha']);
   }
+
+  protected routeToCriarConta(): void {
+    this.router.navigate(['criar-conta']);
+  }
 }

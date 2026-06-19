@@ -1,0 +1,23 @@
+<app-page-title
+  title="Confirmar código"
+  subtitle="Digite o código de verificação enviado para seu e-mail."
+/>
+<form action="" [formGroup]="confCodeForm" (ngSubmit)="confirmar()">
+  <span>Enviado código de verificação para o e-mail "{{ confCodeForm.get('email')?.value }}".</span>
+  <app-input
+    label="Código de verificação"
+    placeholder="XXXXXX"
+    type="number"
+    [control]="confCodeForm.controls['code']"
+    id="code"
+  />
+
+  <div class="buttons-container">
+    <app-button-default
+      title="Cadastrar-se"
+      [disable]="!confCodeForm.valid"
+      [isLoading]="false"
+      type="primary"
+    ></app-button-default>
+  </div>
+</form>

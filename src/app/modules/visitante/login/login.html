@@ -25,4 +25,15 @@
       type="primary"
     ></app-button-default>
   </div>
+
+  <span
+    >Não tem uma conta?
+    <app-button-default
+      title="Clique aqui"
+      type="tertiary"
+      [isSubmit]="false"
+      (clicked)="routeToCriarConta()"
+    ></app-button-default>
+    para criar uma.</span
+  >
 </form>

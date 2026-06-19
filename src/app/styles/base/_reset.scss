@@ -46,5 +46,7 @@ main {
 form {
   display: flex;
   flex-direction: column;
-  gap: 17px
+  gap: 17px;
+  max-width: 500px;
+  min-width: 320px;
 }

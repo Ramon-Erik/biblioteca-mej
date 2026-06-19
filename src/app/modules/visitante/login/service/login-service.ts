@@ -1,7 +1,11 @@
 import { inject, Injectable } from '@angular/core';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { LoginRequest, LoginResponse } from '../../../../shared/interfaces/login.interface';
+import {
+  LoginRequest,
+  LoginResponse,
+  UserData,
+} from '../../../../shared/interfaces/login.interface';
 import { environment } from 'environments/environment';
 import { Router } from '@angular/router';
 
@@ -12,11 +16,14 @@ export class LoginService {
   private apiKey = `${environment.apiUrl}/auth/login`;
   private http = inject(HttpClient);
   private router = inject(Router);
-  
+
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
   public isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
-  
-  private userSubject = new BehaviorSubject<any>(null);
+
+  private userRoleSubject = new BehaviorSubject<string | null>(null);
+  public userRole$ = this.userRoleSubject.asObservable();
+
+  private userSubject = new BehaviorSubject<UserData | null>(null);
   public user$ = this.userSubject.asObservable();
 
   constructor() {
@@ -26,7 +33,7 @@ export class LoginService {
   private checkAuthStatus(): void {
     const token = sessionStorage.getItem('token');
     const user = this.getUserData();
-    
+
     if (token && user) {
       this.isAuthenticatedSubject.next(true);
       this.userSubject.next(user);
@@ -36,23 +43,37 @@ export class LoginService {
     }
   }
 
-  private getUserData(): any {
+  private validateRole(role: string | null): 'ADMIN' | 'LEITOR' | '' {
+    if (role === 'ADMIN' || role === 'LEITOR') {
+      return role;
+    }
+    return '';
+  }
+
+  private getUserData(): UserData {
     const userId = sessionStorage.getItem('userId');
     const userName = sessionStorage.getItem('userName');
     const userEmail = sessionStorage.getItem('userEmail');
     const userRole = sessionStorage.getItem('userRole');
     const userPhone = sessionStorage.getItem('userPhone');
 
-    if (userId && userName) {
+    if (userId && userName && userEmail && userRole && userPhone) {
       return {
         id: userId,
         nomeCompleto: userName,
         email: userEmail,
-        role: userRole,
-        telefoneWhatsapp: userPhone
+        role: this.validateRole(userRole),
+        telefoneWhatsapp: userPhone,
+      };
+    } else {
+      return {
+        id: '',
+        nomeCompleto: '',
+        email: '',
+        role: '',
+        telefoneWhatsapp: '',
       };
     }
-    return null;
   }
 
   public login(identificador: string, senha: string): Observable<LoginResponse> {
@@ -102,7 +123,7 @@ export class LoginService {
     return sessionStorage.getItem('userRole');
   }
 
-  public isAdmin(): boolean {
-    return this.getUserRole() === 'ADMIN';
+  public isAdmin(): Observable<boolean> {
+    return this.userRole$.pipe(map((role) => role === 'ADMIN'));
   }
 }

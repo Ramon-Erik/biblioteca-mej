@@ -1,4 +1,9 @@
-<button type="submit" [ngClass]="buttonClasses" (click)="clicked.emit()" [disabled]="disable()">
+<button
+  [type]="isSubmit() ? 'submit' : 'button'"
+  [ngClass]="buttonClasses"
+  (click)="clicked.emit()"
+  [disabled]="disable()"
+>
   @if (isLoading()) {
     <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
   } @else {

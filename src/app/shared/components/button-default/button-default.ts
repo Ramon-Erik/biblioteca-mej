@@ -1,7 +1,7 @@
 import { Component, input, output } from '@angular/core';
 import { NgClass } from '@angular/common';
 
-type ButtonType = 'primary' | 'secondary';
+type ButtonType = 'primary' | 'secondary' | 'tertiary';
 
 @Component({
   selector: 'app-button-default',
@@ -14,6 +14,7 @@ export class ButtonDefault {
   public disable = input<boolean>(false);
   public type = input.required<ButtonType>();
   public isLoading = input<boolean>(false);
+  public isSubmit = input<boolean>(true);
 
   public clicked = output<void>();
 

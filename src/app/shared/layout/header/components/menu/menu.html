@@ -7,11 +7,16 @@
         </a>
       </li>
     }
+    @if (isAdm) {
+      <li>
+        <a routerLink="/usuarios" class="text-white">
+          <i class="bi-people-fill"></i>
+        </a>
+      </li>
+    }
     @if (isUserLogado$ | async) {
       <li>
-        <span
-          (click)="logout()"
-        >
+        <span (click)="logout()">
           <i class="bi-box-arrow-right"></i>
         </span>
       </li>

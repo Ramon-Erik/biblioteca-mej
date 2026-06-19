@@ -12,7 +12,8 @@ import { AsyncPipe } from '@angular/common';
 export class Menu {
   private loginService = inject(LoginService);
   public isUserLogado$ = this.loginService.isAuthenticated$;
-  
+  public isAdm = this.loginService.isAdmin();
+
   public navLinks = [
     {
       icon: 'bi-person-fill',

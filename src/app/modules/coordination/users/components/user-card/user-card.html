@@ -64,10 +64,6 @@
     <p class="text-muted small m-0 text-truncate italic-obs">
       @if (user().loginBloqueado) {
         {{ user().motivoBloqueio }}
-      } @else if (!user().ativo) {
-        Livros para devolver.
-      } @else {
-        Sem livros emprestados no momento.
       }
     </p>
   </div>

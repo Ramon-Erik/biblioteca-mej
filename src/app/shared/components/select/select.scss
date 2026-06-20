@@ -1,0 +1,27 @@
+:host {
+  .custom-dropdown-container {
+    display: inline-block;
+
+    width: min-content;
+    min-width: 240px;
+    max-width: 100%;
+
+    .dropdown-toggle {
+      width: 100% !important;
+      white-space: nowrap;
+    }
+
+    .dropdown-menu {
+      width: max-content !important;
+      min-width: 100%;
+      overflow-x: hidden !important;
+
+      .dropdown-item {
+        white-space: nowrap !important;
+        display: flex;
+        align-items: center;
+        width: 100%;
+      }
+    }
+  }
+}

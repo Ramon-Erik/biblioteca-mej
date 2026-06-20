@@ -34,7 +34,6 @@ export class Catalog implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.isAdmin$);
     this.catalogService.getCatalogList().subscribe();
   }
 }

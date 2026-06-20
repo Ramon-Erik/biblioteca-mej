@@ -66,7 +66,6 @@ export class ChangePassword implements OnDestroy {
   }
 
   protected enviarCodigo(): void {
-    console.log('clicked');
     if (this.recoverForm.get('email')?.invalid) {
       this.email?.markAsTouched();
       return;

@@ -28,6 +28,7 @@ body {
 }
 
 main {
+  width: 100%;
   margin: auto;
 
   h1,
@@ -46,6 +47,7 @@ main {
 form {
   display: flex;
   flex-direction: column;
+  margin: auto;
   gap: 17px;
   max-width: 500px;
   min-width: 320px;

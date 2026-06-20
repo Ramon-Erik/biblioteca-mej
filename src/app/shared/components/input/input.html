@@ -19,7 +19,7 @@
 
 @if (control().invalid && (control().touched || control().dirty)) {
   <div class="invalid-feedback d-block">
-    @for (error of getErrorKeys(); track error) {
+    @for (error of getErrorKeys(); track $index) {
       <small>{{ getErrorMessage(error) }}</small>
     }
   </div>

@@ -99,7 +99,7 @@ export class EditBook implements OnInit {
       },
     });
   }
-  
+
   public getControl(controlName: string): FormControl {
     const control = this.bookForm.get(controlName);
     if (!control) {

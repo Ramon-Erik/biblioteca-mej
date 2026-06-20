@@ -23,6 +23,12 @@ export const routes: Routes = [
     loadComponent: () => import('./modules/coordination/users/users').then((m) => m.Users),
   },
   {
+    path: 'solicitacoes',
+    pathMatch: 'full',
+    loadComponent: () =>
+      import('./modules/coordination/solicitations/solicitations').then((m) => m.Solicitations),
+  },
+  {
     path: 'perfil',
     pathMatch: 'full',
     loadComponent: () => import('./modules/reader/profile/profile').then((m) => m.Profile),

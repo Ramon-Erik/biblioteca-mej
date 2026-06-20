@@ -1,0 +1,23 @@
+<div class="mb-5">
+  <div class="book-header d-flex flex-column align-items-center gap-4 my-3">
+    <div
+      class="img d-block overflow-hidden flex-shrink-0 rounded"
+      style="background: #ebebeb; height: 140px; width: 110px"
+    >
+      <img [src]="book().fotoCapaUrl" [alt]="alt()" width="110" class="rounded" />
+    </div>
+    <div class="book-info">
+      <p>
+        <strong>{{ book().nomeObra }}</strong>
+      </p>
+      <p>
+        <span class="d-block text-center"
+          >Pego em {{ book().dataEmprestimo | date: 'dd/MM/yy' }}</span
+        >
+        <span class="d-block text-center"
+          ><strong>Devolver: {{ book().dataDevolucaoPrevista | date: 'dd/MM/yy' }}</strong></span
+        >
+      </p>
+    </div>
+  </div>
+</div>

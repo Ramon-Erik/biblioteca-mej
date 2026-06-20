@@ -1,0 +1,9 @@
+<app-page-title
+  title="Solicitações de Empréstimo"
+  subtitle="Abaixo estão os pedidos aguardando liberação"
+/>
+@if (solicitations$ | async; as solicitations) {
+  @for (soli of solicitations; track soli.id) {
+    <app-solicitation [soli]="soli" />
+  }
+}

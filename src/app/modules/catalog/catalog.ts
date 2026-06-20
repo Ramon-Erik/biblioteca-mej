@@ -9,6 +9,7 @@ import { AsyncPipe } from '@angular/common';
 import { BookCard } from './components/book-card/book-card';
 import { Pagination } from '@shared/components/pagination/pagination';
 import { AuthService } from 'app/core/services/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-catalog',
@@ -18,6 +19,7 @@ import { AuthService } from 'app/core/services/auth/auth.service';
 })
 export class Catalog implements OnInit {
   private authService = inject(AuthService);
+  private router = inject(Router);
   private catalogService = inject(CatalogService);
   public books$ = this.catalogService.booksList;
   public paginationInfo = this.catalogService.pagination;
@@ -27,6 +29,10 @@ export class Catalog implements OnInit {
 
   public openRegisterModal() {
     this.modalService.open(RegisterBook, { centered: true, scrollable: true });
+  }
+
+  public openSolicitationsiew() {
+    this.router.navigate(['/solicitacoes']);
   }
 
   public changePage(page: number) {

@@ -2,9 +2,24 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { PaginationState } from '@shared/interfaces/pagination.interface';
 import { environment } from 'environments/environment';
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject, of, switchMap, tap } from 'rxjs';
 import { LoanItem, LoanPageResponse, ProfileFilters } from '../interface/profile.interface';
 import { Book } from '@shared/interfaces/book.interface';
+
+interface currentBookResponse {
+  id: string;
+  livroId: string;
+  nomeObra: string;
+  leitorId: string;
+  nomeLeitor: string;
+  dataPedido: string;
+  dataEmprestimo: string;
+  dataDevolucaoPrevista: string;
+  dataDevolucaoReal: null;
+  quantidadeRenovacoes: number;
+  status: 'EMPRESTADO' | 'DISPONIVEL';
+}
+export type currentBook = currentBookResponse & Book;
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +28,7 @@ export class ProfileService {
   private http = inject(HttpClient);
   private readonly baseUrl = `${environment.apiUrl}/emprestimos`;
 
-  private currentBook$ = new BehaviorSubject<Book | undefined>(undefined);
+  private currentBook$ = new BehaviorSubject<currentBook | undefined>(undefined);
 
   // Gerenciamento Reativo de Solicitações
   private requests$ = new BehaviorSubject<LoanItem[]>([]);
@@ -59,7 +74,20 @@ export class ProfileService {
   }
 
   public getMyCurrentBook() {
-    return this.http.get<Book | void>(`${this.baseUrl}/emprestimo-atual`);
+    return this.http.get<currentBookResponse | void>(`${this.baseUrl}/emprestimo-atual`).pipe(
+      switchMap((res) => {
+        console.log(res);
+
+        if (res && res.livroId) {
+          return this.http
+            .get<Book>(`${environment.apiUrl}/livros/${res.livroId}`)
+            .pipe(tap((book) => this.currentBook$.next({ ...res, ...book })));
+        }
+
+        this.currentBook$.next(undefined);
+        return of(res);
+      }),
+    );
   }
 
   /**

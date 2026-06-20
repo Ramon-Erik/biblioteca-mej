@@ -1,7 +1,9 @@
-import { Component, input, output } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { User } from '@shared/interfaces/user.interface';
-import { CommonModule } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
+import { AuthService } from 'app/core/services/auth/auth.service';
+import { map, take } from 'rxjs';
 
 export type UserCardAction = 'PROMOTE' | 'DEMOTE' | 'BLOCK' | 'UNBLOCK';
 
@@ -13,22 +15,17 @@ export interface UserActionEvent {
 @Component({
   selector: 'app-user-card',
   standalone: true,
-  imports: [CommonModule, NgbDropdownModule],
+  imports: [CommonModule, NgbDropdownModule, AsyncPipe],
   templateUrl: './user-card.html',
   styleUrls: ['./user-card.scss'],
 })
 export class UserCard {
+  private authService = inject(AuthService);
   public user = input.required<User>();
 
-  // Receba o ID do admin logado para impedir que ele se auto-bloqueie/rebaixe
-  public currentAdminId = input<string>('');
+  public currentAdminId = this.authService.user$.pipe(map((u) => u?.id));
 
   public actionClick = output<UserActionEvent>();
-
-  // Verifica se o card pertence ao próprio administrador visualizando a tela
-  public get isMe(): boolean {
-    return this.user().id === this.currentAdminId();
-  }
 
   public get roleLabel(): string {
     return this.user().role === 'ADMIN' ? 'Administrador' : 'Leitor';
@@ -49,7 +46,10 @@ export class UserCard {
   }
 
   public emitAction(action: UserCardAction): void {
-    if (this.isMe) return; // Trava de segurança
-    this.actionClick.emit({ action, user: this.user() });
+    this.currentAdminId.pipe(take(1)).subscribe((res) => {
+      if (res !== this.user().id) {
+        this.actionClick.emit({ action, user: this.user() });
+      }
+    });
   }
 }

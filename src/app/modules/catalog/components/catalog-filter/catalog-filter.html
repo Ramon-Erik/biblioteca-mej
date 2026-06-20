@@ -4,8 +4,18 @@
     <app-select
       inputId="filterCategories"
       [(ngModel)]="selectedCategory"
-      (ngModelChange)="onFilterChange($event)"
+      (ngModelChange)="onCategoryChange($event)"
       [options]="categories"
+      [isMultiple]="false"
+    />
+  }
+
+  @if (isAdmin$ | async; as isAdmin) {
+    <app-select
+      inputId="filterCategories"
+      [(ngModel)]="selectedCategory"
+      (ngModelChange)="onVisibiityChange($event)"
+      [options]="adminOptions"
       [isMultiple]="false"
     />
   }

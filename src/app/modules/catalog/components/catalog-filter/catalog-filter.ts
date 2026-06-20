@@ -6,6 +6,7 @@ import { CustomSelectComponent } from '@shared/components/select/select';
 import { AsyncPipe } from '@angular/common';
 import { Category } from '@shared/interfaces/book.interface';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from 'app/core/services/auth/auth.service';
 @Component({
   selector: 'app-catalog-filter',
   imports: [CustomSelectComponent, FormsModule, AsyncPipe],
@@ -13,15 +14,28 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './catalog-filter.scss',
 })
 export class CatalogFilter implements OnInit {
+  private authService = inject(AuthService);
   private catalogService = inject(CatalogService);
   private destroyRef = inject(DestroyRef);
-  public selectedCategory = '';
 
+  public isAdmin$ = this.authService.isAdmin();
+  public selectedCategory = '';
   public responsesText = signal('');
 
   public categories$ = this.catalogService.categoriesList.pipe(
     map((cats: Category[]) => cats.map((c) => ({ value: c.id, label: c.nome }))),
   );
+
+  public adminOptions = [
+    {
+      label: 'Livros ocultos',
+      value: 'true',
+    },
+    {
+      label: 'Livros visíveis',
+      value: 'false',
+    },
+  ];
 
   private formatResultsText(l: number) {
     if (l == 0) return 'Nenhum resultado.';
@@ -29,8 +43,13 @@ export class CatalogFilter implements OnInit {
     return l + ' resultados.';
   }
 
-  public onFilterChange(categoriaId: string): void {
+  public onCategoryChange(categoriaId: string) {
     this.catalogService.getCatalogList({ categoriaId, page: 0 }).subscribe();
+  }
+
+  public onVisibiityChange(visibility: string) {
+    const oculto = visibility === 'true';
+    this.catalogService.getCatalogList({ oculto, page: 0 }).subscribe();
   }
 
   ngOnInit() {

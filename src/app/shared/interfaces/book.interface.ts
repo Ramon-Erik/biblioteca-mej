@@ -1,8 +1,10 @@
 export interface CatalogFilters {
-  categoriaId?: string;
   page: number;
   size: number;
+  oculto: boolean;
   sort?: string;
+  categoriaId?: string;
+  disponivel?: boolean;
 }
 export interface Category {
   id: string;

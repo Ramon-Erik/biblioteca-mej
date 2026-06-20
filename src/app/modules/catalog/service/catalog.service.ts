@@ -8,6 +8,7 @@ import {
   RawBook,
 } from '@shared/interfaces/book.interface';
 import { PaginationState } from '@shared/interfaces/pagination.interface';
+import { AuthService } from 'app/core/services/auth/auth.service';
 import { environment } from 'environments/environment';
 import { BehaviorSubject, forkJoin, map, shareReplay, switchMap, tap } from 'rxjs';
 
@@ -15,6 +16,7 @@ import { BehaviorSubject, forkJoin, map, shareReplay, switchMap, tap } from 'rxj
   providedIn: 'root',
 })
 export class CatalogService {
+  private authService = inject(AuthService);
   private http = inject(HttpClient);
   private readonly bookUrl = `${environment.apiUrl}/livros`;
   private readonly categoryUrl = `${environment.apiUrl}/categorias`;
@@ -30,6 +32,7 @@ export class CatalogService {
   private currentFilters: CatalogFilters = {
     page: 0,
     size: 6,
+    oculto: false,
   };
 
   private books$ = new BehaviorSubject<Book[]>([]);
@@ -71,8 +74,9 @@ export class CatalogService {
     }
 
     let params = new HttpParams()
-      .set('page', this.currentFilters.page.toString())
-      .set('size', this.currentFilters.size.toString());
+      .set('page', this.currentFilters.page)
+      .set('size', this.currentFilters.size)
+      .set('oculto', this.currentFilters.oculto);
 
     if (this.currentFilters.categoriaId) {
       params = params.set('categoriaId', this.currentFilters.categoriaId);

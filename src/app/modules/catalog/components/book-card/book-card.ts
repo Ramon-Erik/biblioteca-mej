@@ -5,14 +5,18 @@ import { MinButton } from '../min-button/min-button';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DeleteBook } from '../modal/delete-book/delete-book';
 import { EditBook } from '../modal/edit-book/edit-book';
+import { AuthService } from 'app/core/services/auth/auth.service';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-book-card',
-  imports: [NgClass, MinButton],
+  imports: [NgClass, MinButton, AsyncPipe],
   templateUrl: './book-card.html',
   styleUrl: './book-card.scss',
 })
 export class BookCard implements OnChanges {
+  private authService = inject(AuthService);
+  public isAdmin$ = this.authService.isAdmin();
   private modalService = inject(NgbModal);
   public book = input.required<Book>();
   public alt = signal('');

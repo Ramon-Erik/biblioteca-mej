@@ -1,0 +1,57 @@
+<app-page-title title="Cadastrar-se" subtitle="Crie uma conta" />
+<form action="" [formGroup]="cadastroForm" (ngSubmit)="realizarCadastro()">
+  <app-input
+    label="Nome completo"
+    placeholder="Digite seu nome completo"
+    type="text"
+    [control]="cadastroForm.controls['name']"
+    id="name"
+  />
+  <app-input
+    label="E-mail"
+    placeholder="Digite seu email"
+    type="email"
+    [control]="cadastroForm.controls['email']"
+    id="email"
+  />
+  <app-input
+    label="Telefone whatsaap"
+    placeholder="Digite seu número que contenha whatsaap"
+    type="number"
+    [control]="cadastroForm.controls['phone']"
+    id="phone"
+  />
+  <app-input
+    label="Senha"
+    placeholder="Digite sua senha"
+    type="password"
+    [control]="cadastroForm.controls['password']"
+    id="password"
+  />
+  <app-input
+    label="Confirmar senha"
+    placeholder="Confirme sua senha"
+    type="password"
+    [control]="cadastroForm.controls['passwordConf']"
+    id="passwordConf"
+  />
+
+  <div class="buttons-container">
+    <app-button-default
+      title="Cadastrar-se"
+      [disable]="!cadastroForm.valid"
+      [isLoading]="isLoading()"
+      type="primary"
+    ></app-button-default>
+  </div>
+
+  <div class="text-center mt-3">
+    <app-button-default
+      title="Voltar para o login"
+      [isSubmit]="false"
+      type="tertiary"
+      (clicked)="backToLogin()"
+      [isLoading]="false"
+    ></app-button-default>
+  </div>
+</form>

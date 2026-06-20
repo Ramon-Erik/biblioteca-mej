@@ -8,7 +8,7 @@ import { CatalogService } from './service/catalog.service';
 import { AsyncPipe } from '@angular/common';
 import { BookCard } from './components/book-card/book-card';
 import { Pagination } from '@shared/components/pagination/pagination';
-import { LoginService } from '@modules/visitante/login/service/login-service';
+import { AuthService } from 'app/core/services/auth/auth.service';
 
 @Component({
   selector: 'app-catalog',
@@ -17,14 +17,14 @@ import { LoginService } from '@modules/visitante/login/service/login-service';
   styleUrl: './catalog.scss',
 })
 export class Catalog implements OnInit {
-  private loginService = inject(LoginService); 
+  private authService = inject(AuthService);
   private catalogService = inject(CatalogService);
   public books$ = this.catalogService.booksList;
   public paginationInfo = this.catalogService.pagination;
-  public isAdmin$ = this.loginService.isAuthenticated$;
+  public isAdmin$ = this.authService.isAdmin();
 
   private modalService = inject(NgbModal);
-  
+
   public openRegisterModal() {
     this.modalService.open(RegisterBook, { centered: true, scrollable: true });
   }

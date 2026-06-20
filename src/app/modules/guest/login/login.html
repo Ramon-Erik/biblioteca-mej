@@ -18,6 +18,22 @@
   />
 
   <div class="buttons-container">
-    <app-button-default title="Login" [disable]="!loginForm.valid" type="primary"></app-button-default>
+    <app-button-default
+      title="Login"
+      [disable]="!loginForm.valid"
+      [isLoading]="isLoading()"
+      type="primary"
+    ></app-button-default>
   </div>
+
+  <span
+    >Não tem uma conta?
+    <app-button-default
+      title="Clique aqui"
+      type="tertiary"
+      [isSubmit]="false"
+      (clicked)="routeToCriarConta()"
+    ></app-button-default>
+    para criar uma.</span
+  >
 </form>

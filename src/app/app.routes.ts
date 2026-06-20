@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { AuthGuard } from './core/guards/auth-guard';
 
 export const routes: Routes = [
   {
@@ -24,17 +25,30 @@ export const routes: Routes = [
   {
     path: 'perfil',
     pathMatch: 'full',
-    loadComponent: () => import('./modules/visitante/login/login').then((m) => m.Login),
+    loadComponent: () => import('./modules/logged-in/perfil/perfil').then((m) => m.Perfil),
+    canActivate: [AuthGuard],
   },
   {
     path: 'login',
     pathMatch: 'full',
-    loadComponent: () => import('./modules/visitante/login/login').then((m) => m.Login),
+    loadComponent: () => import('./modules/guest/login/login').then((m) => m.Login),
   },
   {
-    path: 'alterar-senha',
+    path: 'change-password',
     pathMatch: 'full',
     loadComponent: () =>
-      import('./modules/visitante/alterar-senha/alterar-senha').then((m) => m.AlterarSenha),
+      import('./modules/guest/change-password/change-password').then((m) => m.ChangePassword),
+  },
+  {
+    path: 'create-account',
+    pathMatch: 'full',
+    loadComponent: () =>
+      import('./modules/guest/create-account/create-account').then((m) => m.CreateAccount),
+  },
+  {
+    path: 'confirm-code/:email',
+    pathMatch: 'full',
+    loadComponent: () =>
+      import('./modules/guest/confirm-code/confirm-code').then((m) => m.ConfirmCode),
   },
 ];

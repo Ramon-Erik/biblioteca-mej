@@ -1,8 +1,12 @@
 <button
-  type="submit"
+  [type]="isSubmit() ? 'submit' : 'button'"
   [ngClass]="buttonClasses"
   (click)="clicked.emit()"
   [disabled]="disable()"
 >
-  {{ title() }}
+  @if (isLoading()) {
+    <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+  } @else {
+    {{ title() }}
+  }
 </button>

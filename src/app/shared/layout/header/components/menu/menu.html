@@ -16,7 +16,15 @@
     }
     @if (isUserLogado$ | async) {
       <li>
-        <span (click)="logout()">
+        <span
+          (click)="logout()"
+          (keydown.enter)="logout()"
+          (keydown.space)="logout()"
+          role="button"
+          tabindex="0"
+          class="cursor-pointer"
+          aria-label="Sair"
+        >
           <i class="bi-box-arrow-right"></i>
         </span>
       </li>

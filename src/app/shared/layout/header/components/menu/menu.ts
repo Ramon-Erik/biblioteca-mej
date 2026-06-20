@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { LoginService } from '@modules/visitante/login/service/login-service';
+import { AuthService } from 'app/core/services/auth/auth.service';
 import { AsyncPipe } from '@angular/common';
 
 @Component({
@@ -10,9 +10,8 @@ import { AsyncPipe } from '@angular/common';
   styleUrl: './menu.scss',
 })
 export class Menu {
-  private loginService = inject(LoginService);
-  public isUserLogado$ = this.loginService.isAuthenticated$;
-  public isAdm = this.loginService.isAdmin();
+  private authService = inject(AuthService);
+  public isUserLogado$ = this.authService.isAuthenticated$;
 
   public navLinks = [
     {
@@ -30,6 +29,6 @@ export class Menu {
   ];
 
   public logout(): void {
-    this.loginService.logout();
+    this.authService.logout();
   }
 }

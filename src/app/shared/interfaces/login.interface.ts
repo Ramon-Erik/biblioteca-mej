@@ -11,3 +11,11 @@ export interface LoginResponse {
   role: 'ADMIN' | 'LEITOR';
   token: string;
 }
+
+export interface UserData {
+  id: string;
+  nomeCompleto: string;
+  email: string;
+  role: 'ADMIN' | 'LEITOR' | '';
+  telefoneWhatsapp: string;
+}

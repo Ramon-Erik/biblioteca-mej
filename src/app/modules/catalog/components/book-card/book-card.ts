@@ -7,6 +7,7 @@ import { DeleteBook } from '../modal/delete-book/delete-book';
 import { EditBook } from '../modal/edit-book/edit-book';
 import { AuthService } from 'app/core/services/auth/auth.service';
 import { AsyncPipe } from '@angular/common';
+import { BorrowBook } from '../modal/borrow-book/borrow-book';
 
 @Component({
   selector: 'app-book-card',
@@ -22,6 +23,14 @@ export class BookCard implements OnChanges {
   public alt = signal('');
   public isAvalible = signal(false);
 
+  public openBorrowBookModal() {
+    const modal = this.modalService.open(BorrowBook, {
+      centered: true,
+      modalDialogClass: 'sub-modal',
+    });
+    modal.componentInstance.book = this.book;
+  }
+
   public openDeleteBook() {
     const modal = this.modalService.open(DeleteBook, {
       centered: true,
@@ -35,17 +44,6 @@ export class BookCard implements OnChanges {
     });
 
     modalRef.componentInstance.book = this.book;
-
-    modalRef.result.then(
-      (result) => {
-        if (result?.sucesso) {
-          //  notificação de sucesso aqui!
-        }
-      },
-      () => {
-        /* modal fechado/cancelado */
-      },
-    );
   }
 
   ngOnChanges() {

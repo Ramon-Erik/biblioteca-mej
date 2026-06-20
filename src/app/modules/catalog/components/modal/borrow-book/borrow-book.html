@@ -1,1 +1,31 @@
-<p>borrow-book works!</p>
+<div class="modal-body p-4 text-center request-modal-container">
+  <h4 class="fw-bold text-dark mb-2">Solicitar Empréstimo</h4>
+
+  <p class="text-muted small px-3 mb-4 msg-text">Deseja pedir o livro emprestado?</p>
+
+  <div class="p-3 bg-light rounded-3 border-0 text-start mb-4 book-preview">
+    <small
+      class="text-secondary d-block fw-semibold text-uppercase font-monospace"
+      style="font-size: 0.7rem"
+      >Obra</small
+    >
+    <span class="text-body fw-medium">{{ book().nomeObra }}</span>
+    @if (book().volume) {
+      <span class="text-body fw-medium">&NonBreakingSpace;{{ book().volume }}</span>
+    }
+  </div>
+
+  <div class="d-flex justify-content-between gap-3 pt-3 container-acoes">
+    <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss()">
+      Cancelar
+    </button>
+
+    <button
+      type="button"
+      class="btn btn-solicitar w-50 py-2.5 fs-6 fw-semibold rounded-3 text-white text-uppercase tracking-wider shadow-sm"
+      (click)="confirm()"
+    >
+      solicitar
+    </button>
+  </div>
+</div>

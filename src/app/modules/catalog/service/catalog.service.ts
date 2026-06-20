@@ -8,7 +8,6 @@ import {
   RawBook,
 } from '@shared/interfaces/book.interface';
 import { PaginationState } from '@shared/interfaces/pagination.interface';
-import { AuthService } from 'app/core/services/auth/auth.service';
 import { environment } from 'environments/environment';
 import { BehaviorSubject, forkJoin, map, shareReplay, switchMap, tap } from 'rxjs';
 
@@ -16,7 +15,6 @@ import { BehaviorSubject, forkJoin, map, shareReplay, switchMap, tap } from 'rxj
   providedIn: 'root',
 })
 export class CatalogService {
-  private authService = inject(AuthService);
   private http = inject(HttpClient);
   private readonly bookUrl = `${environment.apiUrl}/livros`;
   private readonly categoryUrl = `${environment.apiUrl}/categorias`;
@@ -68,6 +66,10 @@ export class CatalogService {
     return this.http.post(this.bookUrl, book).pipe(this.reloadCatalog());
   }
 
+  public goToPage(page: number) {
+    return this.getCatalogList({ page });
+  }
+
   public getCatalogList(filters?: Partial<CatalogFilters>) {
     if (filters) {
       this.currentFilters = { ...this.currentFilters, ...filters };
@@ -97,8 +99,10 @@ export class CatalogService {
     );
   }
 
-  public goToPage(page: number) {
-    return this.getCatalogList({ page });
+  public borrowBook(bookId: string) {
+    const url = `${environment.apiUrl}/emprestimos/solicitar`;
+
+    return this.http.post(url, { livroId: bookId }).pipe(this.reloadCatalog());
   }
 
   public deleteBook(bookId: string) {

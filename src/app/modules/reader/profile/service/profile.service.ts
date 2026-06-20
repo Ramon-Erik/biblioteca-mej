@@ -81,13 +81,29 @@ export class ProfileService {
         if (res && res.livroId) {
           return this.http
             .get<Book>(`${environment.apiUrl}/livros/${res.livroId}`)
-            .pipe(tap((book) => this.currentBook$.next({ ...res, ...book })));
+            .pipe(tap((book) => this.currentBook$.next({ ...book, ...res })));
         }
 
         this.currentBook$.next(undefined);
         return of(res);
       }),
     );
+  }
+
+  public renewMyLoan(loanId: string) {
+    return this.http
+      .patch<currentBookResponse | void>(`${this.baseUrl}/${loanId}/renovar`, {
+        id: loanId,
+      })
+      .pipe(switchMap(() => this.getMyCurrentBook()));
+  }
+
+  public returnMyBorrowedBook(loanId: string) {
+    return this.http
+      .patch<currentBookResponse | void>(`${this.baseUrl}/${loanId}/devolver`, {
+        id: loanId,
+      })
+      .pipe(switchMap(() => this.getMyCurrentBook()));
   }
 
   /**
@@ -161,13 +177,5 @@ export class ProfileService {
    */
   public goToHistoryPage(page: number) {
     return this.getMyHistory({ page });
-  }
-
-  /**
-   * GET /emprestimos/emprestimo-atual
-   * Obtém o empréstimo ativo no momento (caso exista). Não possui paginação.
-   */
-  public getCurrentLoan() {
-    return this.http.get<LoanItem | null>(`${this.baseUrl}/emprestimo-atual`);
   }
 }

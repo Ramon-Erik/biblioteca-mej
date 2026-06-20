@@ -6,6 +6,4 @@ import { Component } from '@angular/core';
   templateUrl: './loan-history.html',
   styleUrl: './loan-history.scss',
 })
-export class LoanHistory {
-
-}
+export class LoanHistory {}

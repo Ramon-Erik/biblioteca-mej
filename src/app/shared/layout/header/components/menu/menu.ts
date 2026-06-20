@@ -13,6 +13,8 @@ export class Menu {
   private authService = inject(AuthService);
   public isUserLogado$ = this.authService.isAuthenticated$;
 
+  public isAdm$ = this.authService.isAdmin();
+
   public navLinks = [
     {
       icon: 'bi-person-fill',

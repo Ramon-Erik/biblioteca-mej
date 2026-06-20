@@ -7,7 +7,7 @@
         </a>
       </li>
     }
-    @if (isAdm) {
+    @if (isAdm$ | async; as isAdm) {
       <li>
         <a routerLink="/usuarios" class="text-white">
           <i class="bi-people-fill"></i>

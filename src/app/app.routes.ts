@@ -34,13 +34,13 @@ export const routes: Routes = [
     loadComponent: () => import('./modules/guest/login/login').then((m) => m.Login),
   },
   {
-    path: 'change-password',
+    path: 'mudar-senha',
     pathMatch: 'full',
     loadComponent: () =>
       import('./modules/guest/change-password/change-password').then((m) => m.ChangePassword),
   },
   {
-    path: 'create-account',
+    path: 'cadastrar-se',
     pathMatch: 'full',
     loadComponent: () =>
       import('./modules/guest/create-account/create-account').then((m) => m.CreateAccount),

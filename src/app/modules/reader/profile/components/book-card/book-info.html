@@ -6,18 +6,19 @@
     >
       <img [src]="book().fotoCapaUrl" [alt]="alt()" width="110" class="rounded" />
     </div>
-    <div class="book-info">
+    <div class="book-info d-flex flex-column justify-content-center align-items-center">
       <p>
         <strong>{{ book().nomeObra }}</strong>
       </p>
       <p>
-        <span class="d-block text-center"
-          >Pego em {{ book().dataEmprestimo | date: 'dd/MM/yy' }}</span
-        >
-        <span class="d-block text-center"
+        <span class="d-block">Pego em {{ book().dataEmprestimo | date: 'dd/MM/yy' }}</span>
+        <span class="d-block"
           ><strong>Devolver: {{ book().dataDevolucaoPrevista | date: 'dd/MM/yy' }}</strong></span
         >
       </p>
+      <button class="btn btn-secondary" [disabled]="5 - book().quantidadeRenovacoes <= 0">
+        renovar ({{ 5 - book().quantidadeRenovacoes }})
+      </button>
     </div>
   </div>
 </div>

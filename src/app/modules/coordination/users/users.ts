@@ -34,6 +34,9 @@ export class Users implements OnInit {
     const filter: UserFilters = {
       page: 0,
       size: 6,
+      role: undefined,
+      ativo: undefined,
+      loginBloqueado: undefined,
     };
 
     if (selectedFilter) {

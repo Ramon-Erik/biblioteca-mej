@@ -21,5 +21,7 @@
 }
 
 @if (paginationInfo | async; as info) {
-  <app-pagination [paginationInfo]="info" (pageChange)="changePage($event)" />
+  @if (responsesLength$ | async) {
+    <app-pagination [paginationInfo]="info" (pageChange)="changePage($event)" />
+  }
 }

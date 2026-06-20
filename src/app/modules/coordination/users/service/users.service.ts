@@ -63,8 +63,8 @@ export class UsersService {
     }
 
     let params = new HttpParams()
-      .set('page', this.currentFilters.page.toString())
-      .set('size', this.currentFilters.size.toString());
+      .set('page', this.currentFilters.page)
+      .set('size', this.currentFilters.size);
 
     const ignoreKeys = ['page', 'size'];
     Object.entries(this.currentFilters).forEach(([key, value]) => {
@@ -72,7 +72,7 @@ export class UsersService {
         return;
       }
 
-      params = params.set(key, value.toString());
+      params = params.set(key, value);
     });
     return this.http.get<UserPageResponse>(this.userUrl, { params }).pipe(
       tap((response) => {

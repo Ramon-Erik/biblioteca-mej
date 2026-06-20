@@ -25,9 +25,7 @@ export class Filter implements OnChanges {
   }
 
   ngOnChanges() {
-    const length = this.responseLength();
-    if (length) {
-      this.responsesText.set(this.formatResultsText(length));
-    }
+    const length = this.responseLength() ?? 0;
+    this.responsesText.set(this.formatResultsText(length));
   }
 }

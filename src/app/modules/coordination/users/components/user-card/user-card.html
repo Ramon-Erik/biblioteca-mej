@@ -28,23 +28,23 @@
           </button>
 
           <div ngbDropdownMenu class="shadow border-0 py-1">
-            @if (user().role !== 'ADMIN') {
-              <button ngbDropdownItem (click)="emitAction('PROMOTE')">
-                <i class="bi bi-shield-arrow me-2 text-primary"></i> Tornar ADM
+            @if (user().role === 'ADMIN') {
+              <button ngbDropdownItem (click)="demoteToLeitor()">
+                <i class="bi bi-shield-x me-2 text-secondary"></i> Rebaixar a Leitor
               </button>
             } @else {
-              <button ngbDropdownItem (click)="emitAction('DEMOTE')">
-                <i class="bi bi-shield-x me-2 text-secondary"></i> Rebaixar a Leitor
+              <button ngbDropdownItem (click)="promoteToAdmin()">
+                <i class="bi bi-shield-plus me-2 text-primary"></i> Tornar ADM
               </button>
             }
 
-            @if (!user().loginBloqueado) {
-              <button ngbDropdownItem (click)="emitAction('BLOCK')">
-                <i class="bi bi-lock me-2 text-danger"></i> Bloquear acesso
+            @if (user().loginBloqueado) {
+              <button ngbDropdownItem (click)="unblockUser()">
+                <i class="bi bi-unlock me-2 text-success"></i> Desbloquear acesso
               </button>
             } @else {
-              <button ngbDropdownItem (click)="emitAction('UNBLOCK')">
-                <i class="bi bi-unlock me-2 text-success"></i> Desbloquear acesso
+              <button ngbDropdownItem (click)="openBlockModal()">
+                <i class="bi bi-lock me-2 text-danger"></i> Bloquear acesso
               </button>
             }
           </div>
@@ -63,7 +63,7 @@
 
     <p class="text-muted small m-0 text-truncate italic-obs">
       @if (user().loginBloqueado) {
-        Infrações de conduta.
+        {{ user().motivoBloqueio }}
       } @else if (!user().ativo) {
         Livros para devolver.
       } @else {

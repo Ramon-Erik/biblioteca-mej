@@ -1,13 +1,16 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { PaginationState } from '@shared/interfaces/pagination.interface';
-import { User, UserPageResponse, UserRole } from '@shared/interfaces/user.interface';
+import { User, UserPageResponse } from '@shared/interfaces/user.interface';
 import { environment } from 'environments/environment';
 import { BehaviorSubject, map, switchMap, tap } from 'rxjs';
 
 export interface UserFilters {
   page: number;
   size: number;
+  role?: string;
+  ativo?: boolean;
+  loginBloqueado?: boolean;
 }
 
 @Injectable({
@@ -59,10 +62,18 @@ export class UsersService {
       this.currentFilters = { ...this.currentFilters, ...filters };
     }
 
-    const params = new HttpParams()
+    let params = new HttpParams()
       .set('page', this.currentFilters.page.toString())
       .set('size', this.currentFilters.size.toString());
 
+    const ignoreKeys = ['page', 'size'];
+    Object.entries(this.currentFilters).forEach(([key, value]) => {
+      if (ignoreKeys.includes(key) || value === undefined || value === null) {
+        return;
+      }
+
+      params = params.set(key, value.toString());
+    });
     return this.http.get<UserPageResponse>(this.userUrl, { params }).pipe(
       tap((response) => {
         this.users$.next(response.content);
@@ -86,29 +97,11 @@ export class UsersService {
   }
 
   /**
-   * Obtém os dados do perfil do usuário atualmente logado
-   */
-  public getMyProfile() {
-    return this.http.get<User>(`${this.userUrl}/me`);
-  }
-
-  /**
-   * Altera manualmente o papel (Role) de um usuário
-   */
-  public changeUserRole(id: string, role: UserRole) {
-    return this.http
-      .patch<void>(`${this.userUrl}/${id}/role`, null, {
-        params: new HttpParams().set('role', role),
-      })
-      .pipe(this.reloadUsers());
-  }
-
-  /**
    * Promove o usuário para o papel de Administrador
    */
   public promoteToAdmin(id: string) {
     return this.http
-      .patch<void>(`${this.userUrl}/${id}/promover-admin`, null)
+      .patch<User>(`${this.userUrl}/${id}/promover-admin`, null)
       .pipe(this.reloadUsers());
   }
 
@@ -117,15 +110,17 @@ export class UsersService {
    */
   public demoteToLeitor(id: string) {
     return this.http
-      .patch<void>(`${this.userUrl}/${id}/rebaixar-leitor`, null)
+      .patch<User>(`${this.userUrl}/${id}/rebaixar-leitor`, null)
       .pipe(this.reloadUsers());
   }
 
   /**
    * Bloqueia o acesso/login de um usuário no sistema
    */
-  public blockUser(id: string) {
-    return this.http.patch<void>(`${this.userUrl}/${id}/bloquear`, null).pipe(this.reloadUsers());
+  public blockUser(id: string, motivoBloqueio: string) {
+    return this.http
+      .patch<User>(`${this.userUrl}/${id}/bloquear`, { motivoBloqueio })
+      .pipe(this.reloadUsers());
   }
 
   /**
@@ -133,7 +128,7 @@ export class UsersService {
    */
   public unblockUser(id: string) {
     return this.http
-      .patch<void>(`${this.userUrl}/${id}/desbloquear`, null)
+      .patch<User>(`${this.userUrl}/${id}/desbloquear`, null)
       .pipe(this.reloadUsers());
   }
 }

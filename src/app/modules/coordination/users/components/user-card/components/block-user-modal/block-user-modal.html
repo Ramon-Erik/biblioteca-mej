@@ -1,0 +1,53 @@
+<div class="modal-body p-4 text-center custom-modal-container">
+  <h4 class="fw-bold text-dark mb-2">Suspender Usuário</h4>
+  <p class="text-muted small px-2 text-subtitle mb-4">
+    A suspensão impede de pegar livros emprestados.
+  </p>
+
+  <div class="text-start mb-4">
+    <p class="form-label fw-bold text-dark small mb-2">Leitor selecionado</p>
+    <div class="p-3 bg-light rounded-3 border-0 disabled-preview">
+      <span class="d-block fw-semibold text-secondary fs-6">{{ user().nomeCompleto }}</span>
+      <small class="text-muted d-block mt-1">{{ user().telefoneWhatsapp }}</small>
+    </div>
+  </div>
+
+  <form [formGroup]="blockForm" (ngSubmit)="onSubmit()" class="text-start">
+    <div class="mb-4">
+      <label for="motivo" class="form-label fw-bold text-dark small mb-2"
+        >Motivo da suspensão</label
+      >
+      <textarea
+        id="motivo"
+        formControlName="motivo"
+        rows="3"
+        class="form-control p-3 bg-light border-0 rounded-3 text-body"
+        placeholder="insira o motivo aqui"
+        [class.is-invalid]="isInvalid"
+      ></textarea>
+      @if (isInvalid) {
+        <div class="invalid-feedback small mt-1">
+          O motivo é obrigatório e deve conter ao menos 5 caracteres.
+        </div>
+      }
+    </div>
+
+    <div class="d-flex justify-content-between gap-3 mt-2">
+      <button
+        type="button"
+        class="btn btn-secondary border-0 btn-lg w-50 py-2 fs-6 fw-medium text-white rounded-3 btn-cancelar"
+        (click)="activeModal.dismiss('cancel')"
+      >
+        cancelar
+      </button>
+
+      <button
+        type="submit"
+        class="btn btn-light border-0 btn-lg w-50 py-2 fs-6 fw-medium text-muted rounded-3 btn-blocker"
+        [disabled]="blockForm.invalid"
+      >
+        suspender
+      </button>
+    </div>
+  </form>
+</div>

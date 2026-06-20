@@ -8,6 +8,7 @@ export interface User {
   role: UserRole;
   ativo: boolean;
   loginBloqueado: boolean;
+  motivoBloqueio: string;
   emailValidado: boolean;
   criadoEm: string; // ISO Date String
 }

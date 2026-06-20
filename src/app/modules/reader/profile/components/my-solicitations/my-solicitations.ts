@@ -3,17 +3,17 @@ import { ProfileService } from '../../service/profile.service';
 import { AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-loan-history',
+  selector: 'app-my-solicitations',
   imports: [AsyncPipe],
-  templateUrl: './loan-history.html',
-  styleUrl: './loan-history.scss',
+  templateUrl: './my-solicitations.html',
+  styleUrl: './my-solicitations.scss',
 })
-export class LoanHistory implements OnInit {
+export class MySolicitations implements OnInit {
   private profileService = inject(ProfileService);
 
-  public loanHistory$ = this.profileService.myHistory;
+  public solicitations$ = this.profileService.myRequests;
 
   ngOnInit() {
-    this.profileService.getMyHistory().subscribe();
+    this.profileService.getMyRequests().subscribe();
   }
 }

@@ -5,7 +5,8 @@ export type LoanStatus = 'PENDENTE' | 'APROVADO' | 'RECUSADO' | 'DEVOLVIDO' | 'E
 export interface LoanItem {
   id: string;
   livroId: string;
-  tituloLivro: string;
+  nomeObra: string;
+  fotoCapaUrl: string;
   dataPedido: string; // ISO Date
   dataDevolucaoPrevista?: string;
   dataDevolucaoEfetiva?: string;

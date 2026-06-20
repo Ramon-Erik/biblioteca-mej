@@ -1,0 +1,22 @@
+@if (solicitations$ | async; as solicitation) {
+  @if (solicitation.length) {
+    <h3 class="text-center mt-5 fs-5">Última solicitação</h3>
+
+    <div class="loans d-flex justify-content-center align-items-centerflex-wrap gap-4">
+      @for (loan of solicitation; track loan.id) {
+        <div class="d-flex flex-column justify-content-center align-items-center">
+          <div class="image">
+            <img
+              class="rounded mb-2"
+              width="110"
+              height="140"
+              [src]="loan.fotoCapaUrl"
+              [alt]="'capa do livro ' + loan.nomeObra"
+            />
+          </div>
+          <span>{{ loan.nomeObra }}</span>
+        </div>
+      }
+    </div>
+  }
+}

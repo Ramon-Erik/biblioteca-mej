@@ -1,1 +1,22 @@
-<p>loan-history works!</p>
+<h3 class="text-center mt-5 fs-5">Seus últimos empréstimos</h3>
+
+@if (loanHistory$ | async; as history) {
+  <div class="loans my-4 d-flex justify-content-center align-items-centerflex-wrap gap-4">
+    @for (loan of history; track loan.id) {
+      <div class="d-flex flex-column justify-content-center align-items-center">
+        <div class="image">
+          <img
+            class="rounded mb-2"
+            width="110"
+            height="140"
+            [src]="loan.fotoCapaUrl"
+            [alt]="'capa do livro ' + loan.nomeObra"
+          />
+        </div>
+        <span>{{ loan.nomeObra }}</span>
+      </div>
+    } @empty {
+      <p>Nenhum empréstimo no momento...</p>
+    }
+  </div>
+}

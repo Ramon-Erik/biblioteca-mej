@@ -2,9 +2,12 @@
   @if (solicitation.length) {
     <h3 class="text-center mt-5 fs-5">Última solicitação</h3>
 
-    <div class="loans d-flex justify-content-center align-items-centerflex-wrap gap-4">
+    <div class="loans d-flex mx-auto justify-content-center align-items-centerflex-wrap gap-4">
       @for (loan of solicitation; track loan.id) {
-        <div class="d-flex flex-column justify-content-center align-items-center">
+        <div
+          style="width: 225px"
+          class="d-flex flex-column justify-content-center align-items-center"
+        >
           <div class="image">
             <img
               class="rounded mb-2"
@@ -14,7 +17,7 @@
               [alt]="'capa do livro ' + loan.nomeObra"
             />
           </div>
-          <span>{{ loan.nomeObra }}</span>
+          <div class="d-block w-100 text-truncate text-center">{{ loan.nomeObra }}</div>
         </div>
       }
     </div>

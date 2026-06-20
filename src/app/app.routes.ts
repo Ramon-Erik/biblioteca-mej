@@ -5,7 +5,7 @@ export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    loadComponent: () => import('./modules/reader/home/home').then((m) => m.Home),
+    loadComponent: () => import('./modules/guest/home/home').then((m) => m.Home),
   },
   {
     path: 'home',
@@ -25,7 +25,7 @@ export const routes: Routes = [
   {
     path: 'perfil',
     pathMatch: 'full',
-    loadComponent: () => import('./modules/logged-in/perfil/perfil').then((m) => m.Perfil),
+    loadComponent: () => import('./modules/reader/profile/profile').then((m) => m.Profile),
     canActivate: [AuthGuard],
   },
   {

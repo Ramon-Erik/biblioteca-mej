@@ -17,6 +17,7 @@
 <div class="modal-body" style="max-height: 70vh; overflow-y: auto">
   <form [formGroup]="bookForm">
     <app-input
+      [isRequired]="true"
       type="text"
       id="editNomeObra"
       [control]="getControl('nomeObra')"
@@ -27,6 +28,7 @@
     <div class="row">
       <div class="col-md-6">
         <app-input
+          [isRequired]="true"
           type="text"
           id="editAutor"
           [control]="getControl('autor')"
@@ -36,6 +38,7 @@
       </div>
       <div class="col-md-6">
         <app-input
+          [isRequired]="true"
           type="text"
           id="editEditora"
           [control]="getControl('editora')"
@@ -48,7 +51,8 @@
     <div class="row">
       <div class="col-md-6">
         <app-input
-          type="text"
+          [isRequired]="true"
+          type="number"
           id="editVolume"
           [control]="getControl('volume')"
           label="Volume"
@@ -57,6 +61,7 @@
       </div>
       <div class="col-md-6">
         <app-input
+          [isRequired]="true"
           id="editQuantidade"
           [control]="getControl('quantidade')"
           label="Quantidade em Estoque"
@@ -67,6 +72,7 @@
 
     @if (categories$ | async; as categories) {
       <app-select
+        [isRequired]="true"
         inputId="editCategoriasIds"
         formControlName="categoriasIds"
         [options]="categories"
@@ -78,6 +84,7 @@
     }
 
     <app-input
+      [isRequired]="true"
       type="text"
       id="editFotoCapaUrl"
       [control]="getControl('fotoCapaUrl')"
@@ -86,6 +93,7 @@
     />
 
     <app-textarea
+      [isRequired]="true"
       inputId="editDescricao"
       formControlName="descricao"
       label="Sinopse / Descrição"
@@ -98,5 +106,11 @@
 
 <div class="modal-footer d-flex align-items-center justify-content-between gap-4">
   <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss()">Cancelar</button>
-  <button type="button" class="btn btn-primary" (click)="updateBook()">Salvar Alterações</button>
+  <app-button-default
+    type="primary"
+    [disable]="bookForm.invalid || loading()"
+    [isLoading]="loading()"
+    (clicked)="updateBook()"
+    title="Salvar alterações"
+  />
 </div>

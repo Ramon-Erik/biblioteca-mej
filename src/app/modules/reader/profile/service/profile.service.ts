@@ -34,7 +34,7 @@ export class ProfileService {
   private requests$ = new BehaviorSubject<LoanItem[]>([]);
   private requestsPagination$ = new BehaviorSubject<PaginationState>({
     pageNumber: 0,
-    pageSize: 10,
+    pageSize: 6,
     totalPages: 1,
     first: true,
     last: true,
@@ -44,15 +44,15 @@ export class ProfileService {
   private history$ = new BehaviorSubject<LoanItem[]>([]);
   private historyPagination$ = new BehaviorSubject<PaginationState>({
     pageNumber: 0,
-    pageSize: 10,
+    pageSize: 6,
     totalPages: 1,
     first: true,
     last: true,
   });
 
   // Filtros locais em memória para cada listagem
-  private requestsFilters: ProfileFilters = { page: 0, size: 10 };
-  private historyFilters: ProfileFilters = { page: 0, size: 10 };
+  private requestsFilters: ProfileFilters = { page: 0, size: 6 };
+  private historyFilters: ProfileFilters = { page: 0, size: 6 };
 
   get currentBook() {
     return this.currentBook$.asObservable();
@@ -95,7 +95,7 @@ export class ProfileService {
       .patch<currentBookResponse | void>(`${this.baseUrl}/${loanId}/renovar`, {
         id: loanId,
       })
-      .pipe(switchMap(() => this.getMyCurrentBook()));
+      .pipe(switchMap(() => this.getMyCurrentBook().pipe(switchMap(() => this.getMyHistory()))));
   }
 
   public returnMyBorrowedBook(loanId: string) {
@@ -103,7 +103,7 @@ export class ProfileService {
       .patch<currentBookResponse | void>(`${this.baseUrl}/${loanId}/devolver`, {
         id: loanId,
       })
-      .pipe(switchMap(() => this.getMyCurrentBook()));
+      .pipe(switchMap(() => this.getMyCurrentBook().pipe(switchMap(() => this.getMyHistory()))));
   }
 
   /**
@@ -133,6 +133,12 @@ export class ProfileService {
         });
       }),
     );
+  }
+
+  public disaproveRequest(id: string) {
+    return this.http
+      .patch<LoanItem>(`${this.baseUrl}/${id}/cancelar`, { id })
+      .pipe(switchMap(() => this.getMyRequests()));
   }
 
   /**

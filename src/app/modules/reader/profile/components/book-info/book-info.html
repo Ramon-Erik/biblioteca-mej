@@ -28,9 +28,12 @@
       >
         renovar ({{ 5 - book().quantidadeRenovacoes }})
       </button>
-      <button appBlurOnClick (click)="returnBorrowedBook()" class="btn btn-primary">
-        devolver
-      </button>
+      <app-button-default
+        [disable]="loading()"
+        title="devolver"
+        type="primary"
+        (clicked)="returnBorrowedBook()"
+      />
     </div>
   </div>
 </div>

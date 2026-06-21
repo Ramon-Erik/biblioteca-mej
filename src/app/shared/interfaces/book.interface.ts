@@ -15,7 +15,7 @@ export interface RawBook {
   nomeObra: string;
   autor: string;
   editora: string;
-  volume: string | null; // Note que a API pode mandar nulo
+  volume: number | null; // Note que a API pode mandar nulo
   descricao: string;
   categoriasIds: string[]; // Substitua por 'Categoria[]' caso tenha uma interface para categorias
   quantidade: number;

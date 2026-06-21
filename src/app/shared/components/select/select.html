@@ -1,7 +1,10 @@
 @if (label() && inputId()) {
-  <label [attr.for]="inputId()" class="form-label fw-semibold text-body">
+  <p class="form-label fw-semibold text-body">
     {{ label() }}
-  </label>
+    @if (isRequired()) {
+      <span class="text-danger">*</span>
+    }
+  </p>
 }
 
 <div

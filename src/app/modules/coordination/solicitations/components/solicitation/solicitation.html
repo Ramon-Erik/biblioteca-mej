@@ -25,14 +25,21 @@
       </div>
     </div>
 
-    <div class="btns d-flex flex-row-reverse">
+    <div class="btns d-flex gap-4 justify-content-between">
       <button
         type="button"
-        class="btn btn-borrow-action btn-primary rounded-3 fw-semibold fs-6 text-uppercase"
-        (click)="handleApprove()"
+        class="btn btn-danger"
+        (click)="handleDisaprove()"
+        [disabled]="loading()"
       >
-        <i class="bi bi-check2-circle me-1"></i> Aceitar
+        Negar
       </button>
+      <app-button-default
+        [disable]="loading()"
+        (clicked)="handleApprove()"
+        title="Aceitar"
+        type="primary"
+      />
     </div>
   </div>
 </div>

@@ -3,6 +3,7 @@
   [ngClass]="buttonClasses"
   (click)="clicked.emit()"
   [disabled]="disable()"
+  appBlurOnClick
 >
   @if (isLoading()) {
     <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>

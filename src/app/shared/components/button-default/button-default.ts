@@ -1,11 +1,12 @@
 import { Component, input, output } from '@angular/core';
 import { NgClass } from '@angular/common';
+import { BlurOnClick } from '@shared/directives/blur-on-click';
 
 type ButtonType = 'primary' | 'secondary' | 'tertiary';
 
 @Component({
   selector: 'app-button-default',
-  imports: [NgClass],
+  imports: [NgClass, BlurOnClick],
   templateUrl: './button-default.html',
   styleUrl: './button-default.scss',
 })

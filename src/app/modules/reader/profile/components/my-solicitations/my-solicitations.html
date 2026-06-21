@@ -20,11 +20,11 @@
           <div class="d-block w-100 text-truncate text-center">{{ loan.nomeObra }}</div>
           <button
             type="button"
-            class="btn btn-danger"
+            class="btn btn-danger mt-3"
             (click)="handleDisaprove(loan.id)"
             [disabled]="loading()"
           >
-            Negar
+            Cancelar
           </button>
         </div>
       }

@@ -59,7 +59,7 @@ export class Login {
   }
 
   protected routeToAlterarSenha(): void {
-    this.router.navigate(['change-password']);
+    this.router.navigate(['mudar-senha']);
   }
 
   protected routeToCriarConta(): void {

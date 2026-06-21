@@ -1,7 +1,13 @@
 <h3 class="text-center mt-5 fs-5">Seus últimos empréstimos</h3>
 
 @if (loanHistory$ | async; as history) {
-  <div class="loans my-4 d-flex flex-wrap justify-content-center align-items-centerflex-wrap gap-4">
+  @if (pagination$ | async; as pagination) {
+    <app-pagination [paginationInfo]="pagination" (pageChange)="changePage($event)" />
+  }
+  <div
+    class="loans my-4 d-flex flex-wrap justify-content-center align-items-centerflex-wrap gap-4"
+    style="max-width: 600px"
+  >
     @for (loan of history; track loan.id) {
       <div
         class="text-truncate d-flex flex-column justify-content-center align-items-center"

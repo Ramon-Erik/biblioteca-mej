@@ -19,13 +19,11 @@
     <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss()">
       Cancelar
     </button>
-
-    <button
-      type="button"
-      class="btn btn-primary w-50 fs-6 fw-semibold rounded-3 text-uppercase tracking-wider shadow-sm"
+    <app-button-default
+      type="primary"
       (click)="modalInfo().func()"
-    >
-      {{ modalInfo().btnText }}
-    </button>
+      [disable]="modalInfo().loading()"
+      [title]="modalInfo().btnText"
+    />
   </div>
 </div>

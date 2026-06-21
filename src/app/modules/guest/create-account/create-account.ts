@@ -4,6 +4,7 @@ import { InputDefault } from '@shared/components/input/input';
 import {
   AbstractControl,
   FormBuilder,
+  FormControl,
   ReactiveFormsModule,
   ValidationErrors,
   Validators,
@@ -13,6 +14,7 @@ import { ButtonDefault } from '@shared/components/button-default/button-default'
 import { finalize } from 'rxjs';
 import { AuthService } from 'app/core/services/auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { passwordStrengthValidator } from 'app/core/validators/password-strength.validator';
 
 @Component({
   selector: 'app-create-account',
@@ -32,11 +34,35 @@ export class CreateAccount {
       name: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required, Validators.pattern('^[0-9]{11}$'), Validators.min(0)]],
-      password: ['', [Validators.required]],
+      password: ['', [Validators.required, passwordStrengthValidator()]],
       passwordConf: ['', [Validators.required]],
     },
     { validators: this.passwordMatchValidator },
   );
+
+  get passwordControl(): FormControl {
+    return this.cadastroForm.get('password') as FormControl;
+  }
+
+  hasMinLength(): boolean {
+    return this.passwordControl?.value?.length >= 8 || false;
+  }
+
+  hasUppercase(): boolean {
+    return /[A-Z]/.test(this.passwordControl?.value || '');
+  }
+
+  hasLowercase(): boolean {
+    return /[a-z]/.test(this.passwordControl?.value || '');
+  }
+
+  hasNumber(): boolean {
+    return /[0-9]/.test(this.passwordControl?.value || '');
+  }
+
+  hasSymbol(): boolean {
+    return /[!@#$%^&*(),.?":{}|<>]/.test(this.passwordControl?.value || '');
+  }
 
   private passwordMatchValidator(group: AbstractControl): ValidationErrors | null {
     const password = group.get('password')?.value;

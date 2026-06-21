@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { finalize } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { passwordStrengthValidator } from 'app/core/validators/password-strength.validator';
 
 @Component({
   selector: 'app-change-password',
@@ -43,7 +44,10 @@ export class ChangePassword implements OnDestroy {
 
   passwordForm = this.fb.group(
     {
-      newPassword: ['', [Validators.required, Validators.minLength(8)]],
+      newPassword: [
+        '',
+        [Validators.required, Validators.minLength(8), passwordStrengthValidator()],
+      ],
       confirmPassword: ['', [Validators.required, Validators.minLength(8)]],
     },
     { validators: this.passwordMatchValidator },
@@ -79,6 +83,30 @@ export class ChangePassword implements OnDestroy {
 
   get isPasswordFormInvalid(): boolean {
     return this.isLoading() || this.passwordForm.invalid;
+  }
+
+  get passwordControl(): FormControl {
+    return this.passwordForm.get('newPassword') as FormControl;
+  }
+
+  hasMinLength(): boolean {
+    return this.passwordControl?.value?.length >= 8 || false;
+  }
+
+  hasUppercase(): boolean {
+    return /[A-Z]/.test(this.passwordControl?.value || '');
+  }
+
+  hasLowercase(): boolean {
+    return /[a-z]/.test(this.passwordControl?.value || '');
+  }
+
+  hasNumber(): boolean {
+    return /[0-9]/.test(this.passwordControl?.value || '');
+  }
+
+  hasSymbol(): boolean {
+    return /[!@#$%^&*(),.?":{}|<>]/.test(this.passwordControl?.value || '');
   }
 
   get underLinkMensage(): string {
@@ -161,6 +189,10 @@ export class ChangePassword implements OnDestroy {
   }
 
   protected setNewPassword(): void {
+    if (!this.codeEnviado()) {
+      this.toastr.warning('Solicite um código primeiro.', 'Atenção');
+      return;
+    }
     if (this.passwordForm.invalid) {
       this.passwordForm.markAllAsTouched();
       return;

@@ -22,13 +22,70 @@
     [minValue]="'0'"
     id="phone"
   />
-  <app-input
-    label="Senha"
-    placeholder="Digite sua senha"
-    type="password"
-    [control]="cadastroForm.controls['password']"
-    id="password"
-  />
+  <div>
+    <app-input
+      label="Senha"
+      placeholder="Digite sua senha"
+      type="password"
+      [control]="cadastroForm.controls['password']"
+      id="password"
+    />
+    @if (cadastroForm.get('password')?.touched || cadastroForm.get('password')?.dirty) {
+      <div class="password-requirements mt-2">
+        <small class="d-block">
+          <span [class.text-success]="hasMinLength()" [class.text-danger]="!hasMinLength()">
+            @if (hasMinLength()) {
+              <i class="bi bi-check-circle-fill"></i>
+            } @else {
+              <i class="bi bi-circle"></i>
+            }
+          </span>
+          Mínimo 8 caracteres
+        </small>
+        <small class="d-block">
+          <span [class.text-success]="hasUppercase()" [class.text-danger]="!hasUppercase()">
+            @if (hasUppercase()) {
+              <i class="bi bi-check-circle-fill"></i>
+            } @else {
+              <i class="bi bi-circle"></i>
+            }
+          </span>
+          Letra maiúscula (A-Z)
+        </small>
+        <small class="d-block">
+          <span [class.text-success]="hasLowercase()" [class.text-danger]="!hasLowercase()">
+            @if (hasLowercase()) {
+              <i class="bi bi-check-circle-fill"></i>
+            } @else {
+              <i class="bi bi-circle"></i>
+            }
+          </span>
+          Letra minúscula (a-z)
+        </small>
+        <small class="d-block">
+          <span [class.text-success]="hasNumber()" [class.text-danger]="!hasNumber()">
+            @if (hasNumber()) {
+              <i class="bi bi-check-circle-fill"></i>
+            } @else {
+              <i class="bi bi-circle"></i>
+            }
+          </span>
+          Número (0-9)
+        </small>
+        <small class="d-block">
+          <span [class.text-success]="hasSymbol()" [class.text-danger]="!hasSymbol()">
+            @if (hasSymbol()) {
+              <i class="bi bi-check-circle-fill"></i>
+            } @else {
+              <i class="bi bi-circle"></i>
+            }
+          </span>
+          Símbolo (!@#$%^&*())
+        </small>
+      </div>
+    }
+  </div>
+
   <app-input
     label="Confirmar senha"
     placeholder="Confirme sua senha"

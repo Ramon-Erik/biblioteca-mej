@@ -1,0 +1,9 @@
+:host {
+  .card-header {
+    background: var(--bg-card);
+  }
+
+  .dropdown-toggle::after {
+    display: none;
+  }
+}

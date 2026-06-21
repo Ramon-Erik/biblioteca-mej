@@ -63,6 +63,6 @@ export class Login {
   }
 
   protected routeToCriarConta(): void {
-    this.router.navigate(['create-account']);
+    this.router.navigate(['cadastrar-se']);
   }
 }

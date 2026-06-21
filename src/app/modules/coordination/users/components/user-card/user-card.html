@@ -1,0 +1,70 @@
+<div class="card shadow-sm border-0 rounded-3 mb-3 user-card">
+  <div
+    class="card-header bg-light border-0 d-flex justify-content-between align-items-center py-2 px-3 name-section"
+  >
+    <div>
+      <h6 class="m-0 fw-bold text-dark text-truncate">
+        {{ user().nomeCompleto }}
+        @if (currentAdminId | async; as currentADM) {
+          @if (currentADM === user().id) {
+            <span class="badge bg-secondary text-white ms-1 fw-normal" style="font-size: 0.65rem"
+              >Você</span
+            >
+          }
+        }
+      </h6>
+      <small class="text-muted d-block phone-sub">{{ user().telefoneWhatsapp }}</small>
+    </div>
+
+    @if (currentAdminId | async; as currentADM) {
+      @if (currentADM !== user().id) {
+        <div ngbDropdown placement="bottom-end" class="d-inline-block">
+          <button
+            type="button"
+            class="btn btn-link text-muted p-1 m-0 border-0 no-caret"
+            ngbDropdownToggle
+          >
+            <i class="bi bi-three-dots-vertical fs-5"></i>
+          </button>
+
+          <div ngbDropdownMenu class="shadow border-0 py-1">
+            @if (user().role === 'ADMIN') {
+              <button ngbDropdownItem (click)="demoteToLeitor()">
+                <i class="bi bi-shield-x me-2 text-secondary"></i> Rebaixar a Leitor
+              </button>
+            } @else {
+              <button ngbDropdownItem (click)="promoteToAdmin()">
+                <i class="bi bi-shield-plus me-2 text-primary"></i> Tornar ADM
+              </button>
+            }
+
+            @if (user().loginBloqueado) {
+              <button ngbDropdownItem (click)="unblockUser()">
+                <i class="bi bi-unlock me-2 text-success"></i> Desbloquear acesso
+              </button>
+            } @else {
+              <button ngbDropdownItem (click)="openBlockModal()">
+                <i class="bi bi-lock me-2 text-danger"></i> Bloquear acesso
+              </button>
+            }
+          </div>
+        </div>
+      }
+    }
+  </div>
+
+  <div class="card-body py-2 px-3 body-section bg-white">
+    <div class="d-flex align-items-center gap-2 mb-1">
+      <span class="text-secondary fw-medium small">{{ roleLabel }}</span>
+      <span class="small fw-semibold" [ngClass]="statusClass">
+        {{ statusLabel }}
+      </span>
+    </div>
+
+    <p class="text-muted small m-0 text-truncate italic-obs">
+      @if (user().loginBloqueado) {
+        {{ user().motivoBloqueio }}
+      }
+    </p>
+  </div>
+</div>

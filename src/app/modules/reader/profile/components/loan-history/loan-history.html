@@ -1,0 +1,25 @@
+<h3 class="text-center mt-5 fs-5">Seus últimos empréstimos</h3>
+
+@if (loanHistory$ | async; as history) {
+  <div class="loans my-4 d-flex flex-wrap justify-content-center align-items-centerflex-wrap gap-4">
+    @for (loan of history; track loan.id) {
+      <div
+        class="text-truncate d-flex flex-column justify-content-center align-items-center"
+        style="width: 135px"
+      >
+        <div class="image">
+          <img
+            class="rounded mb-2"
+            width="110"
+            height="140"
+            [src]="loan.fotoCapaUrl"
+            [alt]="'capa do livro ' + loan.nomeObra"
+          />
+        </div>
+        <div class="d-block w-100 text-truncate text-center">{{ loan.nomeObra }}</div>
+      </div>
+    } @empty {
+      <p>Nenhum empréstimo no momento...</p>
+    }
+  </div>
+}

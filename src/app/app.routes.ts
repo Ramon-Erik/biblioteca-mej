@@ -5,7 +5,7 @@ export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    loadComponent: () => import('./modules/reader/home/home').then((m) => m.Home),
+    loadComponent: () => import('./modules/guest/home/home').then((m) => m.Home),
   },
   {
     path: 'home',
@@ -18,9 +18,20 @@ export const routes: Routes = [
     loadComponent: () => import('./modules/catalog/catalog').then((m) => m.Catalog),
   },
   {
+    path: 'usuarios',
+    pathMatch: 'full',
+    loadComponent: () => import('./modules/coordination/users/users').then((m) => m.Users),
+  },
+  {
+    path: 'solicitacoes',
+    pathMatch: 'full',
+    loadComponent: () =>
+      import('./modules/coordination/solicitations/solicitations').then((m) => m.Solicitations),
+  },
+  {
     path: 'perfil',
     pathMatch: 'full',
-    loadComponent: () => import('./modules/logged-in/perfil/perfil').then((m) => m.Perfil),
+    loadComponent: () => import('./modules/reader/profile/profile').then((m) => m.Profile),
     canActivate: [AuthGuard],
   },
   {
@@ -29,13 +40,13 @@ export const routes: Routes = [
     loadComponent: () => import('./modules/guest/login/login').then((m) => m.Login),
   },
   {
-    path: 'change-password',
+    path: 'mudar-senha',
     pathMatch: 'full',
     loadComponent: () =>
       import('./modules/guest/change-password/change-password').then((m) => m.ChangePassword),
   },
   {
-    path: 'create-account',
+    path: 'cadastrar-se',
     pathMatch: 'full',
     loadComponent: () =>
       import('./modules/guest/create-account/create-account').then((m) => m.CreateAccount),

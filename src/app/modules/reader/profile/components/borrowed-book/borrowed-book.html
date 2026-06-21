@@ -1,0 +1,7 @@
+<h3 class="text-center fs-5">Empréstimo em curso</h3>
+
+@if (currentBook$ | async; as book) {
+  <app-book-info [book]="book" />
+} @else {
+  <p class="text-center">Nenhum livro emprestado no momento.</p>
+}

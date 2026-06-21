@@ -7,6 +7,13 @@
         </a>
       </li>
     }
+    @if (isAdm$ | async; as isAdm) {
+      <li>
+        <a routerLink="/usuarios" class="text-white">
+          <i class="bi-people-fill"></i>
+        </a>
+      </li>
+    }
     @if (isUserLogado$ | async) {
       <li>
         <span

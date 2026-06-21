@@ -30,6 +30,7 @@ export class CatalogService {
   private currentFilters: CatalogFilters = {
     page: 0,
     size: 6,
+    oculto: false,
   };
 
   private books$ = new BehaviorSubject<Book[]>([]);
@@ -65,14 +66,19 @@ export class CatalogService {
     return this.http.post(this.bookUrl, book).pipe(this.reloadCatalog());
   }
 
+  public goToPage(page: number) {
+    return this.getCatalogList({ page });
+  }
+
   public getCatalogList(filters?: Partial<CatalogFilters>) {
     if (filters) {
       this.currentFilters = { ...this.currentFilters, ...filters };
     }
 
     let params = new HttpParams()
-      .set('page', this.currentFilters.page.toString())
-      .set('size', this.currentFilters.size.toString());
+      .set('page', this.currentFilters.page)
+      .set('size', this.currentFilters.size)
+      .set('oculto', this.currentFilters.oculto);
 
     if (this.currentFilters.categoriaId) {
       params = params.set('categoriaId', this.currentFilters.categoriaId);
@@ -93,8 +99,10 @@ export class CatalogService {
     );
   }
 
-  public goToPage(page: number) {
-    return this.getCatalogList({ page });
+  public borrowBook(bookId: string) {
+    const url = `${environment.apiUrl}/emprestimos/solicitar`;
+
+    return this.http.post(url, { livroId: bookId }).pipe(this.reloadCatalog());
   }
 
   public deleteBook(bookId: string) {

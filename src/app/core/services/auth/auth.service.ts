@@ -105,7 +105,7 @@ export class AuthService {
     const body: cadastroRequest = {
       nomeCompleto: nome,
       email: email,
-      telefoneWhatsaap: telefone,
+      telefoneWhatsapp: telefone,
       senha: senha,
     };
 

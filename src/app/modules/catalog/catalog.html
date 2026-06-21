@@ -6,9 +6,18 @@
 <app-catalog-filter />
 
 @if (isAdmin$ | async) {
-  <app-min-button icon="bi-plus-lg" (btnClick)="openRegisterModal()">
-    cadastrar novo livro
-  </app-min-button>
+  <div class="links d-flex gap-4 flex-wrap">
+    <app-min-button icon="bi-plus-lg" (btnClick)="openRegisterModal()">
+      cadastrar novo livro
+    </app-min-button>
+    <app-min-button
+      icon="bi-luggage-fill"
+      color="var(--bg-btn-borrow)"
+      (btnClick)="openSolicitationsiew()"
+    >
+      Ver solicitações
+    </app-min-button>
+  </div>
 }
 
 @if (books$ | async; as books) {

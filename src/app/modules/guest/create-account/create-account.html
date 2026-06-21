@@ -19,6 +19,7 @@
     placeholder="Digite seu número que contenha whatsaap"
     type="number"
     [control]="cadastroForm.controls['phone']"
+    [minValue]="'0'"
     id="phone"
   />
   <app-input

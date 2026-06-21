@@ -29,7 +29,7 @@ export class CreateAccount {
     {
       name: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
-      phone: ['', [Validators.required, Validators.pattern('^[0-9]{11}$')]],
+      phone: ['', [Validators.required, Validators.pattern('^[0-9]{11}$'), Validators.min(0)]],
       password: ['', [Validators.required]],
       passwordConf: ['', [Validators.required]],
     },

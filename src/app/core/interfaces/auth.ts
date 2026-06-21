@@ -5,7 +5,7 @@ export interface ReenviarCodeResponse {
 export interface cadastroRequest {
   nomeCompleto: string;
   email: string;
-  telefoneWhatsaap: string;
+  telefoneWhatsapp: string;
   senha: string;
 }
 

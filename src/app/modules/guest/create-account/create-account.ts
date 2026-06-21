@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { ButtonDefault } from '@shared/components/button-default/button-default';
 import { finalize } from 'rxjs';
 import { AuthService } from 'app/core/services/auth/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-account',
@@ -23,13 +24,14 @@ export class CreateAccount {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
   private readonly fb = inject(FormBuilder);
+  private toastr = inject(ToastrService);
   protected isLoading = signal(false);
 
   cadastroForm = this.fb.group(
     {
       name: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
-      phone: ['', [Validators.required, Validators.pattern('^[0-9]{11}$')]],
+      phone: ['', [Validators.required, Validators.pattern('^[0-9]{11}$'), Validators.min(0)]],
       password: ['', [Validators.required]],
       passwordConf: ['', [Validators.required]],
     },
@@ -49,6 +51,7 @@ export class CreateAccount {
   protected realizarCadastro(): void {
     if (this.cadastroForm.invalid) {
       this.cadastroForm.markAllAsTouched();
+      this.toastr.error('Preencha todos os campos corretamente.', 'Erro', { timeOut: 5000 });
       return;
     }
 
@@ -81,6 +84,9 @@ export class CreateAccount {
         },
         error: (error) => {
           console.error('Erro ao realizar cadastro:', error);
+          const title = error.error.erro || 'Erro ao realizar operação';
+          const msg = error.error.mensagem || 'Problemas com o servidor';
+          this.toastr.error(msg, title, { timeOut: 5500 });
         },
       });
   }

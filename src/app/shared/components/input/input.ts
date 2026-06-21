@@ -40,9 +40,55 @@ export class InputDefault {
 
   @Output() underLinkClicked = new EventEmitter();
 
+  onKeyDown(event: KeyboardEvent) {
+    if (this.type() === 'number') {
+      if (event.key === '-' || event.key === 'e' || event.key === 'E') {
+        event.preventDefault();
+      }
+    }
+  }
+
+  onInput() {
+    if (this.type() === 'number') {
+      const control = this.control();
+      let value = control.value;
+
+      if (typeof value === 'string') {
+        value = value.replace(/-/g, '');
+        if (value !== control.value) {
+          control.setValue(value, { emitEvent: false });
+        }
+      }
+    }
+  }
+
   getErrorKeys(): ErrorKey[] {
     const control = this.control();
-    return (control.errors ? Object.keys(control.errors) : []) as ErrorKey[];
+    const errors = control.errors ? Object.keys(control.errors) : [];
+
+    if (errors.length === 0) return [];
+
+    const priorityOrder: ErrorKey[] = [
+      'email',
+      'minlength',
+      'maxlength',
+      'min',
+      'max',
+      'pattern',
+      'required',
+    ];
+
+    const sortedErrors = errors.sort((a, b) => {
+      const aIndex = priorityOrder.indexOf(a as ErrorKey);
+      const bIndex = priorityOrder.indexOf(b as ErrorKey);
+
+      if (aIndex === -1) return 1;
+      if (bIndex === -1) return -1;
+
+      return aIndex - bIndex;
+    });
+
+    return [sortedErrors[0]] as ErrorKey[];
   }
 
   getErrorMessage(error: string): string {

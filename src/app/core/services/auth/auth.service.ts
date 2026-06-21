@@ -130,20 +130,16 @@ export class AuthService {
   }
 
   public confirmarAlteracaoSenha(
-    token: string,
-    novaSenha: string,
-    confirmarSenha: string,
+    email: string,
+    code: string,
+    newPassword: string,
   ): Observable<AlterarSenhaResponse> {
     const body: AlterarSenhaRequest = {
-      token,
-      novaSenha,
-      confirmarSenha,
+      email,
+      codigo: code,
+      novaSenha: newPassword,
     };
     return this.http.post<AlterarSenhaResponse>(`${this.apiUrl}/senha/confirmar-alteracao`, body);
-  }
-
-  public validarTokenAlteracaoSenha(token: string): Observable<{ valido: boolean }> {
-    return this.http.get<{ valido: boolean }>(`${this.apiUrl}/senha/validar-token/${token}`);
   }
 
   public setUserData(response: LoginResponse): void {
@@ -175,7 +171,6 @@ export class AuthService {
     this.router.navigate(['']);
   }
 
-  // ============== Verificações ==============
   public isLoggedIn(): boolean {
     return this.isAuthenticatedSubject.value;
   }

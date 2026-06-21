@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'app/core/services/auth/auth.service';
 import { ButtonDefault } from '@shared/components/button-default/button-default';
 import { finalize } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-confirm-code',
@@ -18,6 +19,7 @@ export class ConfirmCode implements OnInit {
   private readonly router = inject(Router);
   private readonly actRouter = inject(ActivatedRoute);
   private readonly fb = inject(FormBuilder);
+  private toastr = inject(ToastrService);
   protected isLoading = signal(false);
   email = '';
 
@@ -38,6 +40,7 @@ export class ConfirmCode implements OnInit {
   protected confirmar(): void {
     if (this.confCodeForm.invalid) {
       this.confCodeForm.markAllAsTouched();
+      this.toastr.error('Erro', 'Preencha todos os campos corretamente.', { timeOut: 5500 });
       return;
     }
 
@@ -60,6 +63,9 @@ export class ConfirmCode implements OnInit {
         },
         error: (error) => {
           console.error('Erro ao confirmar cadastro:', error);
+          const title = error.error.erro || 'Erro ao realizar operação';
+          const msg = error.error.mensagem || 'Problemas com o servidor';
+          this.toastr.error(msg, title, { timeOut: 5500 });
         },
       });
   }

@@ -2,11 +2,19 @@ import { AuthService } from 'app/core/services/auth/auth.service';
 import { Component, inject, signal, OnDestroy } from '@angular/core';
 import { PageTitle } from '../../../shared/components/page-title/page-title';
 import { InputDefault } from '../../../shared/components/input/input';
-import { ReactiveFormsModule, FormBuilder, Validators, FormControl } from '@angular/forms';
+import {
+  ReactiveFormsModule,
+  FormBuilder,
+  Validators,
+  FormControl,
+  AbstractControl,
+  ValidationErrors,
+} from '@angular/forms';
 import { ButtonDefault } from '../../../shared/components/button-default/button-default';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { finalize } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-change-password',
@@ -18,10 +26,12 @@ export class ChangePassword implements OnDestroy {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
   private readonly fb = inject(FormBuilder);
+  private toastr = inject(ToastrService);
 
   protected isLoading = signal(false);
   protected counter = signal(0);
   protected codeEnviado = signal(false);
+  protected isFirstTime = signal(true);
   protected emailEnviado = signal('');
 
   private timerInterval?: number;
@@ -31,6 +41,14 @@ export class ChangePassword implements OnDestroy {
     code: ['', [Validators.required, Validators.minLength(6)]],
   });
 
+  passwordForm = this.fb.group(
+    {
+      newPassword: ['', [Validators.required, Validators.minLength(8)]],
+      confirmPassword: ['', [Validators.required, Validators.minLength(8)]],
+    },
+    { validators: this.passwordMatchValidator },
+  );
+
   get email(): FormControl {
     return this.recoverForm.get('email') as FormControl;
   }
@@ -39,16 +57,14 @@ export class ChangePassword implements OnDestroy {
     return this.recoverForm.get('code') as FormControl;
   }
 
-  get underLinkMensage(): string {
-    if (this.counter() > 0) {
-      return `Reenviar código em ${this.counter()} segundos.`;
-    }
-    return 'Reenviar código';
+  get newPassword(): FormControl {
+    return this.passwordForm.get('newPassword') as FormControl;
   }
 
-  get canResendCode(): boolean {
-    return this.counter() === 0 && this.codeEnviado();
+  get confirmPassword(): FormControl {
+    return this.passwordForm.get('confirmPassword') as FormControl;
   }
+
   get isEmailInvalid(): boolean {
     return this.email?.invalid ?? false;
   }
@@ -61,13 +77,39 @@ export class ChangePassword implements OnDestroy {
     return this.isLoading() || this.isEmailInvalid;
   }
 
-  get isCodeFormInvalid(): boolean {
-    return this.isLoading() || this.isCodeInvalid;
+  get isPasswordFormInvalid(): boolean {
+    return this.isLoading() || this.passwordForm.invalid;
+  }
+
+  get underLinkMensage(): string {
+    if (this.isFirstTime()) {
+      return '';
+    } else {
+      if (this.counter() > 0) {
+        return `Reenviar código em ${this.counter()} segundos.`;
+      }
+      return 'Reenviar código';
+    }
+  }
+
+  get canResendCode(): boolean {
+    return this.counter() === 0 && this.codeEnviado();
+  }
+
+  private passwordMatchValidator(group: AbstractControl): ValidationErrors | null {
+    const password = group.get('newPassword')?.value;
+    const confirmPassword = group.get('confirmPassword')?.value;
+
+    if (password && confirmPassword && password !== confirmPassword) {
+      return { passwordMismatch: true };
+    }
+    return null;
   }
 
   protected enviarCodigo(): void {
-    if (this.recoverForm.get('email')?.invalid) {
+    if (this.email?.invalid) {
       this.email?.markAsTouched();
+      this.toastr.error('Erro', 'Preencha todos os campos corretamente.', { timeOut: 5500 });
       return;
     }
 
@@ -82,10 +124,11 @@ export class ChangePassword implements OnDestroy {
           this.isLoading.set(false);
         }),
       )
-
       .subscribe({
         next: () => {
-          this.isLoading.set(false);
+          if (this.isFirstTime()) {
+            this.isFirstTime.set(false);
+          }
           this.codeEnviado.set(true);
           this.emailEnviado.set(email);
 
@@ -97,25 +140,58 @@ export class ChangePassword implements OnDestroy {
           }, 100);
         },
         error: (error) => {
-          this.isLoading.set(false);
           console.error('Erro ao enviar código:', error);
+          const title = error.error.erro || 'Erro ao realizar operação';
+          const msg = error.error.mensagem || 'Problemas com o servidor';
+          this.toastr.error(msg, title, { timeOut: 5500 });
         },
       });
   }
 
   protected reenviarCodigo(): void {
     if (this.canResendCode) {
+      this.code?.reset();
       this.enviarCodigo();
     }
   }
 
-  protected verificarCode(): void {
+  protected setNewPassword(): void {
+    if (this.passwordForm.invalid) {
+      this.passwordForm.markAllAsTouched();
+      return;
+    }
+
     if (this.code?.invalid) {
       this.code?.markAsTouched();
       return;
     }
 
     this.isLoading.set(true);
+
+    const email = this.email?.value || '';
+    const code = this.code?.value || '';
+    const newPassword = this.newPassword?.value || '';
+
+    this.authService
+      .confirmarAlteracaoSenha(email, code, newPassword)
+      .pipe(
+        finalize(() => {
+          this.isLoading.set(false);
+        }),
+      )
+      .subscribe({
+        next: () => {
+          this.router.navigate(['/catalogo-de-livros'], {
+            queryParams: { success: 'Senha alterada com sucesso!' },
+          });
+        },
+        error: (error) => {
+          console.error('Erro ao alterar senha:', error);
+          const title = error.error.erro || 'Erro ao realizar operação';
+          const msg = error.error.mensagem || 'Problemas com o servidor';
+          this.toastr.error(msg, title, { timeOut: 5500 });
+        },
+      });
   }
 
   private iniciarContador(): void {
@@ -134,13 +210,13 @@ export class ChangePassword implements OnDestroy {
     }, 1000);
   }
 
+  protected backToLogin(): void {
+    this.router.navigate(['/login']);
+  }
+
   ngOnDestroy(): void {
     if (this.timerInterval) {
       clearInterval(this.timerInterval);
     }
-  }
-
-  protected backToLogin(): void {
-    this.router.navigate(['/login']);
   }
 }

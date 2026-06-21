@@ -33,9 +33,9 @@ export interface SolicitarAlteracaoResponse {
 }
 
 export interface AlterarSenhaRequest {
-  token: string;
+  email: string;
+  codigo: string;
   novaSenha: string;
-  confirmarSenha: string;
 }
 
 export interface AlterarSenhaResponse {

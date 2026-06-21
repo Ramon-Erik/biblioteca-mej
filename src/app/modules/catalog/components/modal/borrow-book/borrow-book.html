@@ -19,13 +19,12 @@
     <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss()">
       Cancelar
     </button>
-
-    <button
-      type="button"
-      class="btn btn-solicitar w-50 py-2.5 fs-6 fw-semibold rounded-3 text-white text-uppercase tracking-wider shadow-sm"
-      (click)="confirm()"
-    >
-      solicitar
-    </button>
+    <app-button-default
+      type="primary"
+      [disable]="loading()"
+      [isLoading]="loading()"
+      (clicked)="confirm()"
+      title="Solicitar"
+    />
   </div>
 </div>

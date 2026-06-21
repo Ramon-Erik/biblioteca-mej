@@ -19,7 +19,7 @@ export class ConfirmCode implements OnInit {
   private readonly router = inject(Router);
   private readonly actRouter = inject(ActivatedRoute);
   private readonly fb = inject(FormBuilder);
-  private toastr = inject(ToastrService);
+  private readonly toastr = inject(ToastrService);
   protected isLoading = signal(false);
   email = '';
 
@@ -40,7 +40,7 @@ export class ConfirmCode implements OnInit {
   protected confirmar(): void {
     if (this.confCodeForm.invalid) {
       this.confCodeForm.markAllAsTouched();
-      this.toastr.error('Erro', 'Preencha todos os campos corretamente.', { timeOut: 5500 });
+      this.toastr.error('Preencha todos os campos corretamente.', 'Erro', { timeOut: 5000 });
       return;
     }
 
@@ -58,6 +58,7 @@ export class ConfirmCode implements OnInit {
       )
       .subscribe({
         next: (response) => {
+          this.toastr.success('Cadastro criado com sucesso.', 'Sucesso', { timeOut: 5500 });
           this.authService.setUserData(response);
           this.router.navigate(['/catalogo-de-livros']);
         },

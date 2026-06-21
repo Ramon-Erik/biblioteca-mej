@@ -109,7 +109,7 @@ export class ChangePassword implements OnDestroy {
   protected enviarCodigo(): void {
     if (this.email?.invalid) {
       this.email?.markAsTouched();
-      this.toastr.error('Erro', 'Preencha todos os campos corretamente.', { timeOut: 5500 });
+      this.toastr.error('Preencha todos os campos corretamente.', 'Erro', { timeOut: 5000 });
       return;
     }
 
@@ -138,6 +138,11 @@ export class ChangePassword implements OnDestroy {
           setTimeout(() => {
             document.getElementById('code-verify')?.focus();
           }, 100);
+          this.toastr.info(
+            'Se o e-mail estiver cadastrado, um código foi enviado para sua caixa de entrada.',
+            'Código enviado',
+            { timeOut: 5000 },
+          );
         },
         error: (error) => {
           console.error('Erro ao enviar código:', error);
@@ -181,9 +186,8 @@ export class ChangePassword implements OnDestroy {
       )
       .subscribe({
         next: () => {
-          this.router.navigate(['/catalogo-de-livros'], {
-            queryParams: { success: 'Senha alterada com sucesso!' },
-          });
+          this.toastr.success('Senha alterada com sucesso.', 'Sucesso', { timeOut: 5500 });
+          this.router.navigate(['/catalogo-de-livros']);
         },
         error: (error) => {
           console.error('Erro ao alterar senha:', error);

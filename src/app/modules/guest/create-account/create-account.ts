@@ -51,7 +51,7 @@ export class CreateAccount {
   protected realizarCadastro(): void {
     if (this.cadastroForm.invalid) {
       this.cadastroForm.markAllAsTouched();
-      this.toastr.error('Erro', 'Preencha todos os campos corretamente.', { timeOut: 5500 });
+      this.toastr.error('Preencha todos os campos corretamente.', 'Erro', { timeOut: 5000 });
       return;
     }
 

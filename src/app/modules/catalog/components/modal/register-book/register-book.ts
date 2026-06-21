@@ -44,9 +44,9 @@ export class RegisterBook implements OnInit {
     autor: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
     editora: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
 
-    volume: [0, [Validators.min(0)]],
+    volume: [null],
 
-    descricao: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(1000)]],
+    descricao: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(1000)]],
 
     categoriasIds: [[] as string[], [Validators.required, Validators.minLength(1)]],
 
@@ -75,7 +75,7 @@ export class RegisterBook implements OnInit {
       editora: bookForm.editora ?? '',
       fotoCapaUrl: bookForm.fotoCapaUrl ?? '',
       quantidade: bookForm.quantidade ?? 0,
-      volume: bookForm.volume ?? null,
+      volume: bookForm.volume && bookForm.volume > 0 ? bookForm.volume : null,
     };
     this.catalogService
       .createBook(rawBook)

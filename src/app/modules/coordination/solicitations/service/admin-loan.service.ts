@@ -106,4 +106,10 @@ export class AdminLoansService {
       .post<AdminLoanItem>(`${this.baseUrl}/${id}/emprestar`, null)
       .pipe(this.reloadRequests());
   }
+
+  public disaproveLoan(id: string) {
+    return this.http
+      .patch<AdminLoanItem>(`${this.baseUrl}/${id}/cancelar`, { id })
+      .pipe(this.reloadRequests());
+  }
 }

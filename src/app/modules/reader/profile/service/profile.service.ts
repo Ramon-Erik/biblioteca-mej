@@ -135,6 +135,12 @@ export class ProfileService {
     );
   }
 
+  public disaproveRequest(id: string) {
+    return this.http
+      .patch<LoanItem>(`${this.baseUrl}/${id}/cancelar`, { id })
+      .pipe(switchMap(() => this.getMyRequests()));
+  }
+
   /**
    * Navegação de página para as Solicitações
    */

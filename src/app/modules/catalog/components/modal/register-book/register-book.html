@@ -12,6 +12,7 @@
   <form [formGroup]="bookForm">
     <div class="input-line">
       <app-input
+        [isRequired]="true"
         label="Nome da Obra:"
         placeholder="Digite o nome do livro"
         id="nomeObra"
@@ -22,6 +23,7 @@
 
     <div class="input-line">
       <app-input
+        [isRequired]="true"
         label="Autor:"
         placeholder="Nome do autor"
         id="autor"
@@ -32,6 +34,7 @@
 
     <div class="input-line">
       <app-input
+        [isRequired]="true"
         label="Editora:"
         placeholder="Nome da editora"
         id="editora"
@@ -43,9 +46,9 @@
     <div class="input-line">
       <app-input
         label="Volume:"
-        placeholder="Ex: Vol. 1"
+        placeholder="Ex: 1"
         id="volume"
-        type="text"
+        type="number"
         [control]="getControl('volume')"
       />
     </div>
@@ -63,6 +66,7 @@
 
     <div class="input-line">
       <app-input
+        [isRequired]="true"
         label="Quantidade:"
         type="number"
         placeholder="0"
@@ -73,9 +77,10 @@
 
     <div class="input-line">
       <app-input
+        [isRequired]="true"
         label="URL da Foto de Capa:"
         type="url"
-        placeholder="https://..."
+        placeholder="https://res.cloudinary.com/{...}.webp"
         id="fotoCapaUrl"
         [control]="getControl('fotoCapaUrl')"
       />
@@ -83,6 +88,7 @@
 
     @if (categories$ | async; as categories) {
       <app-select
+        [isRequired]="true"
         class="d-block mt-3"
         inputId="categoriasIds"
         formControlName="categoriasIds"
@@ -117,5 +123,11 @@
 
 <div class="modal-footer d-flex align-items-center justify-content-between gap-4">
   <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss()">Cancelar</button>
-  <button type="button" class="btn btn-success" (click)="createBook()">Cadastrar</button>
+  <app-button-default
+    type="primary"
+    [disable]="bookForm.invalid || loading()"
+    [isLoading]="loading()"
+    (clicked)="createBook()"
+    title="Cadastrar"
+  />
 </div>

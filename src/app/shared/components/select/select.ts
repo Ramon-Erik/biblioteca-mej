@@ -24,6 +24,7 @@ export interface SelectOption {
 export class CustomSelectComponent implements ControlValueAccessor {
   public inputId = input.required<string>();
   public label = input<string>();
+  public isRequired = input<boolean>(false);
   public placeholder = input('Selecione uma opção...');
   public options = input<SelectOption[]>([]);
   public isMultiple = input(true);

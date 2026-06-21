@@ -112,7 +112,6 @@ export class CatalogService {
 
   public updateBook(id: string, book: RawBook) {
     const bookId = `${this.bookUrl}/${id}`;
-    console.log(book);
 
     return this.http.put<void>(bookId, book).pipe(this.reloadCatalog());
   }

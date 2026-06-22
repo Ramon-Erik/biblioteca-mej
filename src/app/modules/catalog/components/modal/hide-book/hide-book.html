@@ -1,0 +1,44 @@
+<div class="modal-body p-4 hide-book-container">
+  <div class="text-center">
+    <h4 class="fw-bold text-dark mb-1">Ocultar Obra</h4>
+    <p class="text-muted small px-2">
+      Você está prestes a ocultar <strong class="text-dark">"{{ book().nomeObra }}"</strong> do
+      catálogo público dos leitores.
+    </p>
+  </div>
+
+  <form [formGroup]="hideForm" class="mt-4">
+    <div class="mb-4">
+      <label
+        for="motivo"
+        class="form-label fw-semibold text-body small text-uppercase font-monospace"
+      >
+      </label>
+
+      <app-textarea
+        inputId="motivo"
+        [isRequired]="true"
+        formControlName="motivo"
+        label="Razão da Ocultação"
+      />
+    </div>
+
+    <div class="d-flex justify-content-between gap-3 container-acoes">
+      <button
+        type="button"
+        class="btn btn-outline-cancelar w-50 py-2.5 fs-6 fw-semibold rounded-3 text-uppercase"
+        [disabled]="loading()"
+        (click)="activeModal.dismiss('cancel')"
+      >
+        cancelar
+      </button>
+
+      <app-button-default
+        type="primary"
+        (clicked)="confirmHiding()"
+        [disable]="loading() || hideForm.invalid"
+        title="confirmar"
+      />
+    </div>
+  </form>
+</div>

@@ -116,6 +116,16 @@ export class CatalogService {
     return this.http.put<void>(bookId, book).pipe(this.reloadCatalog());
   }
 
+  public hideBook(id: string, reason: string) {
+    const payload = {
+      motivoOcultacao: reason,
+    };
+
+    return this.http
+      .patch<Book>(`${this.bookUrl}/${id}/ocultar`, payload)
+      .pipe(this.reloadCatalog());
+  }
+
   public getCategoriesList() {
     return this.http
       .get<Category[]>(this.categoryUrl)

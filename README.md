@@ -1,59 +1,52 @@
-# BibliotecaMej
+# 📚 Biblioteca MEJ
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.
+> Sistema moderno de gerenciamento e reserva de acervos literários focado na experiência fluida do leitor e no controle total da administração.
 
-## Development server
+---
 
-To start a local development server, run:
+## 🛠️ Tecnologias e Ecossistema
 
-```bash
-ng serve
-```
+### Frontend
+* **Angular 20 (Standalone Components)**: Arquitetura limpa e escalável utilizando as últimas diretrizes da engine do Angular.
+* **RxJS & Estado Reativo**: Gerenciamento de fluxo de dados assíncronos por meio de `BehaviorSubject`, `switchMap` e operadores avançados.
+* **Bootstrap 5 & Ng-Bootstrap**: Interface elegante, responsiva e estruturada sobre modais funcionais nativos.
+* **Ngx-Toastr & Animations**: Feedbacks visuais e notificações em tempo real integradas aos gatilhos do back-end.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### Backend
+* **Java & Spring Boot**: Core da API RESTful estruturada para alta performance.
+* **Spring Data JPA & MySQL**: Persistência de dados segura com controle transacional e atualizações automáticas de esquemas (`ddl-auto: update`).
+* **Segurança**: Autenticação e autorização robustas alimentadas por Tokens baseados em **JWT**.
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Requisitos do Sistema (Escopo Funcional)
 
-```bash
-ng generate component component-name
-```
+O sistema divide suas operações de forma inteligente com base no perfil de acesso autenticado (Leitor vs. Administrador).
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### Módulo do Leitor / Visitante
+* **Catálogo Inteligente**: Consulta pública filtrável por categorias e indexada por paginação reativa. Oculta automaticamente obras restritas ou fora de circulação.
+* **Cadastro com Autenticação**: Registro com validação de senha forte e fluxo de dupla autenticação (OTP) via e-mail obrigatório com tempo de expiração de 5 minutos.
+* **Fluxo de Reserva Autônomo**: Solicitação de livro físico com regras restritas (proibido o pedido se houver atrasos, suspensões ativas ou se já possuir um livro em posse).
+* **Renovação Antecipada**: Permite estender o prazo original de 15 dias por até 5 vezes seguidas, desde que a solicitação seja feita antes do vencimento do prazo atual.
+* **Perfil do Leitor**: Painel exclusivo para monitorar o livro atual em posse (título, capa e histórico de movimentações daquela cópia).
 
-```bash
-ng generate --help
-```
+### Módulo Administrativo (Gestão & Auditoria)
+* **Visibilidade Expandida do Catálogo**: Acesso irrestrito a livros disponíveis, indisponíveis e ocultados por motivos internos.
+* **CRUD de Obras com Anti-Duplicidade**: Sistema inteligente que bloqueia o cadastro de títulos idênticos no banco de dados.
+* **Efetivação de Empréstimos e Devoluções**: Validação manual das saídas e retornos de livros, intermediada por modais de confirmação e automação de e-mails para o leitor.
+* **Ocultação de Livros**: Alternativa segura à exclusão de registros. Permite retirar o livro da vista do público informando um motivo de auditoria (funciona mesmo para livros atualmente locados).
+* **Gestão de Acessos**: Painel com listagem de usuários para atribuição de cargos (Promover/Rebaixar Admin) e revogação de acessos (Bloqueio com justificativa).
 
-## Building
+---
 
-To build the project run:
+## 🚀 Executão do Projeto
 
-```bash
-ng build
-```
+### Pré-requisitos
+Certifique-se de possuir instalado em sua máquina de desenvolvimento:
+* **Node.js** (v20 ou superior) & npm
+* **Java JDK 21**
+* **MySQL Server** (ou instância ativa via Docker)
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+### API Backend
 
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+https://github.com/ithlima/biblioteca-api#

@@ -19,10 +19,8 @@ export class BlockUserModal {
   private usersService = inject(UsersService);
   public toastr = inject(ToastrService);
 
-  // Input obrigatório utilizando Signal conforme solicitado
   public user = input.required<User>();
 
-  // Formulário reativo para validação do motivo
   public blockForm = this.fb.group({
     motivo: ['', [Validators.required, Validators.minLength(5)]],
   });

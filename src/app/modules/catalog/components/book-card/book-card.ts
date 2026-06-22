@@ -8,6 +8,7 @@ import { EditBook } from '../modal/edit-book/edit-book';
 import { AuthService } from 'app/core/services/auth/auth.service';
 import { AsyncPipe } from '@angular/common';
 import { BorrowBook } from '../modal/borrow-book/borrow-book';
+import { HideBook } from '../modal/hide-book/hide-book';
 
 @Component({
   selector: 'app-book-card',
@@ -38,8 +39,17 @@ export class BookCard implements OnChanges {
     });
     modal.componentInstance.book = this.book;
   }
+
   public openEditBookModal() {
     const modalRef = this.modalService.open(EditBook, {
+      centered: true,
+    });
+
+    modalRef.componentInstance.book = this.book;
+  }
+
+  public openHideBookModal() {
+    const modalRef = this.modalService.open(HideBook, {
       centered: true,
     });
 

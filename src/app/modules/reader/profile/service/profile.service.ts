@@ -30,7 +30,6 @@ export class ProfileService {
 
   private currentBook$ = new BehaviorSubject<currentBook | undefined>(undefined);
 
-  // Gerenciamento Reativo de Solicitações
   private requests$ = new BehaviorSubject<LoanItem[]>([]);
   private requestsPagination$ = new BehaviorSubject<PaginationState>({
     pageNumber: 0,
@@ -40,7 +39,6 @@ export class ProfileService {
     last: true,
   });
 
-  // Gerenciamento Reativo do Histórico
   private history$ = new BehaviorSubject<LoanItem[]>([]);
   private historyPagination$ = new BehaviorSubject<PaginationState>({
     pageNumber: 0,
@@ -50,7 +48,6 @@ export class ProfileService {
     last: true,
   });
 
-  // Filtros locais em memória para cada listagem
   private requestsFilters: ProfileFilters = { page: 0, size: 6 };
   private historyFilters: ProfileFilters = { page: 0, size: 6 };
 
@@ -58,7 +55,6 @@ export class ProfileService {
     return this.currentBook$.asObservable();
   }
 
-  // Getters Públicos para os componentes assistirem
   get myRequests() {
     return this.requests$.asObservable();
   }
@@ -76,8 +72,6 @@ export class ProfileService {
   public getMyCurrentBook() {
     return this.http.get<currentBookResponse | void>(`${this.baseUrl}/emprestimo-atual`).pipe(
       switchMap((res) => {
-        console.log(res);
-
         if (res && res.livroId) {
           return this.http
             .get<Book>(`${environment.apiUrl}/livros/${res.livroId}`)
@@ -106,20 +100,15 @@ export class ProfileService {
       .pipe(switchMap(() => this.getMyCurrentBook().pipe(switchMap(() => this.getMyHistory()))));
   }
 
-  /**
-   * GET /emprestimos/minhas-solicitacoes
-   * Busca as solicitações atuais feitas pelo usuário logado
-   */
   public getMyRequests(filters?: Partial<ProfileFilters>) {
     if (filters) {
       this.requestsFilters = { ...this.requestsFilters, ...filters };
     }
 
-    // Configura os query params exigidos na especificação da API
     const params = new HttpParams()
       .set('page', this.requestsFilters.page.toString())
       .set('size', this.requestsFilters.size.toString())
-      .set('sort', 'dataPedido,DESC'); // Valor padrão documentado na sua API
+      .set('sort', 'dataPedido,DESC');
 
     return this.http.get<LoanPageResponse>(`${this.baseUrl}/minhas-solicitacoes`, { params }).pipe(
       tap((response) => {
@@ -141,17 +130,10 @@ export class ProfileService {
       .pipe(switchMap(() => this.getMyRequests()));
   }
 
-  /**
-   * Navegação de página para as Solicitações
-   */
   public goToRequestsPage(page: number) {
     return this.getMyRequests({ page });
   }
 
-  /**
-   * GET /emprestimos/emprestimos-historico/meus
-   * Busca o histórico completo de empréstimos passados/devolvidos do usuário logado
-   */
   public getMyHistory(filters?: Partial<ProfileFilters>) {
     if (filters) {
       this.historyFilters = { ...this.historyFilters, ...filters };
@@ -178,9 +160,6 @@ export class ProfileService {
       );
   }
 
-  /**
-   * Navegação de página para o Histórico
-   */
   public goToHistoryPage(page: number) {
     return this.getMyHistory({ page });
   }

@@ -7,7 +7,7 @@ export interface LoanItem {
   livroId: string;
   nomeObra: string;
   fotoCapaUrl: string;
-  dataPedido: string; // ISO Date
+  dataPedido: string;
   dataDevolucaoPrevista?: string;
   dataDevolucaoEfetiva?: string;
   status: LoanStatus;

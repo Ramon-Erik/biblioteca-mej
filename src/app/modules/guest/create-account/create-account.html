@@ -1,5 +1,5 @@
 <app-page-title title="Cadastrar-se" subtitle="Crie uma conta" />
-<form action="" [formGroup]="cadastroForm" (ngSubmit)="realizarCadastro()">
+<form action="" [formGroup]="cadastroForm" (ngSubmit)="realizarCadastro()" class="w-100">
   <app-input
     label="Nome completo"
     placeholder="Digite seu nome completo"
@@ -105,7 +105,7 @@
 
   <div class="text-center mt-3">
     <app-button-default
-      title="Voltar para o login"
+      title="Já tem uma conta? Clique para voltar para o login"
       [isSubmit]="false"
       type="tertiary"
       (clicked)="backToLogin()"

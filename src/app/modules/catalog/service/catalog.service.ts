@@ -61,8 +61,6 @@ export class CatalogService {
   }
 
   public createBook(book: RawBook) {
-    console.warn('criar livro', book);
-
     return this.http.post(this.bookUrl, book).pipe(this.reloadCatalog());
   }
 
@@ -114,6 +112,16 @@ export class CatalogService {
     const bookId = `${this.bookUrl}/${id}`;
 
     return this.http.put<void>(bookId, book).pipe(this.reloadCatalog());
+  }
+
+  public hideBook(id: string, reason: string) {
+    const payload = {
+      motivoOcultacao: reason,
+    };
+
+    return this.http
+      .patch<Book>(`${this.bookUrl}/${id}/ocultar`, payload)
+      .pipe(this.reloadCatalog());
   }
 
   public getCategoriesList() {

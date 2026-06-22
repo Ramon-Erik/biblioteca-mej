@@ -63,7 +63,6 @@ export class ConfirmCode implements OnInit {
           this.router.navigate(['/catalogo-de-livros']);
         },
         error: (error) => {
-          console.error('Erro ao confirmar cadastro:', error);
           const title = error.error.erro || 'Erro ao realizar operação';
           const msg = error.error.mensagem || 'Problemas com o servidor';
           this.toastr.error(msg, title, { timeOut: 5500 });

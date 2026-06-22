@@ -51,8 +51,6 @@ export class Users implements OnInit {
       }
     }
 
-    console.log(filter);
-
     this.usersService.getUsersList(filter).subscribe();
   }
 

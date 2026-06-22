@@ -45,7 +45,6 @@ export class Login {
             this.router.navigate(['catalogo-de-livros']);
           },
           error: (error) => {
-            console.error('Erro no login:', error);
             const title = error.error.erro || 'Erro ao realizar operação';
             const msg = error.error.mensagem || 'Problemas com o servidor';
             this.toastr.error(msg, title, { timeOut: 5500 });

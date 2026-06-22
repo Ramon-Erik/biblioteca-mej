@@ -145,7 +145,6 @@ export class ChangePassword implements OnDestroy {
           );
         },
         error: (error) => {
-          console.error('Erro ao enviar código:', error);
           const title = error.error.erro || 'Erro ao realizar operação';
           const msg = error.error.mensagem || 'Problemas com o servidor';
           this.toastr.error(msg, title, { timeOut: 5500 });
@@ -190,7 +189,6 @@ export class ChangePassword implements OnDestroy {
           this.router.navigate(['/catalogo-de-livros']);
         },
         error: (error) => {
-          console.error('Erro ao alterar senha:', error);
           const title = error.error.erro || 'Erro ao realizar operação';
           const msg = error.error.mensagem || 'Problemas com o servidor';
           this.toastr.error(msg, title, { timeOut: 5500 });

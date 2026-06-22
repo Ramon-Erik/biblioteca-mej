@@ -83,7 +83,6 @@ export class CreateAccount {
           this.router.navigate([`/confirm-code/${email}`]);
         },
         error: (error) => {
-          console.error('Erro ao realizar cadastro:', error);
           const title = error.error.erro || 'Erro ao realizar operação';
           const msg = error.error.mensagem || 'Problemas com o servidor';
           this.toastr.error(msg, title, { timeOut: 5500 });

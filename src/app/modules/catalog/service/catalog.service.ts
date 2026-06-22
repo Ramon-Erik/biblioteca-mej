@@ -61,8 +61,6 @@ export class CatalogService {
   }
 
   public createBook(book: RawBook) {
-    console.warn('criar livro', book);
-
     return this.http.post(this.bookUrl, book).pipe(this.reloadCatalog());
   }
 

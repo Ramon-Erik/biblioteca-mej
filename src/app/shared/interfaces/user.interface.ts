@@ -1,4 +1,4 @@
-export type UserRole = 'LEITOR' | 'ADMIN'; // <-- Mudado de ADMINISTRADOR para ADMIN
+export type UserRole = 'LEITOR' | 'ADMIN';
 
 export interface User {
   id: string;
@@ -10,7 +10,7 @@ export interface User {
   loginBloqueado: boolean;
   motivoBloqueio: string;
   emailValidado: boolean;
-  criadoEm: string; // ISO Date String
+  criadoEm: string;
 }
 
 export interface ApiSortState {
@@ -28,9 +28,6 @@ export interface ApiPageableConfig {
   unpaged: boolean;
 }
 
-/**
- * Resposta completa de paginação de usuários vinda do Spring Boot
- */
 export interface UserPageResponse {
   totalElements: number;
   totalPages: number;

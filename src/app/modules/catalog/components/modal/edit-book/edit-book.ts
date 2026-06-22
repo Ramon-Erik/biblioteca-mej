@@ -110,7 +110,6 @@ export class EditBook implements OnInit {
           this.toastr.error(msg, title, { timeOut: 5500 });
         },
       });
-    console.log(32);
   }
 
   public getControl(controlName: string): FormControl {

@@ -2,7 +2,9 @@
 
 @if (loanHistory$ | async; as history) {
   @if (pagination$ | async; as pagination) {
-    <app-pagination [paginationInfo]="pagination" (pageChange)="changePage($event)" />
+    @if (history.length > 0) {
+      <app-pagination [paginationInfo]="pagination" (pageChange)="changePage($event)" />
+    }
   }
   <div
     class="loans my-4 d-flex flex-wrap justify-content-center align-items-centerflex-wrap gap-4"

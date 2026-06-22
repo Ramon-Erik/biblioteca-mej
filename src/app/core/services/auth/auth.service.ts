@@ -171,6 +171,11 @@ export class AuthService {
     this.router.navigate(['']);
   }
 
+  public resendCode(email: string): Observable<SolicitarAlteracaoResponse> {
+    const body: { email: string } = { email };
+    return this.http.post<SolicitarAlteracaoResponse>(`${this.apiUrl}/reenviar-codigo`, body);
+  }
+
   public isLoggedIn(): boolean {
     return this.isAuthenticatedSubject.value;
   }

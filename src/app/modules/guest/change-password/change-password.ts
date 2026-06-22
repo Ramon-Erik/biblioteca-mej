@@ -137,7 +137,7 @@ export class ChangePassword implements OnDestroy {
   protected enviarCodigo(): void {
     if (this.email?.invalid) {
       this.email?.markAsTouched();
-      this.toastr.error('Preencha todos os campos corretamente.', 'Erro', { timeOut: 5000 });
+      this.toastr.error('Preencha um e-mail válido.', 'Erro', { timeOut: 5000 });
       return;
     }
 
@@ -157,20 +157,28 @@ export class ChangePassword implements OnDestroy {
           if (this.isFirstTime()) {
             this.isFirstTime.set(false);
           }
-          this.codeEnviado.set(true);
-          this.emailEnviado.set(email);
 
+          if (this.codeEnviado()) {
+            this.code?.reset();
+            this.toastr.success('Um novo código foi enviado para seu email.', 'Código reenviado', {
+              timeOut: 5000,
+            });
+          } else {
+            this.codeEnviado.set(true);
+            this.toastr.info(
+              'Se o e-mail estiver cadastrado, um código foi enviado para sua caixa de entrada.',
+              'Código enviado',
+              { timeOut: 5000 },
+            );
+          }
+
+          this.emailEnviado.set(email);
           this.counter.set(60);
           this.iniciarContador();
 
           setTimeout(() => {
             document.getElementById('code-verify')?.focus();
           }, 100);
-          this.toastr.info(
-            'Se o e-mail estiver cadastrado, um código foi enviado para sua caixa de entrada.',
-            'Código enviado',
-            { timeOut: 5000 },
-          );
         },
         error: (error) => {
           console.error('Erro ao enviar código:', error);
@@ -180,14 +188,6 @@ export class ChangePassword implements OnDestroy {
         },
       });
   }
-
-  protected reenviarCodigo(): void {
-    if (this.canResendCode) {
-      this.code?.reset();
-      this.enviarCodigo();
-    }
-  }
-
   protected setNewPassword(): void {
     if (!this.codeEnviado()) {
       this.toastr.warning('Solicite um código primeiro.', 'Atenção');
